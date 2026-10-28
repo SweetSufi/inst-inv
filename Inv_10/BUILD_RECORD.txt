@@ -1,0 +1,8 @@
+Investigation 10 — Untranslatable-ish / The Laboratory of Lost Meanings
+Capability: Multilingual generation and cross-cultural interpretation (demonstrated through curated, rule-based comparisons; no live generation).
+Visual reference: Approved pastel glass mobile, minimalist Japandi-inspired scene, soft iridescence.
+Implementation: HTML/CSS/JavaScript; rule-based matching; CSS motion; local Kingsland and Borel font files; Nunito Sans loaded via Google Fonts CDN (network required).
+Original design direction: One primary capability, one approved visual guidepost, one build prompt; kinetic glass letters transform between multilingual specimens.
+Build agent produced a self-contained interaction design and curated comparative descriptions. No live LLM is used at runtime.
+Verification: JavaScript syntax checked. Browser visual inspection attempted but blocked by administrator for file and local HTTP URLs. Site not deployed.
+Limitations: No browser-verified glass fidelity; Google Fonts must be accessible for Nunito Sans. Some scripts use browser fallback glyphs. The mobile uses CSS transforms rather than 3D physically simulated glass.
