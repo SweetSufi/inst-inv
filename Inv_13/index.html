@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Department of Questionable Certainty — Investigation 13 — The Institute of Unnecessary Research</title>
+<meta name="description" content="Investigation 13: Sadie vs. TOBOR. TOBOR generates answers. Sadie generates better questions.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#investigation">Skip to the investigation</a>
+
+<header class="topbar">
+  <p class="motto">Advancing Knowledge Sideways</p>
+  <div class="toggles" role="group" aria-label="Sound and motion settings">
+    <button type="button" id="soundBtn" class="tog" aria-pressed="false"><span class="tog-ico" aria-hidden="true">♪</span><span id="soundLbl">Sound off</span></button>
+    <button type="button" id="motionBtn" class="tog" aria-pressed="false"><span class="tog-ico" aria-hidden="true">❚❚</span><span id="motionLbl">Pause animation</span></button>
+  </div>
+</header>
+
+<main>
+  <h1 class="sr">Department of Questionable Certainty — The Institute of Unnecessary Research — Case No. 013, Sadie vs. TOBOR</h1>
+
+  <section class="stage-wrap" aria-label="The laboratory">
+    <div class="stage" id="stage">
+      <img class="art" src="assets/images/department-of-questionable-certainty.png" width="1536" height="1024"
+           alt="Illustration: Sadie, a college-aged researcher with long braids, cowrie shells and blue glasses, rests her chin on her hand and looks toward TOBOR, a rust-and-teal geometric robot holding up an evidence card, in a 1960s laboratory. Posters read Questions, Explore, Clarify, Revise and Answers are a start. Better questions go further.">
+      <div class="ov" aria-hidden="true">
+        <div class="o-lamp"></div>
+        <svg class="o-screen" viewBox="0 0 110 80" preserveAspectRatio="none"><g transform="rotate(-18 55 40)"><circle r="2.6" fill="#f3d27a"><animateMotion dur="14s" repeatCount="indefinite" path="M97,40 a42,17 0 1,1 -84,0 a42,17 0 1,1 84,0"/></circle></g></svg>
+        <div class="o-flicker"></div>
+        <i class="o-led l1"></i><i class="o-led l2"></i><i class="o-led l3"></i>
+        <i class="o-node n1"></i><i class="o-node n2"></i><i class="o-node n3"></i><i class="o-node n4"></i><i class="o-node n5"></i>
+        <div class="o-bubbles"><i></i><i></i><i></i></div>
+        <div class="o-glint"></div>
+        <i class="o-bead b1"></i><i class="o-bead b2"></i><i class="o-bead b3"></i><i class="o-bead b4"></i>
+        <div class="o-card"></div>
+        <div class="o-eye"><span class="lid"></span></div>
+        <div class="o-ant"><span class="ring"></span><span class="ring r2"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="inv" id="investigation" aria-labelledby="invTitle">
+    <div class="inv-in">
+      <header class="inv-head">
+        <p class="eyebrow">Investigation 13 · Case No. 013</p>
+        <h2 id="invTitle">Sadie vs. TOBOR</h2>
+        <p class="tagline">TOBOR generates answers. Sadie generates better questions.</p>
+        <p class="lede">Choose how Sadie questions TOBOR’s claim. Different questions turn up different weaknesses, and TOBOR remembers what has already come out.</p>
+      </header>
+
+      <div class="grid">
+        <div class="col-main">
+          <div class="claim" id="claimCard">
+            <p class="claim-no" id="claimNo">Claim 1 of 10</p>
+            <p class="label" id="claimLabel">TOBOR’s evidence card No. 1</p>
+            <p class="claim-text" id="claimText">“Humans use only 10% of their brains.”</p>
+            <p class="claim-orig" id="claimOrig" hidden>Original claim: “Humans use only 10% of their brains.”</p>
+            <div class="tray" id="tray" role="group" aria-label="Review earlier evidence cards" hidden></div>
+          </div>
+
+          <div class="log" id="log" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation between Sadie and TOBOR"></div>
+
+          <div class="choices" id="choicesWrap">
+            <h3 class="h3" id="choicesH">Sadie’s next question</h3>
+            <div class="choices-grid" id="choices" role="group" aria-labelledby="choicesH">
+              <button type="button" class="choice" data-type="assumption"><span class="c-top">Question the assumption</span><span class="c-q"></span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></button>
+              <button type="button" class="choice" data-type="evidence"><span class="c-top">Request evidence</span><span class="c-q"></span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></button>
+              <button type="button" class="choice" data-type="alternative"><span class="c-top">Consider an alternative</span><span class="c-q"></span><span class="pips" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            </div>
+            <div class="actions">
+              <button type="button" class="btn primary" id="concludeBtn" disabled>Present Case Findings</button>
+              <button type="button" class="btn" id="restartBtn">Restart this claim</button>
+              <p class="hint" id="concludeHint">Ask at least two questions to open the findings.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="col-side" aria-label="Case board">
+          <div class="meter" id="meter">
+            <p class="label">TOBOR’s self-reported certainty</p>
+            <p class="meter-num"><span id="confNum">99.8</span><span class="pct">%</span></p>
+            <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="99.8" aria-label="TOBOR’s self-reported certainty" id="bar"><div class="fill" id="fill"></div></div>
+            <p class="meter-status" id="confStatus">Exaggerated</p>
+            <p class="fine">A fictional character attribute, not a measured probability of being correct.</p>
+          </div>
+          <div class="board">
+            <h3 class="h3">Case board</h3>
+            <div class="bsec" data-k="assumption"><h4>Assumptions identified</h4><ul></ul></div>
+            <div class="bsec" data-k="missing"><h4>Missing evidence</h4><ul></ul></div>
+            <div class="bsec" data-k="evidence"><h4>Evidence considered</h4><ul></ul></div>
+            <div class="bsec" data-k="alternative"><h4>Alternatives</h4><ul></ul></div>
+          </div>
+        </aside>
+      </div>
+
+      <section class="findings" id="findings" hidden aria-labelledby="findTitle">
+        <p class="eyebrow">Case No. 013</p>
+        <h2 id="findTitle" tabindex="-1">Case Findings</h2>
+        <p class="outcome" id="outcome"></p>
+        <div class="f-grid" id="fGrid"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="copyBtn">Copy report</button>
+          <button type="button" class="btn" id="dlBtn">Download report</button>
+          <button type="button" class="btn" id="restart2">Try another pathway</button>
+          <p class="hint" id="copyMsg" role="status"></p>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="research" id="research" aria-labelledby="rnTitle">
+    <div class="rn-in">
+      <p class="rn-inst">The Institute of Unnecessary Research</p>
+      <h2 id="rnTitle">Behind the Investigation: Research Note</h2>
+      <p class="rn-intro">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+      <dl class="rn-list">
+        <div><dt>Institution</dt><dd>The Institute of Unnecessary Research</dd></div>
+        <div><dt>Investigation</dt><dd>13 — Sadie vs. TOBOR</dd></div>
+        <div><dt>Primary Capability</dt><dd>AI literacy and critical-thinking interaction</dd></div>
+        <div><dt>Official Capability Description</dt><dd>Uses conversational scenarios to expose assumptions, limitations, and questionable AI outputs.</dd></div>
+        <div><dt>Research Question</dt><dd>How can structured questioning help visitors identify unsupported assumptions, challenge questionable AI outputs, and develop more defensible conclusions?</dd></div>
+        <div><dt>Prompt Methodology</dt><dd>Adversarial prompting (structured critique).</dd></div>
+        <div><dt>Implementation Type</dt><dd>Deterministic, rule-based logic. This site does not call a live LLM or any external service. Its dialogue was authored in advance; AI assisted in drafting the code and content during development.</dd></div>
+        <div><dt>How It Works</dt><dd>The visitor chooses which kind of question Sadie asks: question the assumption, request evidence, or consider an alternative. Each kind has up to three follow-ups. TOBOR opens with an overconfident claim, answers the question actually chosen, and refers back to weaknesses already found. When the visitor presents the findings, the report lists the claim, the questions asked, the assumptions, evidence, and gaps identified, and TOBOR’s revised conclusion.</dd></div>
+        <div><dt>Technical Implementation</dt><dd>A static site of HTML, CSS, SVG, and vanilla JavaScript, with no build step or server. A small state machine (<code>js/investigation.js</code>) records the questions asked and the findings uncovered, and selects authored responses from that state. The confidence figure subtracts a fixed weight for each newly found weakness, so asking something that reveals nothing new leaves it unchanged. Animation uses CSS keyframes and an SVG motion path on overlays placed above the single approved illustration, so the artwork itself is never moved or distorted. Sounds are synthesized in the browser with the Web Audio API (sine and triangle oscillators with short envelopes). No audio files, font services, or analytics are loaded.</dd></div>
+        <div><dt>What This Demonstrates</dt><dd>The design of interactive AI-literacy experiences supporting critical examination of apparently authoritative machine-generated statements.</dd></div>
+        <div><dt>Limitations</dt><dd>Responses are scripted for ten claims and cannot adapt to new questions or new claims. Nothing here verifies facts live; the statements about each of the ten claims were written for this site and summarize widely accepted scientific understanding, without citations. TOBOR’s confidence percentage is a fictional character attribute, not a calibrated measure. A future live-model version would need a secure server-side service, which a static GitHub Pages site cannot provide.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="motto">Advancing Knowledge Sideways</p>
+  <p class="foot-s">The Institute of Unnecessary Research · Investigation 13</p>
+</footer>
+
+<script src="js/claims.js"></script>
+<script src="js/investigation.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
