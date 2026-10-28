@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Wonder/Wander Lab — Investigation 20 — The Institute of Unnecessary Research</title>
+<meta name="description" content="An interactive kinetic installation of floating bubbles, stone spheres and wind chimes. Wonder without obligation.">
+<link rel="preload" href="assets/fonts/KingslandRegular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Borel-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/NunitoSans-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<section id="gallery" aria-label="The Wonder/Wander Lab installation">
+  <div id="stage" tabindex="0" role="application" aria-label="Floating gallery. Use the mouse, touch, or arrow keys to move a soft cursor; Enter or Space touches a bubble, grabs or releases a sphere, or ripples the air.">
+    <canvas id="cv" aria-hidden="true"></canvas>
+  </div>
+  <div id="title">
+    <h1>THE WONDER/WANDER LAB</h1>
+    <p class="motto">Advancing Knowledge Sideways</p>
+    <p id="intro">Click a bubble. Drag a sphere.</p>
+  </div>
+  <div id="controls">
+    <button id="snd" type="button" aria-pressed="false"><span class="dot"></span><span id="sndl">Enable sound</span></button>
+    <button id="mot" type="button" aria-pressed="true"><span class="dot"></span><span id="motl">Drifting</span></button>
+    <a href="#research">Research note</a>
+  </div>
+  <a id="scrollcue" href="#research">Behind the investigation</a>
+  <p id="live" class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)" aria-live="polite"></p>
+</section>
+
+<section id="research" aria-labelledby="rn-title">
+  <div class="wrap">
+    <p class="inst">The Institute of Unnecessary Research</p>
+    <h2 id="rn-title">Behind the Investigation: Research Note</h2>
+    <p class="lede">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+
+    <div class="rn"><h3>Institution</h3><div><p>The Institute of Unnecessary Research</p></div></div>
+    <div class="rn"><h3>Investigation</h3><div><p>20 — The Wonder/Wander Lab</p></div></div>
+    <div class="rn"><h3>Primary Capability</h3><div><p>Experimental Interaction Design &amp; Creative Computation</p></div></div>
+    <div class="rn"><h3>Research Question</h3><div><p>How can AI-assisted creative computation create an immersive, tactile environment that encourages curiosity, relaxation, and open-ended exploration?</p></div></div>
+    <div class="rn"><h3>Prompt Method</h3><div>
+      <p><span class="strong">Constraint-based prompting, used in the development prompt.</span> The build prompt sets explicit boundaries for what the AI may and may not create, then asks for the experience inside them. Two layers are kept separate: the development prompt directed the AI that wrote this site, and no prompt runs when a visitor uses it.</p>
+      <p>Constraints taken from the actual build prompt:</p>
+      <ul><li>No missions, scores, timers, challenges, or productivity objectives.</li><li>No bright colors, dark backgrounds, or added architecture.</li><li>No explosions, confetti, flashing lights, or cartoon effects.</li><li>Real supplied audio only; no synthesized replacements.</li><li>A restrained object count, so the gallery never feels crowded.</li></ul>
+      <p>Two visual references (a gallery photograph-style render and a sphere reference) and two audio recordings were supplied alongside the prompt. The creative principle stated in the prompt was <q>Wonder without obligation.</q></p>
+    </div></div>
+    <div class="rn"><h3>Method</h3><div><p>One-shot AI-assisted interactive website development using two visual references, two supplied audio recordings, and a single integrated build prompt.</p></div></div>
+    <div class="rn"><h3>How It Works</h3><div><p>Visitors manipulate floating spheres, interact with translucent bubbles, and activate subtle sound responses inside a luminous virtual gallery.</p></div></div>
+    <div class="rn"><h3>Technical Implementation</h3><div>
+      <p>The gallery image is a fixed CSS background that never moves. Every floating object is drawn on a single HTML canvas layered above it, redrawn each animation frame with the browser's requestAnimationFrame timer.</p>
+      <p><span class="strong">Motion.</span> A lightweight physics loop gives each object a velocity, slow sinusoidal wandering with its own phase, damping, soft walls, and a gentle upward buoyancy for bubbles. Spheres exchange momentum in soft elastic contacts with capped speed. Depth sets each object's scale, opacity, shadow and a slight parallax shift.</p>
+      <p><span class="strong">Objects.</span> Bubbles are drawn procedurally (gradients, a faint conic iridescent rim, highlights). Spheres are circular crops of the supplied sphere reference, cut out in the browser at load.</p>
+      <p><span class="strong">Interaction.</span> Pointer events handle mouse and touch: hovering nudges bubbles, clicking or tapping divides or pops them, dragging throws spheres, and tapping empty space makes a ripple. Keyboard: arrow keys move a soft cursor, Enter or Space acts, and chime buttons are focusable. Occasional rare events (a bubble following another, a sphere slowly reversing, a small arc of bubbles) are scheduled by a timer with random intervals.</p>
+      <p><span class="strong">Audio.</span> The supplied MP3 files are decoded with the Web Audio API into separate chime and bubble channels, each with its own gain, through a master gain and compressor. Each sound plays as a short, randomly chosen, faded segment of the recording, with cooldowns and a cap on overlapping voices. Audio starts only after the visitor presses the sound control.</p>
+      <p><span class="strong">Accessibility.</span> Reduced-motion preferences stop continuous drifting while objects remain interactive; a toggle also switches this on or off.</p>
+    </div></div>
+    <div class="rn"><h3>AI Transparency</h3><div>
+      <p>AI assisted the development: it wrote the HTML, CSS, JavaScript and this note from the prompt and references. The deployed site contains <span class="strong">no live AI</span>. It makes no model calls and no network requests beyond loading its own files. Behavior is deterministic, rule-based physics with random variation from a standard random-number generator.</p>
+    </div></div>
+    <div class="rn"><h3>Limitations</h3><div>
+      <p>The architectural background is a raster image, so it softens when scaled to wide screens. Chime positions are matched to the image by hand. Audio needs a browser that supports Web Audio and a visitor gesture to begin. Testing was limited to the build environment's browser preview, not a range of devices.</p>
+    </div></div>
+    <div class="rn"><h3>What This Demonstrates</h3><div><p>Human-centered experimental interaction design, creative computation, nonverbal interfaces, responsive animation, and the integration of sound and movement into a coherent digital experience.</p></div></div>
+    <footer>Advancing Knowledge Sideways<small>The Institute of Unnecessary Research · Investigation 20</small></footer>
+  </div>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
