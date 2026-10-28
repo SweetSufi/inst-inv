@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+@font-face{font-family:'Kingsland';src:url('fonts/KingslandRegular.woff') format('woff'),url('fonts/KingslandRegular.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Borel';src:url('fonts/Borel-Regular.ttf') format('truetype');font-display:swap}
+html,body{margin:0;background:#150d07}
+*{box-sizing:border-box}
+a{color:#8a4b1f}a:hover{color:#5a2f12}
+button:focus-visible,[tabindex]:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #ffd9a0;outline-offset:3px}
+input[type=range]{accent-color:#8a4b1f}
+</style>
+</helmet>
+<div style="width:100%;background:#F5F0E5;font-family:'Nunito Sans',sans-serif">
+<div style="position:relative;height:100svh;min-height:520px;overflow:hidden;background:#1a0f08;user-select:none;-webkit-user-select:none">
+
+<div style="{{ sc1 }}">
+  <div style="{{ wallStage }}">
+    <img alt="A warmly lit art studio on a rainy evening" src="assets/inv14-empty-wall.png" style="position:absolute;inset:0;width:100%;height:100%;display:block">
+    <div style="position:absolute;left:0;top:0;width:340px;height:600px;opacity:.55;pointer-events:none"><canvas ref="{{ r1 }}" style="width:100%;height:100%;display:block"></canvas></div>
+    <button aria-label="Change the painting" onClick="{{ nextWall }}" style="{{ paintBtn }}" style-hover="filter:brightness(1.07)" style-focus="outline:2px solid #ffd9a0;outline-offset:4px">
+      <sc-for list="{{ artList }}" as="a" hint-placeholder-count="0"><div role="img" aria-label="Painting" style="{{ a.style }}"></div></sc-for>
+    </button>
+    <div style="{{ dotsWall }}"><sc-for list="{{ wallDots }}" as="d" hint-placeholder-count="6"><div style="{{ d.style }}"></div></sc-for></div>
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,9,2,.62),rgba(20,9,2,.18) 42%,transparent 62%),linear-gradient(0deg,rgba(20,9,2,.6),transparent 22%);pointer-events:none"></div>
+</div>
+
+<div style="{{ sc2 }}">
+  <div style="{{ plate2 }}">
+    <div style="position:absolute;left:0;top:0;width:650px;height:480px;opacity:.5;pointer-events:none"><canvas ref="{{ r2 }}" style="width:100%;height:100%;display:block"></canvas></div>
+  </div>
+</div>
+
+<div style="{{ sc3 }}">
+  <div style="{{ plate3 }}">
+    <div style="position:absolute;left:0;top:0;width:555px;height:420px;opacity:.5;pointer-events:none"><canvas ref="{{ r3 }}" style="width:100%;height:100%;display:block"></canvas></div>
+  </div>
+  <div style="{{ dim3 }}"></div>
+  <div style="{{ layerStyle }}">
+    <div style="{{ cvBoxStyle }}">
+      <canvas ref="{{ cvRef }}" width="1600" height="1130" onPointerDown="{{ pDown }}" onPointerMove="{{ pMove }}" onPointerUp="{{ pUp }}" onPointerCancel="{{ pUp }}" aria-label="Drawing paper" style="width:100%;height:100%;display:block;touch-action:none;cursor:crosshair"></canvas>
+    </div>
+  </div>
+</div>
+
+<div style="{{ sc4 }}">
+  <div style="{{ plate4 }}">
+    <div style="position:absolute;left:0;top:0;width:420px;height:510px;opacity:.5;pointer-events:none"><canvas ref="{{ r4 }}" style="width:100%;height:100%;display:block"></canvas></div>
+    <sc-for list="{{ slots }}" as="s" hint-placeholder-count="3">
+      <div style="{{ s.quad }}"><div style="{{ s.inner }}"></div></div>
+      <button aria-label="{{ s.label }}" onClick="{{ s.open }}" style="{{ s.hit }}" style-hover="box-shadow:0 0 0 2px rgba(255,222,170,.8),0 0 28px rgba(255,200,120,.5)"></button>
+    </sc-for>
+  </div>
+</div>
+
+<!-- UI 1 -->
+<div style="{{ ui1 }}">
+  <div style="{{ titleBox }}">
+    <h1 style="{{ h1Style }}">The Internet's<br>Smallest<br>Art Studio</h1>
+    <div style="{{ ruleStyle }}"></div>
+    <button onClick="{{ enter }}" aria-label="Enter the studio" style="{{ enterBtn }}" style-hover="opacity:.75">
+      <span style="{{ enterCircle }}"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m0 0l-5.500-5.500M19 12l-5.500 5.500"/></svg></span>
+      <span>Enter the studio</span>
+    </button>
+    <sc-if value="{{ hasDraft }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ resume }}" style="{{ resumeStyle }}">Continue your drawing</button>
+    </sc-if>
+  </div>
+  <div style="{{ footBox }}">
+    <div style="color:#f6e6c9;text-shadow:0 1px 8px rgba(0,0,0,.5)">
+      <div style="font-family:'Borel',cursive;font-size:17px;line-height:1.3;white-space:nowrap">Advancing Knowledge Sideways</div>
+      <div style="font-size:12px;letter-spacing:.06em;margin-top:3px;white-space:nowrap;opacity:.92">The Institute of Unnecessary Research · Investigation 14</div>
+    </div>
+    <a href="#research" style="pointer-events:auto;color:#f6e6c9;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.5)" style-hover="color:#fff">Behind the Investigation ↓</a>
+  </div>
+</div>
+
+<!-- UI 2 -->
+<div style="{{ ui2 }}">
+  <h2 style="{{ h2Style }}">Choose a medium</h2>
+  <sc-for list="{{ media }}" as="m" hint-placeholder-count="4">
+    <button onClick="{{ m.pick }}" aria-label="{{ m.label }}" style="{{ m.pos }}">
+      <span style="{{ m.ring }}"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"/></svg></span>
+      <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff3dc;background:rgba(24,10,2,.68);padding:6px 12px;border-radius:14px;white-space:nowrap">{{ m.label }}</span>
+    </button>
+  </sc-for>
+  <sc-if value="{{ hasDraft }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ resume }}" style="{{ backDraftStyle }}">Back to my drawing →</button>
+  </sc-if>
+</div>
+
+<!-- UI 3 -->
+<div style="{{ ui3 }}">
+  <div style="{{ cardBox }}">
+    <div style="{{ cardInner }}">
+      <div style="{{ cardText }}"><div style="font-family:'Kingsland',serif;font-size:{{ cardHSize }}px;margin-bottom:4px">Your challenge</div>{{ challengeText }}<span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-left:8px">Optional</span></div>
+      <button onClick="{{ newChallenge }}" aria-label="New creative challenge" title="New challenge" style="pointer-events:auto;width:44px;height:44px;flex:none;border-radius:50%;border:1px solid #8a6a4a;background:transparent;color:#4a2c18;cursor:pointer;display:grid;place-items:center;padding:0" style-hover="background:#fff8ea"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h3.500c5 0 4 10 9 10H20m0 0l-2.500-2.500M20 17l-2.500 2.500M4 17h3.500c1.300 0 2.200-.7 2.900-1.700M20 7h-3.500c-1.300 0-2.200.7-2.900 1.700M20 7l-2.500-2.500M20 7l-2.500 2.500"/></svg></button>
+    </div>
+  </div>
+  <div style="{{ dockBox }}">
+    <div style="position:relative;{{ dockRow }}">
+      <button onClick="{{ popMedium }}" aria-label="Medium" title="Medium" style="{{ rb }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ curD }}"/></svg></button>
+      <button onClick="{{ popColor }}" aria-label="Color" title="Color" style="{{ rb }}" style-hover="background:#fff"><span style="width:22px;height:22px;border-radius:50%;background:{{ curColor }};border:1.5px solid rgba(60,35,15,.5)"></span></button>
+      <button onClick="{{ popSize }}" aria-label="Brush size" title="Brush size" style="{{ rb }}" style-hover="background:#fff"><span style="width:{{ dotSize }}px;height:{{ dotSize }}px;border-radius:50%;background:#4a2c18"></span></button>
+      <button onClick="{{ toggleEraser }}" aria-label="Eraser" aria-pressed="{{ eraserOn }}" title="Eraser" style="{{ rbEraser }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h11M5.500 14.500l8-8a2 2 0 013 0l2.500 2.500a2 2 0 010 3L12 19H8l-2.500-2.500a1.400 1.400 0 010-2z"/></svg></button>
+      <button onClick="{{ undo }}" aria-label="Undo" title="Undo" style="{{ rb }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7L4.500 11.500 9 16M5 11.500h8.500a5 5 0 010 10H10" transform="translate(0 -3)"/></svg></button>
+      <button onClick="{{ askClear }}" aria-label="Clear canvas" title="Clear canvas" style="{{ rb }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <button onClick="{{ download }}" aria-label="Download as PNG" title="Download as PNG" style="{{ rb }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19.500h14"/></svg></button>
+      <button onClick="{{ exhibit }}" style="{{ exhibitStyle }}" style-hover="background:#6a3d20">Exhibit</button>
+      <sc-if value="{{ popIsMedium }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ popBox }}"><sc-for list="{{ mediaPop }}" as="m" hint-placeholder-count="4"><button onClick="{{ m.swap }}" aria-label="{{ m.label }}" title="{{ m.label }}" style="{{ m.small }}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ m.d }}"/></svg></button></sc-for></div>
+      </sc-if>
+      <sc-if value="{{ popIsColor }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ popBox }};flex-wrap:wrap;width:{{ swatchW }}px"><sc-for list="{{ swatches }}" as="c" hint-placeholder-count="9"><button onClick="{{ c.pick }}" aria-label="{{ c.c }}" style="{{ c.style }}"></button></sc-for><input type="color" value="{{ curColor }}" onInput="{{ customColor }}" aria-label="Custom color" style="width:34px;height:34px;padding:0;border:0;background:none;cursor:pointer"></div>
+      </sc-if>
+      <sc-if value="{{ popIsSize }}" hint-placeholder-val="{{ false }}">
+        <div style="{{ popBox }};padding:10px 16px;gap:12px;align-items:center"><span style="width:6px;height:6px;border-radius:50%;background:#4a2c18"></span><input type="range" min="0" max="100" value="{{ sizeVal }}" onInput="{{ onSize }}" aria-label="Brush size" style="width:150px"><span style="width:20px;height:20px;border-radius:50%;background:#4a2c18"></span></div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+
+<!-- UI 4 -->
+<div style="{{ ui4 }}">
+  <h2 style="{{ g4Style }}">Your gallery</h2>
+  <sc-if value="{{ galleryEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ emptyStyle }}">Nothing is hanging here yet.</div>
+  </sc-if>
+  <sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">
+    <button onClick="{{ prevPage }}" aria-label="Previous paintings" style="{{ arrL }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5m0 0l5.500-5.500M5 12l5.500 5.500"/></svg></button>
+    <button onClick="{{ nextPage }}" aria-label="Next paintings" style="{{ arrR }}" style-hover="background:#fff"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15m0 0l-5.500-5.500M19 12l-5.500 5.500"/></svg></button>
+    <div style="{{ dotsStyle }}"><sc-for list="{{ pageDots }}" as="p" hint-placeholder-count="0"><button onClick="{{ p.go }}" aria-label="{{ p.label }}" style="{{ p.style }}"></button></sc-for></div>
+  </sc-if>
+  <button onClick="{{ another }}" style="{{ anotherStyle }}" style-hover="background:#6a3d20">Create another painting</button>
+</div>
+
+<sc-if value="{{ notStudio }}" hint-placeholder-val="{{ false }}">
+  <button onClick="{{ toStudio }}" style="{{ returnStyle }}" style-hover="opacity:.7"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H5m0 0l5.500-5.500M5 12l5.500 5.500"/></svg>Return to Studio</button>
+</sc-if>
+<button onClick="{{ toggleSound }}" aria-label="{{ soundLabel }}" aria-pressed="{{ soundOn }}" title="{{ soundLabel }}" style="{{ soundStyle }}" style-hover="background:rgba(30,15,6,.8)">
+  <sc-if value="{{ soundOn }}" hint-placeholder-val="{{ false }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4zM15.500 9a4 4 0 010 6M18 6.500a7.500 7.500 0 010 11"/></svg></sc-if>
+  <sc-if value="{{ soundOff }}" hint-placeholder-val="{{ true }}"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.500h3.500L12 5.500v13l-4.500-4H4zM16 9.500l5 5M21 9.500l-5 5"/></svg></sc-if>
+</button>
+<div style="{{ toastStyle }}" role="status">{{ toast }}</div>
+
+<sc-if value="{{ viewOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(14,6,0,.72);display:grid;place-items:center;padding:20px;z-index:18" onClick="{{ closeView }}">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="display:flex;flex-direction:column;align-items:center;gap:16px;max-width:100%">
+      <div style="{{ viewImgStyle }}"></div>
+      <div style="color:#f7ead4;font-size:14px;text-align:center;max-width:80vw">{{ viewTitle }}</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+        <button onClick="{{ dlView }}" style="{{ pillLight }}" style-hover="background:#fff">Download</button>
+        <button onClick="{{ askRemove }}" style="{{ pillLight }}" style-hover="background:#fff">Remove</button>
+        <button onClick="{{ closeView }}" style="{{ pillLight }}" style-hover="background:#fff">Close</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;background:rgba(14,6,0,.6);display:grid;place-items:center;padding:20px;z-index:20" onClick="{{ cancelConfirm }}">
+    <div role="dialog" aria-modal="true" onClick="{{ stop }}" style="background:#f6eddc;color:#3a2314;border-radius:12px;padding:26px 28px;width:min(360px,100%);text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5)">
+      <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 14px">{{ confirmTitle }}</h3>
+      <sc-if value="{{ confirmHasImg }}" hint-placeholder-val="{{ false }}"><div style="{{ confirmImgStyle }}"></div></sc-if>
+      <p style="margin:0 0 20px;font-size:15px;line-height:1.5">{{ confirmText }}</p>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button onClick="{{ cancelConfirm }}" style="{{ pillLight }};border-color:#8a6a4a" style-hover="background:#fff">Cancel</button>
+        <button onClick="{{ doConfirm }}" style="height:44px;padding:0 22px;border-radius:22px;border:0;background:#8a2f1d;color:#fff;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#a63a25">{{ confirmBtn }}</button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+</div>
+
+<section id="research" style="background:#F5F0E5;color:#292929;padding:80px 24px 96px">
+  <div style="max-width:760px;margin:0 auto">
+    <h2 style="font-family:'Kingsland',serif;font-weight:400;font-size:clamp(30px,5vw,44px);line-height:1.15;margin:0 0 18px;color:#292929">Behind the Investigation: Research Note</h2>
+    <p style="font-family:'Borel',cursive;font-size:19px;line-height:1.55;margin:0 0 30px;color:#494949">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+    <div style="border-top:1px solid #CFC8BC;border-bottom:1px solid #CFC8BC;padding:18px 0;display:grid;gap:10px;font-size:15px;line-height:1.55;color:#494949">
+      <div><strong style="color:#292929">Institution:</strong> The Institute of Unnecessary Research</div>
+      <div><strong style="color:#292929">Investigation:</strong> 14 — The Internet's Smallest Art Studio</div>
+      <div><strong style="color:#292929">Primary Capability:</strong> Browser-Based Creative Tools &amp; Constraint-Driven Visual Creation</div>
+      <div><strong style="color:#292929">Research Question:</strong> How can AI-assisted development create an immersive, accessible, browser-based art studio that encourages experimentation through creative tools and imaginative constraints?</div>
+      <div><strong style="color:#292929">Method:</strong> AI-assisted website development using approved visual assets and a comprehensive implementation prompt.</div>
+    </div>
+    <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:34px 0 10px">How It Works</h3>
+    <p style="font-size:16px;line-height:1.65;margin:0;color:#494949">The experience has four stages. Visitors enter a photographed studio, choose pencil, watercolor, ink or charcoal at a worktable, and draw on a canvas mapped onto the sheet of paper in the photograph. An optional creative challenge, drawn from a fixed list of 28, can be reshuffled at any time. Finished work is exhibited in a small gallery, where each painting can be enlarged, downloaded as a PNG or removed.</p>
+    <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:34px 0 10px">Technical Implementation</h3>
+    <p style="font-size:16px;line-height:1.65;margin:0;color:#494949">HTML, CSS and JavaScript only, hosted statically. Drawing uses Pointer Events on an HTML canvas, warped onto the photographed paper with a CSS perspective transform; pointer positions are mapped back through the inverse transform. Each medium uses its own stamping algorithm. Gallery paintings and the unfinished drawing are saved in the browser's local storage. The wall paintings are one crop from the approved studio photograph and five paintings generated on a canvas by script when the page loads. Rain sound plays from a locally bundled recording.</p>
+    <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:34px 0 10px">What This Demonstrates</h3>
+    <p style="font-size:16px;line-height:1.65;margin:0;color:#494949">Interactive creative tooling, direct manipulation, visual integration of interface into photographs, and constraint-driven creativity.</p>
+    <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:34px 0 10px">Implementation Transparency</h3>
+    <p style="font-size:16px;line-height:1.65;margin:0;color:#494949">The deployed experience uses browser-side drawing and predefined creative challenges. It does not use a live LLM or any model inference when visitors use it. AI assistance was used to write the code and the procedural paintings.</p>
+    <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:34px 0 10px">Limitations</h3>
+    <p style="font-size:16px;line-height:1.65;margin:0;color:#494949">The four media approximate physical materials within canvas limits. The studio photographs are fixed images, so the drawing surface is correct only for the camera angle they show. Browser storage holds roughly 5 MB, so a large gallery may reach the limit, and private browsing may not keep work between visits. After a refresh a saved drawing can be edited further, but earlier strokes cannot be undone. Nunito Sans loads from Google Fonts.</p>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;rainLevel&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.35,&quot;min&quot;:0.1,&quot;max&quot;:0.8,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Rain&quot;}}">
+class Component extends DCLogic {
+  state = {stage:1,vw:1280,vh:800,wall:0,medium:'pencil',pop:null,eraser:false,
+    sizes:{pencil:.35,watercolor:.45,ink:.4,charcoal:.5},
+    colors:{pencil:'#3b3a3f',watercolor:'#3f6f9a',ink:'#1d1b2b',charcoal:'#1f1d1c'},
+    challenge:0,sound:false,art:[],gallery:[],gpage:0,view:null,confirm:null,toast:'',hasDraft:false,rm:false};
+  strokes=[]; base=null; cur=null; CW=1600; CH=1130; Hinv=null;
+  cvRef=React.createRef(); r1=React.createRef(); r2=React.createRef(); r3=React.createRef(); r4=React.createRef();
+  MED={pencil:{min:1.4,max:9,step:.35,label:'Pencil',d:'M4 20l1-4L16.500 4.500a2 2 0 013 3L8 19l-4 1zM14 7l3 3'},
+    watercolor:{min:16,max:80,step:.22,label:'Watercolor',d:'M19.500 4.500c-4 1.500-8 5-9.500 9l2 2c4-1.500 7.500-5.500 9-9.500zM10 13.500c-2.500-.5-4.500 1-4.500 3.500 0 1.500-.8 2.500-2 3 3.500.8 7-.5 7-3.500'},
+    ink:{min:2,max:18,step:.3,label:'Ink',d:'M12 3.500c3.500 4.200 6 7.200 6 10.300a6 6 0 01-12 0c0-3.100 2.500-6.100 6-10.300z'},
+    charcoal:{min:7,max:38,step:.3,label:'Charcoal',d:'M5 15.500l9.500-9.500 4 4-9.500 9.500H5zM13 8l4 4'}};
+  CH_LIST=['Draw a place that exists only in dreams.','Invent a flower that blooms at midnight.','Paint the sound of a distant train.','Draw a house designed for a cloud.','Imagine a landscape on another planet.','Paint something that feels like Sunday.','Draw an object from the year 2126.','Create a portrait using only shapes.','Illustrate a memory that never happened.',"Draw the world's smallest garden.",'Paint the color of a quiet afternoon.','Draw a lighthouse for a desert.','Imagine a bridge between two moons.','Paint a conversation between two trees.','Draw what the sea dreams about.','Invent an animal that lives in libraries.','Paint the smell of fresh bread.','Draw a staircase that leads somewhere new each day.','Illustrate a city built on a turtle.','Paint a lullaby for a mountain.','Draw a market where clouds are sold.','Create a map of a feeling.','Draw a door in an unexpected place.','Paint the inside of a snow globe.','Draw a tiny island with one very large tree.','Imagine a musical instrument grown from a plant.','Paint the moment before it rains.','Draw a robot learning to garden.'];
+  PAL=['#1d1b2b','#3b3a3f','#7a2e2b','#c4572e','#d9a23a','#4b7a55','#3f6f9a','#7b5a8a','#f1e9d8'];
+  SLOTS=[
+    {q:[[591,219],[736,216],[736,444],[591,445]],w:145,h:227,hit:[579,208,169,246]},
+    {q:[[819,192],[1002,190],[1002,443],[819,443]],w:183,h:252,hit:[806,179,208,275]},
+    {q:[[1092,206],[1268,197],[1268,444],[1092,446]],w:176,h:240,hit:[1081,192,200,262]}];
+  WIN=[[340,600],[650,480],[555,420],[420,510]];
+
+  componentDidMount(){
+    this.rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.rs=()=>this.setState({vw:innerWidth,vh:innerHeight});
+    addEventListener('resize',this.rs);
+    this.kd=(e)=>{
+      if(e.key==='Escape'){this.setState({pop:null,confirm:null,view:null})}
+      if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'&&this.state.stage===3){e.preventDefault();this.undo()}
+    };
+    addEventListener('keydown',this.kd);
+    const ls=(k)=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}};
+    const pf=ls('isas2.prefs')||{},gal=ls('isas2.gallery')||[];
+    this.setState({rm:this.rm,wall:0,challenge:Math.floor(Math.random()*this.CH_LIST.length),gallery:gal,
+      medium:pf.medium||'pencil',sizes:{...this.state.sizes,...(pf.sizes||{})},colors:{...this.state.colors,...(pf.colors||{})}});
+    this.rs();
+    this.setState({art:[1,2,3,4,5,6].map(i=>'assets/inv14-painting-0'+i+'.png')});
+    const wait=()=>{
+      if(!this.cvRef.current||!this.r1.current||!this.r4.current){this.t0=setTimeout(wait,60);return}
+      this.initCanvas();this.initRain();
+    };
+    wait();
+  }
+  componentWillUnmount(){removeEventListener('resize',this.rs);removeEventListener('keydown',this.kd);cancelAnimationFrame(this.raf);clearTimeout(this.t0);if(this.au)this.au.pause()}
+
+  u(d){this.uc=this.uc||{};if(!d)return'';if(d.indexOf('data:')!==0)return d;if(!this.uc[d]){const b=atob(d.split(',')[1]),n=new Uint8Array(b.length);for(let i=0;i<b.length;i++)n[i]=b.charCodeAt(i);this.uc[d]=URL.createObjectURL(new Blob([n],{type:d.slice(5,d.indexOf(';'))}))}return this.uc[d]}
+  rngf(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  homog(w,h,q){const s=[[0,0],[w,0],[w,h],[0,h]],A=[];
+    for(let i=0;i<4;i++){const[x,y]=s[i],[u,v]=q[i];A.push([x,y,1,0,0,0,-u*x,-u*y,u]);A.push([0,0,0,x,y,1,-v*x,-v*y,v])}
+    for(let c=0;c<8;c++){let m=c;for(let r=c+1;r<8;r++)if(Math.abs(A[r][c])>Math.abs(A[m][c]))m=r;[A[c],A[m]]=[A[m],A[c]];
+      for(let r=0;r<8;r++){if(r===c)continue;const f=A[r][c]/A[c][c];for(let k=c;k<9;k++)A[r][k]-=f*A[c][k]}}
+    return A.map((r,i)=>r[8]/r[i])}
+  css(h){return'matrix3d('+[h[0],h[3],0,h[6],h[1],h[4],0,h[7],0,0,1,0,h[2],h[5],0,1].join(',')+')'}
+  inv(h){const[a,b,c,d,e,f,g,k]=h;return[e-f*k,c*k-b,b*f-c*e,f*g-d,a-c*g,c*d-a*f,d*k-e*g,b*g-a*k,a*e-b*d]}
+
+  makeArt(i){
+    const cv=document.createElement('canvas');cv.width=600;cv.height=800;const c=cv.getContext('2d');const r=this.rngf(100+i*17);
+    const W=(path,col,n=6,j=4,a=.3)=>{for(let k=0;k<n;k++){c.save();c.translate((r()-.5)*j*2,(r()-.5)*j*2);c.globalAlpha=a;c.fillStyle=col;c.beginPath();path();c.fill();c.restore()}};
+    const E=(x,y,rx,ry,rot=0)=>()=>c.ellipse(x,y,rx,ry,rot,0,6.283);
+    const R=(x,y,w,h)=>()=>c.rect(x,y,w,h);
+    const G=(y0,y1,stops)=>{const g=c.createLinearGradient(0,y0,0,y1);stops.forEach((s,k)=>g.addColorStop(k/(stops.length-1),s));c.fillStyle=g;c.fillRect(0,0,600,800)};
+    if(i===1){
+      G(0,800,['#f1e3c8','#dcc9a6','#b4bfc0','#8c9fa3']);
+      W(E(380,260,70,70),'#fff3d6',7,3,.45);W(E(380,260,110,110),'#f6dfb0',5,2,.15);
+      [[470,'#a9b3b1',.45],[540,'#8b9a96',.5],[610,'#6a7d6d',.55],[700,'#46563d',.65]].forEach(([y,col,a],k)=>{
+        W(()=>{c.moveTo(0,800);c.lineTo(0,y);for(let x=0;x<=600;x+=50)c.lineTo(x,y-30*Math.sin(x/90+k*1.7)-r()*14);c.lineTo(600,800)},col,6,4,a)});
+      W(R(100,610,8,110),'#2b2418',4,1,.6);W(E(104,590,40,52),'#3c4a30',7,5,.4);
+      W(()=>{c.rect(0,720,600,80)},'#c9b998',5,2,.2);
+    }else if(i===2){
+      G(0,800,['#e3d3b6','#d8c6a6']);
+      W(R(0,540,600,260),'#8d6a45',8,3,.45);W(R(0,530,600,12),'#5e4429',4,1,.4);
+      W(E(220,450,76,100),'#35566a',8,3,.4);W(R(196,300,48,100),'#3e6278',6,2,.45);W(E(220,300,34,10),'#2b4658',4,1,.5);
+      W(E(380,535,56,66),'#c8aa40',7,3,.4);W(E(350,470,34,40),'#d6bc50',6,2,.4);
+      W(()=>{c.moveTo(420,585);c.quadraticCurveTo(480,640,540,585);c.lineTo(540,560);c.lineTo(420,560)},'#efe4cb',6,2,.45);
+      W(E(480,586,60,14),'#60482c',5,2,.3);W(E(250,590,95,16),'#6b4c2b',5,2,.28);W(E(110,560,28,24),'#d9b83a',5,2,.45);
+    }else if(i===3){
+      G(0,800,['#ead9bd','#d9bf9a']);
+      W(R(40,60,170,260),'#4a7f86',6,4,.35);W(R(400,500,170,230),'#d3a53a',6,4,.35);
+      W(()=>{c.moveTo(130,330);c.quadraticCurveTo(300,40,470,330);c.lineTo(470,700);c.lineTo(130,700)},'#1f2a47',7,4,.4);
+      W(E(300,420,140,200),'#e4b88e',9,3,.38);
+      c.save();c.beginPath();c.rect(300,0,300,800);c.clip();W(E(300,420,140,200),'#a05f48',7,3,.5);c.restore();
+      W(()=>{c.moveTo(305,360);c.lineTo(340,470);c.lineTo(295,480)},'#7e4a3a',4,2,.4);
+      W(E(240,370,38,14,-.1),'#2a2a3d',6,2,.55);W(E(355,355,30,11,.1),'#2a2a3d',6,2,.55);
+      W(()=>{c.moveTo(250,535);c.quadraticCurveTo(310,500,370,540);c.quadraticCurveTo(310,565,250,535)},'#b3412f',6,2,.5);
+      W(()=>{c.moveTo(150,610);c.quadraticCurveTo(300,720,460,600);c.lineTo(500,800);c.lineTo(110,800)},'#2f5a60',6,4,.3);
+    }else if(i===4){
+      G(0,800,['#eadfca','#e0d1b6']);
+      W(E(250,300,118,118),'#c3781a',9,3,.4);
+      W(R(210,330,270,330),'#6c6058',9,3,.32);W(R(150,470,230,260),'#b99e72',7,3,.32);W(R(280,560,200,150),'#3f3a36',6,3,.3);
+      c.strokeStyle='#1d1a17';c.lineWidth=5;c.beginPath();c.arc(300,360,250,-1.25,.75);c.stroke();
+      W(R(60,80,60,60),'#7b8f8a',5,2,.3);
+    }else{
+      G(0,800,['#1b2240','#3a3563','#8a6a8e','#e4a98b','#f2d1a0']);
+      for(let k=0;k<60;k++){c.globalAlpha=.3+r()*.5;c.fillStyle='#fff3d8';c.fillRect(r()*600,r()*330,1.5,1.5)}
+      c.globalAlpha=1;
+      W(E(300,250,130,130),'#f4e6c8',8,3,.4);W(E(300,250,170,170),'#f7e1b8',6,2,.1);
+      W(()=>{c.rect(0,520,600,280)},'#27325a',5,2,.4);
+      const g=c.createLinearGradient(0,520,0,800);g.addColorStop(0,'rgba(240,190,140,.55)');g.addColorStop(1,'rgba(20,24,50,.2)');c.fillStyle=g;c.fillRect(0,520,600,280);
+      W(R(262,455,76,6),'#e9d6ad',3,1,.5);W(R(278,370,44,88),'#1f1a2a',5,1,.7);W(R(284,378,32,74),'#f6d794',4,1,.8);
+      W(()=>{c.moveTo(284,520);c.lineTo(316,520);c.lineTo(330,720);c.lineTo(270,720)},'#f0c88c',5,3,.25);
+      [[120,180,24,10],[470,140,30,12],[500,360,20,8],[90,400,18,7]].forEach(([x,y,a,b])=>W(E(x,y,a,b),'#d7c7ae',4,1,.5));
+    }
+    c.globalAlpha=1;
+    for(let k=0;k<70;k++){c.globalAlpha=.035;c.strokeStyle=r()>.5?'#fff':'#000';c.lineWidth=1+r()*6;c.beginPath();const x=r()*600,y=r()*800;c.moveTo(x,y);c.lineTo(x+60+r()*120,y+(r()-.5)*30);c.stroke()}
+    for(let k=0;k<7000;k++){c.globalAlpha=.07;c.fillStyle=r()>.5?'#fff':'#000';c.fillRect(r()*600,r()*800,1.4,1.4)}
+    return cv.toDataURL('image/jpeg',.88);
+  }
+
+  /* ---------- drawing ---------- */
+  initCanvas(){
+    this.ctx=this.cvRef.current.getContext('2d');
+    let dr=null;try{dr=localStorage.getItem('isas2.draft')}catch(e){}
+    if(dr){const im=new Image();im.onload=()=>{this.base=im;this.setState({hasDraft:true});this.render()};im.src=dr}
+  }
+  render(){
+    const c=this.ctx;if(!c)return;c.globalCompositeOperation='source-over';c.globalAlpha=1;c.clearRect(0,0,this.CW,this.CH);
+    if(this.base)c.drawImage(this.base,0,0,this.CW,this.CH);
+    this.strokes.forEach(s=>this.replay(c,s));
+  }
+  rgba(h,a){const n=parseInt(h.slice(1),16);return`rgba(${n>>16},${(n>>8)&255},${n&255},${a})`}
+  stamp(c,s,x,y,p,sp,st,r){
+    const m=this.MED[s.m];let rad=(m.min+(m.max-m.min)*s.f)*(s.pen?(.4+.8*p):1);
+    c.globalCompositeOperation='source-over';c.fillStyle=s.c;
+    if(s.er){c.globalCompositeOperation='destination-out';c.globalAlpha=1;c.beginPath();c.arc(x,y,rad*1.5+6,0,6.283);c.fill();c.globalCompositeOperation='source-over';return}
+    if(s.m==='pencil'){
+      const a=Math.max(.5,Math.min(1,1.15-sp*.15))*(s.pen?p:1);
+      c.globalAlpha=.15*a;c.beginPath();c.arc(x,y,rad*.9,0,6.283);c.fill();
+      for(let i=0;i<4;i++){c.globalAlpha=.24*a;const rr=rad*.95*Math.sqrt(r()),an=r()*6.283;c.beginPath();c.arc(x+Math.cos(an)*rr,y+Math.sin(an)*rr,.5+r()*.9,0,6.283);c.fill()}
+    }else if(s.m==='ink'){
+      const tw=rad*(1-Math.min(.45,sp*.18));st.w=st.w==null?tw:st.w*.85+tw*.15;
+      c.globalAlpha=.97;c.beginPath();c.arc(x,y,st.w,0,6.283);c.fill();
+    }else if(s.m==='charcoal'){
+      c.globalAlpha=.045;c.beginPath();c.arc(x,y,rad*1.1,0,6.283);c.fill();
+      for(let i=0;i<16;i++){if(r()<.35)continue;const rr=rad*Math.sqrt(r()),an=r()*6.283;c.globalAlpha=.2+r()*.4;c.beginPath();c.arc(x+Math.cos(an)*rr,y+Math.sin(an)*rr,.6+r()*2.2,0,6.283);c.fill()}
+    }else{
+      c.globalCompositeOperation='multiply';const q=rad*(.9+.2*r());
+      const g=c.createRadialGradient(x,y,0,x,y,q);g.addColorStop(0,this.rgba(s.c,.9));g.addColorStop(.6,this.rgba(s.c,.5));g.addColorStop(1,this.rgba(s.c,0));
+      c.globalAlpha=.075;c.fillStyle=g;c.beginPath();c.arc(x,y,q,0,6.283);c.fill();
+      c.globalAlpha=.03;c.strokeStyle=s.c;c.lineWidth=2;c.beginPath();c.arc(x,y,q*.85,0,6.283);c.stroke();
+    }
+    c.globalCompositeOperation='source-over';c.globalAlpha=1;
+  }
+  seg(c,s,a,b,st,r){
+    const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy);if(d<.01)return;
+    const sp=d/Math.max(1,b[3]-a[3]),m=this.MED[s.m];
+    const step=Math.max(.8,(m.min+(m.max-m.min)*s.f)*m.step);let t=st.rem||0;
+    while(t<=d){const k=t/d;this.stamp(c,s,a[0]+dx*k,a[1]+dy*k,a[2]+(b[2]-a[2])*k,sp,st,r);t+=step}
+    st.rem=t-d;
+  }
+  replay(c,s){const st={},r=this.rngf(s.seed),p=s.pts;this.stamp(c,s,p[0][0],p[0][1],p[0][2],0,st,r);for(let i=1;i<p.length;i++)this.seg(c,s,p[i-1],p[i],st,r)}
+  pt(e){
+    const L=this.layerEl;if(!L||!this.Hinv)return null;
+    const r=L.getBoundingClientRect(),sc=r.width/L.offsetWidth||1,x=(e.clientX-r.left)/sc,y=(e.clientY-r.top)/sc,i=this.Hinv;
+    const z=i[6]*x+i[7]*y+i[8];
+    return[(i[0]*x+i[1]*y+i[2])/z,(i[3]*x+i[4]*y+i[5])/z,e.pointerType==='pen'?(e.pressure||.5):1,e.timeStamp];
+  }
+  layerRef=(el)=>{this.layerEl=el};
+  pDown=(e)=>{
+    if(this.state.stage!==3||(e.button>0))return;
+    this.layerEl=e.currentTarget.parentElement.parentElement;
+    const p=this.pt(e);if(!p)return;
+    e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);
+    const s=this.state,seed=Math.floor(Math.random()*1e9);
+    this.cur={m:s.medium,c:s.colors[s.medium],f:s.sizes[s.medium],er:s.eraser,pen:e.pointerType==='pen',seed,pts:[p]};
+    this.cst={};this.cr=this.rngf(seed);this.stamp(this.ctx,this.cur,p[0],p[1],p[2],0,this.cst,this.cr);
+    if(s.pop)this.setState({pop:null});
+  };
+  pMove=(e)=>{
+    if(!this.cur)return;const evs=e.getCoalescedEvents?e.getCoalescedEvents():[e];const L=evs.length?evs:[e];
+    L.forEach(ev=>{const p=this.pt(ev);if(!p)return;const pts=this.cur.pts;this.seg(this.ctx,this.cur,pts[pts.length-1],p,this.cst,this.cr);pts.push(p)});
+  };
+  pUp=()=>{if(!this.cur)return;this.strokes.push(this.cur);this.cur=null;this.setState({hasDraft:true});this.saveDraft()};
+  saveDraft(){
+    clearTimeout(this.sv);this.sv=setTimeout(()=>{
+      try{
+        if(!this.strokes.length&&!this.base){localStorage.removeItem('isas2.draft');return}
+        const o=document.createElement('canvas');o.width=800;o.height=565;o.getContext('2d').drawImage(this.cvRef.current,0,0,800,565);
+        localStorage.setItem('isas2.draft',o.toDataURL('image/png'));
+      }catch(e){}
+    },700);
+  }
+  savePrefs(){try{const s=this.state;localStorage.setItem('isas2.prefs',JSON.stringify({medium:s.medium,sizes:s.sizes,colors:s.colors}))}catch(e){}}
+  undo=()=>{if(!this.strokes.length)return;this.strokes.pop();this.render();this.setState({hasDraft:this.strokes.length>0||!!this.base});this.saveDraft()};
+  clearAll(){this.strokes=[];this.base=null;this.render();this.setState({hasDraft:false});try{localStorage.removeItem('isas2.draft')}catch(e){}}
+  flat(w,h){const o=document.createElement('canvas');o.width=w;o.height=h;const x=o.getContext('2d');x.fillStyle='#f4ebda';x.fillRect(0,0,w,h);
+    const r=this.rngf(3);for(let i=0;i<w*h/60;i++){x.globalAlpha=.05;x.fillStyle=r()>.5?'#fff':'#8a7a5a';x.fillRect(r()*w,r()*h,1.3,1.3)}
+    x.globalAlpha=1;x.globalCompositeOperation='multiply';x.drawImage(this.cvRef.current,0,0,w,h);return o}
+  save(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+  download=()=>{if(!this.state.hasDraft){this.toast('Draw something first.');return}this.flat(1600,1130).toBlob(b=>this.save(b,'smallest-art-studio.png'),'image/png')};
+  toast(t){clearTimeout(this.tt);this.setState({toast:t});this.tt=setTimeout(()=>this.setState({toast:''}),3600)}
+
+  /* ---------- navigation & gallery ---------- */
+  enter=()=>{this.setState({stage:2,pop:null})};
+  resume=()=>this.setState({stage:3,pop:null});
+  toStudio=()=>this.setState(s=>({stage:1,pop:null,view:null,wall:(s.wall+1)%6}));
+  nextWall=()=>this.setState(s=>({wall:(s.wall+1)%6}));
+  newChallenge=()=>this.setState(s=>{let n;do{n=Math.floor(Math.random()*this.CH_LIST.length)}while(n===s.challenge);return{challenge:n}});
+  exhibit=()=>{
+    if(!this.state.hasDraft){this.toast('Draw something first.');return}
+    const g=this.state.gallery,no=g.reduce((m,x)=>Math.max(m,x.no||0),0)+1;
+    const item={id:Date.now(),no,title:'No. '+no,img:this.flat(1200,848).toDataURL('image/jpeg',.88),ch:this.CH_LIST[this.state.challenge]};
+    const ng=[...g,item];const ok=this.persist(ng);
+    this.setState({gallery:ng,stage:4,pop:null,gpage:Math.floor((ng.length-1)/3)});
+    if(!ok)this.toast('Browser storage is full. This painting will stay until you refresh. Remove a painting to make room.');
+  };
+  persist(ng){try{localStorage.setItem('isas2.gallery',JSON.stringify(ng));return true}catch(e){return false}}
+  askRemove=()=>{const g=this.state.gallery.find(x=>x.id===this.state.view);if(g)this.setState({confirm:{kind:'remove',id:g.id,title:g.title,img:g.img,ch:g.ch}})};
+  askClear=()=>{if(!this.state.hasDraft)return;this.setState({confirm:{kind:'clear'},pop:null})};
+  cancelConfirm=()=>this.setState({confirm:null});
+  stop=(e)=>e.stopPropagation();
+  doConfirm=()=>{
+    const c=this.state.confirm;if(!c)return;
+    if(c.kind==='clear'){this.clearAll();this.setState({confirm:null});return}
+    const ng=this.state.gallery.filter(x=>x.id!==c.id);this.persist(ng);
+    const pages=Math.max(1,Math.ceil(ng.length/3));
+    this.setState(s=>({gallery:ng,confirm:null,view:null,gpage:Math.min(s.gpage,pages-1)}));
+  };
+  closeView=()=>this.setState({view:null});
+  dlView=()=>{
+    const g=this.state.gallery.find(x=>x.id===this.state.view);if(!g)return;
+    const im=new Image();im.onload=()=>{const o=document.createElement('canvas');o.width=im.width;o.height=im.height;o.getContext('2d').drawImage(im,0,0);o.toBlob(b=>this.save(b,'smallest-art-studio-'+g.title.replace(/\W+/g,'-').toLowerCase()+'.png'),'image/png')};im.src=g.img;
+  };
+  another=()=>{this.clearAll();this.newChallenge();this.setState({stage:2,view:null})};
+  prevPage=()=>this.setState(s=>({gpage:Math.max(0,s.gpage-1)}));
+  nextPage=()=>this.setState(s=>({gpage:Math.min(Math.ceil(s.gallery.length/3)-1,s.gpage+1)}));
+
+  /* ---------- sound: bundled recording only ---------- */
+  toggleSound=()=>{
+    if(this.state.sound){if(this.au)this.au.pause();this.setState({sound:false});return}
+    if(!this.au){this.au=new Audio('audio/rain.mp3');this.au.loop=true}
+    this.au.volume=Math.min(1,this.props.rainLevel??.35);
+    this.au.play().then(()=>this.setState({sound:true})).catch(()=>this.toast('The rain recording could not be played.'));
+  };
+
+  /* ---------- rain: faint streaks confined to window glass ---------- */
+  initRain(){
+    const refs=[this.r1,this.r2,this.r3,this.r4];
+    const L=refs.map((ref,i)=>{const[w,h]=this.WIN[i],cv=ref.current;cv.width=w;cv.height=h;
+      return{c:cv.getContext('2d'),w,h,s:Array.from({length:34},()=>({x:Math.random()*w,y:Math.random()*h,l:h*(.05+Math.random()*.07),v:h*(.006+Math.random()*.008),a:.05+Math.random()*.1}))}});
+    const draw=()=>{
+      this.raf=requestAnimationFrame(draw);
+      const now=performance.now();if(now-(this.lf||0)<40||this.state.rm)return;this.lf=now;
+      L.forEach(R=>{R.c.clearRect(0,0,R.w,R.h);R.c.strokeStyle='#dbe6f2';R.c.lineWidth=1.2;
+        R.s.forEach(s=>{R.c.globalAlpha=s.a;R.c.beginPath();R.c.moveTo(s.x,s.y);R.c.lineTo(s.x-s.l*.05,s.y+s.l);R.c.stroke();s.y+=s.v;if(s.y>R.h){s.y=-s.l;s.x=Math.random()*R.w}})});
+    };
+    draw();
+  }
+
+  /* ---------- view model ---------- */
+  renderVals(){
+    const s=this.state,{vw,vh,stage}=s,narrow=vw<900,pk=Math.max(vw/1672,vh/941),d=s.rm?0:800,cur=stage-1;
+    const place=(cx,cy,vx,vy,sc)=>{let x0=vx-cx*sc,y0=vy-cy*sc;x0=Math.min(0,Math.max(vw-1672*sc,x0));y0=Math.min(0,Math.max(vh-941*sc,y0));return{x0,y0,s:sc}};
+    const P1=place(narrow?1010:850,470,vw/2,vh/2,pk),P2=place(narrow?800:850,470,vw/2,vh/2,pk),P4=place(905,400,vw/2,vh/2,pk);
+    const s3=narrow?pk:Math.max(pk,Math.min(.92*vw/958,2.8));
+    const P3=narrow?place(850,720,vw/2,vh/2,pk):place(850,790,vw/2,vh*.56,s3);
+    const mp=(P,x,y)=>[P.x0+x*P.s,P.y0+y*P.s];
+    const plate=(P,n)=>`position:absolute;left:0;top:0;width:1672px;height:941px;transform:translate(${P.x0}px,${P.y0}px) scale(${P.s});transform-origin:0 0;background:url(assets/studio-${n}.jpg) 0 0/100% 100%`;
+    const scn=(i)=>`position:absolute;inset:0;overflow:hidden;transform:scale(${cur===i?1:cur>i?1.12:.93});transform-origin:50% 55%;opacity:${cur===i?1:0};visibility:${cur===i?'visible':'hidden'};transition:opacity ${d}ms ease,transform ${d*1.3}ms cubic-bezier(.4,0,.2,1),visibility 0s linear ${cur===i?0:d}ms;pointer-events:${cur===i?'auto':'none'}`;
+    const layer=(on)=>`position:absolute;inset:0;pointer-events:none;opacity:${on?1:0};visibility:${on?'visible':'hidden'};transition:opacity ${d*.7}ms ease ${on?d*.4:0}ms,visibility 0s linear ${on?0:d*.7}ms;`;
+    const rb='pointer-events:auto;width:48px;height:48px;flex:none;border-radius:50%;border:1px solid rgba(255,244,225,.7);background:rgba(246,238,224,.92);color:#4a2c18;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(20,8,0,.35);padding:0';
+    // stage 1
+    const [tx,ty]=narrow?[Math.max(20,mp(P1,800,0)[0]),mp(P1,0,512)[1]]:mp(P1,790,500);
+    const tSize=narrow?34:Math.max(30,Math.min(vw*.034,56));
+    const wk=Math.max(vw/852,vh/959),wW=852*wk,wH=959*wk,wx=Math.min(0,Math.max(vw-wW,narrow?-(wW-vw)*.78:(vw-wW)/2)),wy=Math.min(0,Math.max(vh-wH,vh/2-290*wk)),ph=370,pw=ph*[526/802,.544,.537,.530,.523,.514][s.wall%6];
+    const tcol='#fff2dc',aq=this.homog(273,424,[[897,73],[1170,44],[1170,467],[897,470]]);
+    // stage 3 geometry
+    let q;
+    if(narrow){const pw=Math.min(vw-24,vh*.5*1.416),ph=pw/1.416,px=(vw-pw)/2,py=vh*.46-ph/2+30;q=[[px,py],[px+pw,py],[px+pw,py+ph],[px,py+ph]]}
+    else q=[[520,702],[1200,702],[1316,876],[386,876]];
+    const h3=this.homog(this.CW,this.CH,q);this.Hinv=this.inv(h3);
+    const on3=stage===3,on2=stage===2;
+    const medNames=['pencil','watercolor','ink','charcoal'];
+    const medPos={pencil:[95,372],watercolor:[578,580],ink:[1395,508],charcoal:[1540,625]};
+    const media=medNames.map(id=>{const m=this.MED[id],idx=medNames.indexOf(id),act=s.medium===id;let [x,y]=mp(P2,...medPos[id]);
+      if(narrow){const dx=Math.min(110,vw*.27);x=vw/2+(idx%2?dx:-dx);y=vh*.5+Math.floor(idx/2)*Math.min(120,vh*.15)}
+      else{x=Math.min(vw-70,Math.max(70,x));y=Math.min(vh-64,Math.max(70,y))}
+      return{
+      label:m.label,d:m.d,
+      pos:`pointer-events:auto;position:absolute;left:${x-50}px;top:${y-30}px;width:100px;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:0;cursor:pointer`,
+      ring:`width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:rgba(246,238,224,.93);color:#4a2c18;border:${act?'2.5px solid #fff':'1px solid rgba(255,244,225,.7)'};box-shadow:0 8px 22px rgba(0,0,0,.5)`,
+      pick:()=>this.setState({medium:id,eraser:false,stage:3,pop:null},()=>this.savePrefs())}});
+    const mediaPop=medNames.map(id=>{const m=this.MED[id],act=s.medium===id;return{label:m.label,d:m.d,
+      small:`pointer-events:auto;width:44px;height:44px;border-radius:50%;border:${act?'2px solid #4a2c18':'1px solid #b79c78'};background:${act?'#fff8ea':'transparent'};color:#4a2c18;display:grid;place-items:center;cursor:pointer;padding:0`,
+      swap:()=>this.setState({medium:id,eraser:false,pop:null},()=>this.savePrefs())}});
+    const col=s.colors[s.medium];
+    const swatches=this.PAL.map(c=>({c,style:`pointer-events:auto;width:34px;height:34px;border-radius:50%;cursor:pointer;padding:0;background:${c};border:${c===col?'3px solid #4a2c18':'1.5px solid rgba(60,35,15,.4)'}`,pick:()=>this.setState(st=>({colors:{...st.colors,[st.medium]:c},eraser:false,pop:null}),()=>this.savePrefs())}));
+    // gallery
+    const g=s.gallery,pages=Math.max(1,Math.ceil(g.length/3)),gp=Math.min(s.gpage,pages-1);
+    const slots=this.SLOTS.map((S,i)=>{const it=g[gp*3+i],hm=this.homog(S.w,S.h,S.q);return{
+      label:it?('Open '+it.title):'Empty frame',
+      quad:`position:absolute;left:0;top:0;width:${S.w}px;height:${S.h}px;transform-origin:0 0;transform:${this.css(hm)};background:#e9dec8;box-shadow:inset 0 0 10px rgba(90,45,10,.4);overflow:hidden;pointer-events:none`,
+      inner:it?`position:absolute;left:8%;right:8%;top:50%;transform:translateY(-50%);aspect-ratio:1.416;background:url(${this.u(it.img)}) center/cover;box-shadow:0 2px 6px rgba(60,30,10,.45)`:'display:none',
+      hit:it?`position:absolute;left:${S.hit[0]}px;top:${S.hit[1]}px;width:${S.hit[2]}px;height:${S.hit[3]}px;background:transparent;border:0;cursor:pointer;padding:0`:'display:none',
+      open:()=>this.setState({view:it?it.id:null})}});
+    const vi=g.find(x=>x.id===s.view);
+    const arrBase=`pointer-events:auto;position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,244,225,.7);background:rgba(246,238,224,.92);color:#4a2c18;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(20,8,0,.3);padding:0`;
+    const [alx,aly]=mp(P4,500,330),[arx]=mp(P4,1350,330),[dcx,dcy]=mp(P4,905,520),[g4x,g4y]=mp(P4,905,70);
+    const dockX=narrow?'':'';
+    return{
+      r1:this.r1,r2:this.r2,r3:this.r3,r4:this.r4,cvRef:this.cvRef,
+      sc1:scn(0),sc2:scn(1),sc3:scn(2),sc4:scn(3),
+      plate1:plate(P1,1),plate2:plate(P2,2),plate3:plate(P3,3),plate4:plate(P4,4),
+      dim3:`position:absolute;inset:0;background:rgba(14,6,0,${narrow?.5:.12});pointer-events:none`,
+      layerStyle:narrow?`position:absolute;left:0;top:0;width:${vw}px;height:${vh}px;pointer-events:none`:`position:absolute;left:0;top:0;width:1672px;height:941px;transform:translate(${P3.x0}px,${P3.y0}px) scale(${P3.s});transform-origin:0 0;pointer-events:none`,
+      cvBoxStyle:`position:absolute;left:0;top:0;width:${this.CW}px;height:${this.CH}px;transform-origin:0 0;transform:${this.css(h3)};pointer-events:${on3?'auto':'none'};${narrow?'background:#f1e8d6;box-shadow:0 0 0 2px rgba(0,0,0,.2),0 14px 40px rgba(0,0,0,.5)':'mix-blend-mode:multiply'}`,
+      artQuad:`position:absolute;left:0;top:0;width:273px;height:424px;overflow:hidden;transform-origin:0 0;transform:${this.css(aq)};background:#2b1b11`,
+      artList:s.art.map((src,i)=>({style:`position:absolute;inset:0;background:url(${src}) center/cover;box-shadow:0 10px 26px rgba(30,12,0,.38),0 2px 5px rgba(30,12,0,.3);opacity:${i===s.wall?1:0};transition:opacity ${s.rm?0:1300}ms ease`})),
+      wallDots:[0,1,2,3,4,5].map(i=>({style:`width:6px;height:6px;border-radius:50%;background:#fff1d6;opacity:${i===s.wall?.85:.3};transition:opacity .6s`})),
+      wallStage:`position:absolute;left:${wx}px;top:${wy}px;width:852px;height:959px;transform:scale(${wk});transform-origin:0 0`,
+      paintBtn:`position:absolute;left:${640-pw/2}px;top:${105}px;width:${pw}px;height:${ph}px;padding:0;border:0;background:none;cursor:pointer;transform:rotate(-.4deg)`,
+      dotsWall:`position:absolute;left:${640-60}px;top:${105+ph+14}px;width:120px;display:flex;gap:8px;justify-content:center;pointer-events:none`,
+      nextWall:this.nextWall,
+      ui1:layer(stage===1),ui2:layer(on2),ui3:layer(on3),ui4:layer(stage===4),
+      titleBox:narrow?`position:absolute;left:24px;bottom:120px;pointer-events:none`:`position:absolute;left:${Math.max(32,vw*.06)}px;top:50%;transform:translateY(-58%);pointer-events:none`,
+      h1Style:`font-family:'Kingsland',serif;font-weight:400;margin:0;white-space:nowrap;font-size:${tSize}px;line-height:1.14;color:${tcol};text-shadow:0 2px 16px rgba(0,0,0,.6)`,
+      ruleStyle:`width:56px;height:1px;background:${tcol};margin:${tSize*.6}px 0 ${tSize*.5}px;opacity:.7`,
+      enterBtn:`pointer-events:auto;display:flex;align-items:center;gap:14px;background:none;border:0;padding:0;cursor:pointer;color:${tcol};font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:14px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.6)`,
+      enterCircle:`width:56px;height:56px;background:rgba(255,242,220,.12);flex:none;border-radius:50%;border:1.5px solid ${tcol};display:grid;place-items:center`,
+      resumeStyle:`pointer-events:auto;margin-top:14px;white-space:nowrap;background:none;border:0;padding:0;cursor:pointer;color:${tcol};font-family:'Nunito Sans',sans-serif;font-size:14px;text-decoration:underline;text-underline-offset:4px`,
+      footBox:`position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:${narrow?'wrap':'nowrap'};padding:70px ${narrow?20:104}px 22px ${narrow?20:28}px;background:linear-gradient(transparent,rgba(24,10,2,.62));pointer-events:none`,
+      enter:this.enter,resume:this.resume,hasDraft:s.hasDraft,
+      h2Style:`position:absolute;left:${mp(P2,805,0)[0]}px;top:${mp(P2,0,175)[1]}px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:'Kingsland',serif;font-weight:400;font-size:${Math.max(24,Math.min(27*pk,34))}px;color:#fff3dc;text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 3px rgba(0,0,0,.6);text-align:center`,
+      media,mediaPop,
+      backDraftStyle:`pointer-events:auto;position:absolute;left:50%;transform:translateX(-50%);bottom:${narrow?70:36}px;background:rgba(24,10,2,.55);border:0;border-radius:22px;height:44px;padding:0 20px;cursor:pointer;color:#f7ead4;font-family:'Nunito Sans',sans-serif;font-size:14px;white-space:nowrap`,
+      cardBox:narrow?'position:absolute;left:12px;right:12px;top:64px':'position:absolute;left:24px;top:132px;width:260px',
+      cardInner:`display:flex;align-items:center;gap:10px;padding:${narrow?'8px 10px 8px 14px':'14px 14px 14px 18px'};border-radius:10px;background:rgba(238,226,206,.95);color:#4a2c18;box-shadow:0 12px 32px rgba(0,0,0,.45)`,
+      cardText:`font-size:${narrow?13:15}px;line-height:1.4;flex:1;pointer-events:none`,cardHSize:narrow?15:20,
+      challengeText:this.CH_LIST[s.challenge],newChallenge:this.newChallenge,
+      dockBox:narrow?'position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center':'position:absolute;left:50%;top:66px;transform:translateX(-50%);display:flex;justify-content:center',
+      dockRow:`display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;max-width:${narrow?340:760}px`,
+      rb,rbEraser:rb.replace('background:rgba(246,238,224,.92)',`background:${s.eraser?'#fff':'rgba(246,238,224,.92)'}`).replace('1px solid rgba(255,244,225,.7)',s.eraser?'2px solid #4a2c18':'1px solid rgba(255,244,225,.7)'),
+      exhibitStyle:"pointer-events:auto;height:46px;padding:0 22px;border-radius:23px;border:0;background:#4a2c18;color:#f7ead4;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px rgba(20,8,0,.4);white-space:nowrap",
+      eraserOn:s.eraser,curD:this.MED[s.medium].d,curColor:col,dotSize:Math.round(6+s.sizes[s.medium]*16),
+      popMedium:()=>this.setState({pop:s.pop==='medium'?null:'medium'}),popColor:()=>this.setState({pop:s.pop==='color'?null:'color'}),popSize:()=>this.setState({pop:s.pop==='size'?null:'size'}),
+      toggleEraser:()=>this.setState({eraser:!s.eraser,pop:null}),
+      popIsMedium:s.pop==='medium',popIsColor:s.pop==='color',popIsSize:s.pop==='size',
+      popBox:`pointer-events:auto;position:absolute;${narrow?'left:50%;bottom:calc(100% + 10px);transform:translateX(-50%)':'left:50%;top:calc(100% + 10px);transform:translateX(-50%)'};display:flex;gap:6px;padding:8px;border-radius:14px;background:rgba(246,238,224,.97);box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:5`,
+      swatchW:narrow?200:170,swatches,
+      customColor:(e)=>{const v=e.target.value;this.setState(st=>({colors:{...st.colors,[st.medium]:v},eraser:false}),()=>this.savePrefs())},
+      sizeVal:Math.round(s.sizes[s.medium]*100),
+      onSize:(e)=>{const v=e.target.value/100;this.setState(st=>({sizes:{...st.sizes,[st.medium]:v}}),()=>this.savePrefs())},
+      pDown:this.pDown,pMove:this.pMove,pUp:this.pUp,
+      undo:this.undo,askClear:this.askClear,download:this.download,exhibit:this.exhibit,
+      slots,galleryEmpty:g.length===0,multiPage:pages>1,
+      g4Style:`position:absolute;left:${g4x}px;top:${g4y}px;transform:translateX(-50%);margin:0;white-space:nowrap;font-family:'Kingsland',serif;font-weight:400;font-size:${Math.max(24,Math.min(28*pk,40))}px;color:#4a2c18;text-shadow:0 1px 12px rgba(255,220,170,.4)`,
+      emptyStyle:`position:absolute;left:${g4x}px;top:${mp(P4,0,540)[1]}px;transform:translateX(-50%);white-space:nowrap;font-family:'Borel',cursive;font-size:20px;color:#fff3dc;text-shadow:0 1px 10px rgba(0,0,0,.8)`,
+      arrL:arrBase+`;left:${Math.max(12,alx-24)}px;top:${aly-24}px`,arrR:arrBase+`;left:${Math.min(vw-60,arx-24)}px;top:${aly-24}px`,prevPage:this.prevPage,nextPage:this.nextPage,
+      dotsStyle:`position:absolute;left:${dcx}px;top:${dcy}px;transform:translateX(-50%);display:flex;gap:10px`,
+      pageDots:pages>1?Array.from({length:pages},(_,i)=>({label:'Page '+(i+1),go:()=>this.setState({gpage:i}),style:`pointer-events:auto;width:12px;height:12px;border-radius:50%;padding:0;border:1.5px solid #fff3dc;background:${i===gp?'#fff3dc':'transparent'};cursor:pointer`})):[],
+      anotherStyle:`pointer-events:auto;position:absolute;left:50%;transform:translateX(-50%);bottom:${narrow?24:32}px;height:46px;padding:0 24px;border-radius:23px;border:0;background:#4a2c18;color:#f7ead4;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px rgba(20,8,0,.45);white-space:nowrap`,
+      another:this.another,
+      viewOpen:!!vi,viewTitle:vi?vi.title+(vi.ch?' · '+vi.ch:''):'',
+      viewImgStyle:vi?`width:min(86vw,${Math.round(vh*.62*1.416)}px);aspect-ratio:1.416;background:url(${this.u(vi.img)}) center/cover;box-shadow:0 20px 60px rgba(0,0,0,.6)`:'display:none',
+      closeView:this.closeView,dlView:this.dlView,askRemove:this.askRemove,
+      pillLight:'pointer-events:auto;height:40px;padding:0 18px;border-radius:20px;border:1px solid #8a6a4a;background:rgba(246,238,224,.9);color:#4a2c18;font-family:\'Nunito Sans\',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer',
+      notStudio:stage!==1,toStudio:this.toStudio,
+      returnStyle:`position:absolute;left:20px;top:14px;z-index:6;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 10px;white-space:nowrap;background:rgba(24,10,2,.45);border-radius:22px;border:0;cursor:pointer;font-family:'Nunito Sans',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#f7ead4`,
+      soundOn:s.sound,soundOff:!s.sound,soundLabel:s.sound?'Turn rain sound off':'Turn rain sound on',toggleSound:this.toggleSound,
+      soundStyle:`position:absolute;right:${narrow?14:24}px;${narrow||stage!==1?'top:10px':'bottom:24px'};z-index:6;width:52px;height:52px;border-radius:50%;border:1.5px solid rgba(255,244,225,.85);background:rgba(30,15,6,.55);color:#fff4e0;display:grid;place-items:center;cursor:pointer;padding:0;backdrop-filter:blur(4px)`,
+      toast:s.toast,toastStyle:`position:absolute;left:50%;bottom:${narrow?90:100}px;transform:translateX(-50%);max-width:min(440px,88vw);padding:12px 18px;border-radius:10px;background:rgba(246,238,224,.97);color:#3a2314;font-size:14px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:${s.toast?1:0};transition:opacity .4s;pointer-events:none;z-index:25`,
+      confirmOpen:!!s.confirm,stop:this.stop,cancelConfirm:this.cancelConfirm,doConfirm:this.doConfirm,
+      confirmTitle:s.confirm?(s.confirm.kind==='clear'?'Clear the canvas?':'Remove this painting?'):'',
+      confirmHasImg:!!(s.confirm&&s.confirm.img),confirmImgStyle:`width:150px;aspect-ratio:1.416;margin:0 auto 12px;box-shadow:0 6px 16px rgba(0,0,0,.3);background:url(${this.u(s.confirm&&s.confirm.img)}) center/cover`,
+      confirmText:s.confirm?(s.confirm.kind==='clear'?'The sheet on your worktable will be wiped. Paintings in your gallery stay.':s.confirm.title+(s.confirm.ch?' · '+s.confirm.ch:'')+' will be removed from your gallery. Other paintings are kept.'):'',
+      confirmBtn:s.confirm&&s.confirm.kind==='clear'?'Clear':'Remove'
+    };
+  }
+}
+</script>
+</body>
+</html>
