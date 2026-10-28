@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Museum After Dark — The Institute of Unnecessary Research, Investigation 19</title>
+<meta name="description" content="Investigation 19: a watercolor museum after closing. ">
+<link rel="preload" href="assets/fonts/KingslandRegular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Borel-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/NunitoSans-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#research">Skip to Behind the Investigation: Research Note</a>
+
+<section id="entrance" aria-labelledby="entT">
+  <div class="eframe" id="eframe" aria-hidden="true"><img src="assets/img/entrance.jpg" alt="" width="1748" height="899" draggable="false"></div>
+  <div class="entcard">
+    <p class="inst">The Institute of Unnecessary Research</p>
+    <h1 id="entT"><span>Investigation 19</span><span>Museum</span><span>After Dark</span></h1>
+    <p class="motto">Advancing Knowledge Sideways</p>
+    <button id="enter" type="button">Enter the Museum</button>
+  </div>
+</section>
+
+<main id="museum" aria-label="Museum After Dark" hidden>
+  <header class="mhead">
+    <p class="inst">The Institute of Unnecessary Research</p>
+    <h1>Museum After Dark</h1>
+  </header>
+
+  <div id="stage" tabindex="0" role="group" aria-label="Museum panorama. Drag to pan. Use arrow keys to pan, plus and minus to zoom, zero to view the whole gallery.">
+    <div id="pano">
+      <img id="panoimg" src="assets/img/panorama.jpg" width="1821" height="864" alt="A watercolor museum at night. At the left a guard in a red cape stands in a doorway. Two women in white head wraps sip coffee at a marble counter. A policeman in a navy uniform points across the marble floor toward a large framed market painting on the right wall." draggable="false">
+      <span class="steam" style="left:31.8%;top:51.8%"></span><span class="steam s2" style="left:32.1%;top:51.8%"></span>
+      <span class="steam" style="left:38.5%;top:53.4%;animation-delay:-2.2s"></span><span class="steam s2" style="left:38.8%;top:53.4%;animation-delay:-3.6s"></span>
+      <div id="motes" aria-hidden="true"></div>
+      <div id="spots"></div>
+    </div>
+    <div class="stagehint" id="stagehint" aria-hidden="true">Drag to explore</div>
+  </div>
+
+  <div class="tools" role="toolbar" aria-label="Gallery and sound controls">
+    <div class="tg">
+      <button class="tb" id="zin" type="button" aria-label="Zoom in">+</button>
+      <button class="tb" id="zout" type="button" aria-label="Zoom out">−</button>
+      <button class="tb wide" id="whole" type="button">View Whole Gallery</button>
+    </div>
+    <div class="tg">
+      <button class="tb" id="snd" type="button" aria-pressed="false" aria-label="Sound on. Select to mute."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path id="wave" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/><path id="xmark" d="M17 9l5 6M22 9l-5 6" style="display:none"/></svg></button>
+      <label class="sr" for="vol">Volume</label>
+      <input id="vol" type="range" min="0" max="100" value="70">
+      <button class="tb wide" id="market" type="button" aria-pressed="false" hidden>Listen to the Market</button>
+      <button class="tb wide" id="motion" type="button" aria-pressed="true">Motion: on</button>
+      <button class="tb wide warn" id="retry" type="button" hidden>Music is paused. Select to retry.</button>
+    </div>
+  </div>
+
+  <section id="artinfo" class="about" aria-live="polite" hidden><div class="aboutbody">
+      <p data-art="guard" hidden><strong>The Nubian Guard (1895)</strong> — Ludwig Deutsch (1855–1935). Oil on panel, 51.8 × 33.7 cm. Private collection. Source inspiration for the guard at the entrance.</p>
+      <p data-art="guard" class="cap" hidden>Inner peace. Outer vigilance.</p>
+      <p data-art="madeleine" hidden><strong>Portrait of Madeleine (1800)</strong> — Marie-Guillemine Benoist. The woman on the left, wearing a gold hoop earring.</p>
+      <p data-art="companion" hidden><strong>Portrait of a Young Woman (late eighteenth century)</strong> — Artist unknown; previously attributed to Jean-Étienne Liotard. Saint Louis Art Museum. The woman on the right, wearing a pearl necklace.</p>
+      <p data-art="cop" hidden><strong>This Is Paris (1959)</strong> — Miroslav Šašek. Source inspiration for the illustrated policeman.</p>
+      <p data-art="pasar" hidden><strong>Pasar (1973)</strong> — Batara Lubis. Oil on canvas, approximately 65 × 140 cm. The painting depicts stylized figures, baskets, produce, chickens, and a cart. The market recording is atmospheric sound, not a recording of the market depicted. <a href="https://www.mutualart.com/Artwork/Pasar/4B922E2E122D1BB0" rel="noopener" target="_blank">Reference on MutualArt</a>.</p>
+      <button id="artclose" type="button" class="artclose">Close</button></div></section>
+</main>
+
+<section id="research" aria-labelledby="rnT">
+  <div class="wrap">
+    <h2 id="rnT">Behind the Investigation: Research Note</h2>
+    <p class="lead">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+    <dl>
+      <div class="row"><dt>Institution</dt><dd>The Institute of Unnecessary Research</dd></div>
+      <div class="row"><dt>Investigation</dt><dd>19 — Museum After Dark</dd></div>
+      <div class="row"><dt>Primary capability</dt><dd>Immersive environmental storytelling &amp; interactive world simulation</dd></div>
+      <div class="row"><dt>Research question</dt><dd>How can a single illustrated environment, simple interactions, sound, and restrained animation create the impression of a living museum?</dd></div>
+      <div class="row"><dt>Method</dt><dd>AI-assisted visual development and website construction using an approved watercolor panorama and a revised implementation prompt.</dd></div>
+      <div class="row"><dt>How it works</dt><dd>Visitors explore a fixed illustrated panorama and select the women, the policeman or the market painting to activate contextual sound recordings. Selecting the market painting also brings small, restrained movements to the painted market scene.</dd></div>
+      <div class="row"><dt>Technical implementation</dt><dd>Browser-based interaction logic, image-relative hotspots, supplied MP3 recordings mixed with the Web Audio API, and restrained visual effects, including aligned overlay layers cut from the approved painting for the market animation. No live LLM inference: nothing is generated while a visitor uses the site.</dd></div>
+      <div class="row"><dt>What this demonstrates</dt><dd>An immersive audiovisual museum: AI-assisted visual composition combined with contextual sound design, restrained visual effects, accessible navigation, and environmental atmosphere.</dd></div>
+      <div class="row"><dt>Limitations</dt><dd>Characters remain embedded in the panorama and are not autonomous or independently animated; only the market painting shows small local movements, built from the flattened image. Atmospheric recordings are not historical documentation.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer id="credits" aria-labelledby="crT">
+  <div class="wrap">
+    <h2 id="crT">Credits</h2>
+    <p>The panorama and its characters are new watercolor adaptations. The original works below are credited separately. Each is also summarized in the artwork information panel, which opens when you select a figure or painting in the gallery.</p>
+    <ul>
+      <li><em>Portrait of Madeleine</em> (1800), Marie-Guillemine Benoist. The woman on the left, wearing a gold hoop earring.</li>
+      <li><em>Portrait of a Young Woman</em> (late eighteenth century), artist unknown; previously attributed to Jean-Étienne Liotard. Saint Louis Art Museum. The woman on the right, wearing a pearl necklace.</li>
+      <li><em>This Is Paris</em> (1959), Miroslav Šašek. Source inspiration for the illustrated policeman.</li>
+      <li><em>The Nubian Guard</em> (1895), Ludwig Deutsch (1855–1935). Oil on panel, 51.8 × 33.7 cm. Private collection. Source inspiration for the guard at the entrance.</li>
+      <li><em>Pasar</em> (1973), Batara Lubis. Oil on canvas, approximately 65 × 140 cm. <a href="https://www.mutualart.com/Artwork/Pasar/4B922E2E122D1BB0" rel="noopener">Reference on MutualArt</a>.</li>
+      <li>Audio: <em>Baroque Guitar</em>, a school-crowd recording, a bird-whistle recording and a coffee-shop chatter recording, all supplied with the project (file names in <code>assets/audio/</code>). They are atmospheric sound, not documentation of any depicted place or person. Source and licence terms have not been verified.</li>
+      <li>Fonts: Kingsland (titles and headings), Borel (motto and editorial display; © The Borel Project Authors, SIL OFL 1.1) and Nunito Sans (body and interface; © The Nunito Sans Project Authors, SIL OFL 1.1). Licence texts are in <code>assets/fonts/</code>; no licence file was supplied for Kingsland.</li>
+    </ul>
+    <p class="mottof">Advancing Knowledge Sideways</p>
+  </div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
