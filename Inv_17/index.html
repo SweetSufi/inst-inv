@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>The Door — Investigation 17 — The Institute of Unnecessary Research</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..800;1,6..12,300..800&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Kingsland';src:url('uploads/Univesrisal_Build_Assets/03_Fonts/KingslandRegular.woff') format('woff'),url('uploads/Univesrisal_Build_Assets/03_Fonts/KingslandRegular.ttf') format('truetype'),url('uploads/Univesrisal_Build_Assets/03_Fonts/KingslandRegular.otf') format('opentype');font-display:swap}
+@font-face{font-family:'Borel';src:url('uploads/Univesrisal_Build_Assets/03_Fonts/Borel-Regular.ttf') format('truetype');font-display:swap}
+html{scroll-behavior:smooth}
+body{margin:0;background:#F5F0E5;font-family:'Nunito Sans',sans-serif}
+a{color:#494949}a:hover{color:#292929}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</helmet>
+<div style="position:relative">
+<section id="experience" aria-label="The Door" style="position:relative;height:100svh;min-height:420px;overflow:hidden;background:#0c0a08;container-type:size;font-family:'Nunito Sans',sans-serif">
+  <div ref="{{ stageRef }}" style="{{ stageStyle }}">
+    <img src="uploads/Retro%20Corridor%20with%20Open%20Door%20Sign.png" alt="A long, ordinary office corridor with a wooden door marked Open." draggable="false" style="position:absolute;inset:0;width:100%;height:100%;display:block;user-select:none"/>
+    <div style="position:absolute;inset:0;perspective:2200px;perspective-origin:75.6% 46%">
+      <div style="{{ doorwayStyle }}"></div>
+      <div style="{{ leafStyle }}"><div style="position:absolute;left:72.1%;top:28.5%;width:5.6%;height:4.6%;display:flex;align-items:center;justify-content:center;transform:rotate(-2.2deg) skewY(-1.5deg);background:linear-gradient(170deg,#d2bf9b,#bda67d);box-shadow:0 0 .35cqw .25cqw #c4ae86;font-family:'Kingsland',serif;font-size:calc(max(100cqw,177.67cqh) * .0152);line-height:1;color:#2b2218;letter-spacing:.01em">Open</div></div>
+      <div style="{{ glowWrapStyle }}"><div style="position:absolute;inset:0;clip-path:polygon(64.3% 4.8%,77.8% 0%,87% 0%,87% 95.1%,64.3% 89.6%);background:radial-gradient(ellipse 70% 55% at 62% 40%,rgba(255,216,150,.30),rgba(255,206,130,.12) 60%,rgba(255,200,120,.04))"></div></div>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="{{ focusStyle }}"><polygon points="64.3,4.8 77.8,0.4 86.6,0.4 86.6,94.7 64.3,89.2" fill="none" stroke="#ffe3b0" stroke-width="3" vector-effect="non-scaling-stroke" stroke-linejoin="round"></polygon><polygon points="64.3,4.8 77.8,0.4 86.6,0.4 86.6,94.7 64.3,89.2" fill="none" stroke="#5a3a14" stroke-width="1" vector-effect="non-scaling-stroke" stroke-linejoin="round"></polygon></svg>
+    </div>
+    <button type="button" aria-label="Open the door" tabindex="{{ doorTab }}" onClick="{{ openDoor }}" onMouseEnter="{{ hoverOn }}" onMouseLeave="{{ hoverOff }}" onFocus="{{ focusOn }}" onBlur="{{ focusOff }}" style="{{ doorBtnStyle }}"></button>
+  </div>
+
+  <div style="{{ canvasWrapStyle }}">
+    <canvas ref="{{ cvRef }}" tabindex="{{ cvTab }}" role="img" aria-label="{{ cvLabel }}" onPointerMove="{{ pMove }}" onPointerDown="{{ pDown }}" onPointerUp="{{ pUp }}" onPointerCancel="{{ pCancel }}" onKeyDown="{{ cvKey }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none;cursor:pointer" style-focus="box-shadow:inset 0 0 0 3px #ffd27a"></canvas>
+  </div>
+
+  <div style="{{ captionStyle }}">
+    <span style="font-family:'Kingsland',serif;font-size:clamp(20px,3vw,34px);color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.55);letter-spacing:.01em">{{ caption }}</span>
+  </div>
+
+  <button type="button" ref="{{ retRef }}" onClick="{{ leave }}" style="{{ returnStyle }}" style-focus="outline:3px solid #ffd27a;outline-offset:2px">Return to Office</button>
+
+  <div style="{{ idStyle }}">
+    <div style="font-family:'Kingsland',serif;font-size:clamp(11px,1.05vw,14px);letter-spacing:.16em;text-transform:uppercase;line-height:1.4">The Institute of Unnecessary Research</div>
+    <div style="font-family:'Kingsland',serif;font-size:clamp(11px,1.05vw,14px);letter-spacing:.16em;text-transform:uppercase;line-height:1.4;opacity:.85">Office of Unnecessary Research</div>
+    <h1 style="font-family:'Kingsland',serif;font-weight:400;font-size:clamp(24px,3vw,40px);line-height:1.1;margin:10px 0 0;letter-spacing:.005em">Investigation 17 — The Door</h1>
+  </div>
+  <div style="{{ instrStyle }}">{{ instrText }}</div>
+  <button type="button" data-snd="1" onClick="{{ toggleSound }}" aria-pressed="{{ soundPressed }}" style="position:absolute;top:16px;right:16px;z-index:5;white-space:nowrap;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(245,240,229,.4);background:rgba(18,15,12,.6);color:#F5F0E5;font:600 13px/1 'Nunito Sans',sans-serif;letter-spacing:.04em;cursor:pointer;backdrop-filter:blur(6px)" style-hover="background:rgba(18,15,12,.82)" style-focus="outline:3px solid #ffd27a;outline-offset:2px">{{ soundLabel }}</button>
+
+  <a href="#research" style="{{ noteLinkStyle }}" style-focus="outline:3px solid #ffd27a;outline-offset:2px">Behind the Investigation</a>
+
+  <div aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">{{ live }}</div>
+</section>
+
+<section id="research" style="background:#F5F0E5;color:#292929;padding:clamp(56px,9vw,120px) clamp(20px,5vw,48px)">
+  <div style="max-width:880px;margin:0 auto">
+    <div style="font:700 12px/1 'Nunito Sans',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#494949">The Institute of Unnecessary Research</div>
+    <h2 style="font-family:'Kingsland',serif;font-weight:400;font-size:clamp(32px,5vw,52px);line-height:1.1;margin:18px 0 20px;color:#292929">Behind the Investigation: Research Note</h2>
+    <p style="font-family:'Borel',cursive;font-size:clamp(20px,2.4vw,26px);line-height:1.45;margin:0 0 40px;color:#292929;max-width:46ch;text-wrap:pretty">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+
+    <dl style="margin:0;border-top:1px solid #CFC8BC">
+      <div style="display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #CFC8BC"><dt style="font:700 13px/1.5 'Nunito Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#494949">Investigation</dt><dd style="margin:0;font:400 17px/1.6 'Nunito Sans',sans-serif">17 — The Door</dd></div>
+      <div style="display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #CFC8BC"><dt style="font:700 13px/1.5 'Nunito Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#494949">Primary capability</dt><dd style="margin:0;font:400 17px/1.6 'Nunito Sans',sans-serif">Interactive Environmental Design &amp; Visual State Transitions</dd></div>
+      <div style="display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #CFC8BC"><dt style="font:700 13px/1.5 'Nunito Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#494949">Prompt Engineering Method</dt><dd style="margin:0;font:400 17px/1.6 'Nunito Sans',sans-serif">State-Machine Prompting with Spatial and Transition Constraints</dd></div>
+      <div style="display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #CFC8BC"><dt style="font:700 13px/1.5 'Nunito Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#494949">Development Method</dt><dd style="margin:0;font:400 17px/1.6 'Nunito Sans',sans-serif">One-shot AI-assisted website development</dd></div>
+      <div style="display:grid;grid-template-columns:minmax(120px,200px) minmax(0,1fr);gap:8px 24px;padding:16px 0;border-bottom:1px solid #CFC8BC"><dt style="font:700 13px/1.5 'Nunito Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#494949">Research Question</dt><dd style="margin:0;font:400 17px/1.6 'Nunito Sans',sans-serif;text-wrap:pretty">How can AI-assisted development create coherent, interactive transitions between radically different imaginary environments while preserving a consistent architectural entry point?</dd></div>
+    </dl>
+
+    <div style="display:grid;gap:0;margin-top:8px">
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Capability demonstrated</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">Interactive environmental design and visual state transitions: using AI assistance to build a browser experience in which one fixed threshold, an ordinary office door, leads to six visually unrelated environments. The capability is about coherence across change. The door, the camera move, the sound and the return path behave identically every time, while the world behind the door changes completely.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Prompt engineering method: state-machine prompting</h3>
+        <p style="margin:0 0 12px;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">The build brief describes the site as a set of named states and the allowed moves between them, rather than as a list of pages. It names the states (corridor with the door closed, door opening, world visible, return), says what must be true in each one (no world visible before the door opens, office ambience only in the corridor, harp only during a world) and states the events that cause a move (open the door, return). It also forbids certain moves, such as repeated harp playback from incidental pointer movement.</p>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">Spatial and transition constraints are added to that skeleton: the door is the only entrance, it swings on its hinges, the visitor must be able to return from every world, all six worlds must stay reachable, and each world has its own palette, composition and motion. The AI assistant turned those rules into code. The method applies to how the site was written. It does not run when a visitor uses the site.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">How the experience works</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">The visitor starts in the corridor with office ambience playing after the first click or key press. Selecting the door swings it open on its right-hand hinges, the camera moves through the opening, the ambience fades and the harp begins. Each world responds to the pointer, touch or keyboard. Staircases glide and reconnect; the two suns move and change the light and shadows; the city turns over; the mirror pulls the visitor through to different rooms; the hotel's plants sway and grow vines where touched; and an occasional train passes the station with other worlds in its windows. Returning closes the door and the office ambience resumes. The next opening shows the next world, in a fixed order, so all six are reached.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Actual technical implementation</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">A single page of HTML, CSS and JavaScript. The corridor is the supplied image; the door leaf is a clipped copy of it that rotates in CSS 3D around the hinge edge, with the world image sitting behind it. The camera move is a CSS transform. Each world is drawn on one HTML canvas from the supplied artwork using layered and mirrored image tiles, parallax, procedural clouds, masked sway regions, a keyed sky for the desert, and recursive image drawing for the mirror. Audio uses the two supplied recordings with scripted volume fades. These are two-dimensional layers with perspective effects, not a three-dimensional scene. Fonts are Kingsland and Borel from the supplied files and Nunito Sans from Google Fonts.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Live LLM or deterministic state management?</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">Deterministic state management. The deployed site makes no calls to a language model or any other AI service. Progression is an in-memory counter that advances one world per opening. The only randomness is cosmetic, such as the timing of trains and the clock hands. AI assistance was used to write the code during development.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Relevant technical limitations</h3>
+        <ul style="margin:0;padding-left:20px;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;display:grid;gap:8px">
+          <li>The worlds are flat artwork animated in layers. Movement is limited by what can be separated from each source image.</li>
+          <li>Browsers block audio until the first click, tap or key press, so the office ambience starts then.</li>
+          <li>Nunito Sans is loaded from Google Fonts and needs a network connection; a system sans-serif is used if it fails to load.</li>
+          <li>Testing was done in a desktop preview browser. Safari, physical phones and tablets, and screen readers were not independently tested.</li>
+          <li>With reduced motion enabled, the door swing and camera move become short fades and ambient drift stops.</li>
+        </ul>
+      </article>
+            <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Environmental state management</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">The page moves through four states: corridor, opening, world and leaving. Clicking the door is accepted only in the corridor state and Return to Office only in the world state, so repeated clicks cannot start a second opening or stack audio. A counter chooses the next world, advancing one step per opening and wrapping to the first after the sixth. It lives in memory, so reloading the page restarts at World 01. The corridor, door and plaque are restored exactly on every return.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Image and audio integration</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">The corridor, the six worlds and the Institute fonts (Kingsland, Borel) are the supplied files. The desert artwork has a keyed-out copy so its suns can move behind the buildings. The office ambience loops in the corridor and is started by the first click, tap or key press. Opening the door fades it out over about a second while the harp recording fades in; returning reverses this. The Sound control mutes both recordings and shows Sound on only after the browser has actually started playback.</p>
+      </article>
+      <article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">Interaction</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">The whole door and its plaque are one click target shaped to the door. Hovering warms the door softly and keyboard focus outlines its silhouette. Inside the worlds, moving the pointer shifts perspective, dragging or scrolling moves along the scene, and clicking triggers each world’s own response. Arrow keys, Enter and Escape give the same controls from the keyboard.</p>
+      </article>
+<article style="padding:32px 0;border-bottom:1px solid #CFC8BC">
+        <h3 style="font-family:'Kingsland',serif;font-weight:400;font-size:26px;margin:0 0 12px;color:#292929">What the investigation demonstrates</h3>
+        <p style="margin:0;font:400 17px/1.7 'Nunito Sans',sans-serif;color:#494949;max-width:68ch;text-wrap:pretty">That a brief written as states, transitions and spatial rules can guide AI-assisted development toward an interactive site with a consistent entry point and reliable navigation, and that the same threshold can carry a visitor between environments with very different color, atmosphere and behavior.</p>
+      </article>
+    </div>
+    <p style="margin:40px 0 0;font-family:'Borel',cursive;font-size:20px;color:#292929">Advancing Knowledge Sideways</p>
+  </div>
+</section>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const IMG='uploads/Investigation_17_Six_Approved_World_Images/';
+const CORR='uploads/Retro%20Corridor%20with%20Open%20Door%20Sign.png';
+const OFFICE='uploads/thellywellyn-it-office-3-535970-e51adde2.mp3';
+const HARP='uploads/alex_jauk-beautiful-wind-chimes-amp-bells-ambience-2-434528 (1).mp3';
+const WORLDS=[
+ ['01_Staircase_Without_an_End.png','The Staircase Without an End'],
+ ['03_Desert_With_Two_Suns.png','The Desert with Two Suns'],
+ ['04_Upside_Down_City.png','The Upside-Down City'],
+ ['06_Room_of_Infinite_Reflections.png','The Room of Infinite Reflections'],
+ ['07_Hotel_Reclaimed_by_Nature.png','The Hotel Reclaimed by Nature'],
+ ['10_Station_Where_Nothing_Arrives.png','The Station Where Nothing Arrives']];
+const Q='polygon(64.3% 4.8%,77.8% 0%,87% 0%,87% 95.1%,64.3% 89.6%)';
+const WW='max(100cqw,177.67cqh)';
+const REGS=[
+ {cx:900,cy:430,rx:260,ry:330,ax:980,ay:190,amp:.02,f:.7},
+ {cx:110,cy:520,rx:200,ry:330,ax:150,ay:200,amp:.014,f:.55},
+ {cx:480,cy:1150,rx:260,ry:170,ax:470,ay:1300,amp:.02,f:.9},
+ {cx:110,cy:1330,rx:150,ry:170,ax:110,ay:1500,amp:.025,f:.8},
+ {cx:640,cy:850,rx:150,ry:120,ax:640,ay:730,amp:.03,f:.65},
+ {cx:1000,cy:1150,rx:200,ry:100,ax:1000,ay:1250,amp:.02,f:.75}];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+class Component extends DCLogic {
+  state={hover:false,focus:false,coarse:false,phase:'corridor',stageT:'none',stageTr:'none',open:false,doorway:false,doorImg:'',cur:0,cap:false,cvVis:false,hide:false,sound:'idle',live:''};
+  stageRef=React.createRef(); cvRef=React.createRef(); retRef=React.createRef();
+  timers=[]; t=0; mx=0;my=0;tx=0;ty=0; dragX=0;dragY=0;wheelD=0; W={}; run=false; next=0; cur=0;
+
+  componentDidMount(){
+    this.reduced=!!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+    this.im=WORLDS.map(w=>{const i=new Image();i.src=IMG+w[0];return i});
+    this.fg=new Image();this.fg.src='uploads/desert_fg.png';
+    const pre=new Image();pre.src=CORR;
+    this.tsnd=new Audio('uploads/phoenix_connection_brazil-train-2-99266.mp3');this.tsnd.loop=true;this.tsnd.preload='auto';this.tsnd.volume=0;
+    this.offc=document.createElement('canvas');this.offc.width=857;this.offc.height=1200;
+    this.cloud=this.mkCloud('255,255,255');this.fog=this.mkCloud('252,236,232');
+    this.mem={};this.next=0;
+    const sn=parseInt(this.ssGet('door17.next'));if(sn>=0&&sn<6)this.next=sn;
+    const sc=this.ssGet('door17.cur'),ci=parseInt(sc);
+    if(sc!==null&&sc!==''&&ci>=0&&ci<6){
+      this.cur=ci;this.busy=true;this.initWorld(ci);this.run=true;this.pendingHarp=true;
+      this.setState({phase:'world',open:true,doorway:true,cur:ci,cvVis:true,hide:true,cap:true,doorImg:this.url(ci),live:WORLDS[ci][1]+'.'});
+      this.T(()=>this.resize(),120);this.T(()=>this.setState({cap:false}),6000);
+      this.T(()=>{const b=this.retRef.current;if(b)b.focus({preventScroll:true})},300);
+    }
+    this.office=new Audio(OFFICE);this.office.loop=true;this.office.preload='auto';
+    this.harp=new Audio(HARP);this.harp.loop=true;this.harp.preload='auto';
+    this.muted=false;this.started=false;
+    this.setState({doorImg:this.url(this.next)});
+    try{this.setState({coarse:matchMedia('(pointer:coarse)').matches})}catch(e){}
+    this.onKey=e=>{if(e.key==='Escape'&&this.state.phase==='world')this.leave();else if(!this.started&&e.key!=='Tab'&&e.key!=='Shift')this.unlock()};
+    this.onAnyDown=e=>{if(!e.target.closest||!e.target.closest('[data-snd]'))this.unlock()};
+    this.onRes=()=>this.resize();
+    this.onWheel=e=>{if(this.state.phase==='world'){e.preventDefault();this.wheelD+=e.deltaY}};
+    window.addEventListener('keydown',this.onKey);window.addEventListener('pointerdown',this.onAnyDown,true);window.addEventListener('resize',this.onRes);
+    this.cvRef.current.addEventListener('wheel',this.onWheel,{passive:false});
+    this.raf=requestAnimationFrame(this.tick);
+  }
+  componentWillUnmount(){
+    cancelAnimationFrame(this.raf);this.timers.forEach(clearTimeout);
+    window.removeEventListener('keydown',this.onKey);window.removeEventListener('pointerdown',this.onAnyDown,true);window.removeEventListener('resize',this.onRes);
+    try{this.office.pause();this.harp.pause()}catch(e){}
+  }
+  click(){
+    if(this.muted)return;
+    try{
+      const A=this.ac||(this.ac=new (window.AudioContext||window.webkitAudioContext)());if(A.state==='suspended')A.resume();
+      const n=A.currentTime,len=Math.floor(A.sampleRate*.09),buf=A.createBuffer(1,len,A.sampleRate),d=buf.getChannelData(0);
+      for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,5);
+      const src=A.createBufferSource();src.buffer=buf;
+      const bp=A.createBiquadFilter();bp.type='bandpass';bp.frequency.value=2200;bp.Q.value=.8;
+      const g=A.createGain();g.gain.setValueAtTime(1.6,n);g.gain.exponentialRampToValueAtTime(.001,n+.12);
+      src.connect(bp);bp.connect(g);g.connect(A.destination);src.start(n);
+      const o=A.createOscillator(),og=A.createGain();o.type='triangle';o.frequency.setValueAtTime(190,n);o.frequency.exponentialRampToValueAtTime(55,n+.08);
+      og.gain.setValueAtTime(1,n);og.gain.exponentialRampToValueAtTime(.001,n+.14);o.connect(og);og.connect(A.destination);o.start(n);o.stop(n+.16);
+    }catch(e){}
+  }
+  trainOn(){
+    const a=this.tsnd;if(!a||this.tPlaying||!this.started||this.state.phase!=='world')return;
+    this.tPlaying=true;a.muted=this.muted;a.volume=0;const p=a.play();
+    if(p&&p.then)p.then(()=>this.fade(a,.5,2500)).catch(()=>{this.tPlaying=false});else this.fade(a,.5,2500);
+  }
+  trainOff(){
+    const a=this.tsnd;if(!a)return;
+    this.fade(a,0,900,()=>{a.pause();this.tPlaying=false;try{a.currentTime=0}catch(e){}});
+  }
+  ssGet(k){try{const v=sessionStorage.getItem(k);if(v!==null)return v}catch(e){}return this.mem[k]===undefined?null:this.mem[k]}
+  ssSet(k,v){this.mem[k]=v;try{sessionStorage.setItem(k,v)}catch(e){}}
+  url(i){return IMG+WORLDS[i][0]}
+  T(fn,ms){this.timers.push(setTimeout(fn,ms))}
+
+  /* ---------- audio ---------- */
+  unlock(){
+    if(this.pendingHarp){
+      this.pendingHarp=false;this.started=true;const h=this.harp;h.volume=0;h.muted=this.muted;
+      const hp=h.play();if(hp&&hp.then)hp.then(()=>{this.fade(h,.85,2000);this.setState({sound:this.muted?'off':'on'})}).catch(()=>{this.pendingHarp=true;this.started=false});
+      return;
+    }
+    if(this.started||this.unlocking)return;this.unlocking=true;
+    this.office.volume=0;this.office.muted=this.muted;
+    const p=this.office.play();
+    if(p&&p.then)p.then(()=>{this.started=true;this.unlocking=false;this.fade(this.office,.55,1800);this.setState({sound:this.muted?'off':'on'})}).catch(()=>{this.unlocking=false;this.setState({sound:'idle'})});
+    else{this.started=true;this.unlocking=false;this.fade(this.office,.55,1800);this.setState({sound:'on'})}
+  }
+  fade(a,to,ms,then){
+    cancelAnimationFrame(a._f);const from=a.volume,t0=performance.now();
+    const step=n=>{const k=clamp((n-t0)/ms,0,1),e=k*k*(3-2*k);a.volume=clamp(from+(to-from)*e,0,1);
+      if(k<1)a._f=requestAnimationFrame(step);else if(then)then()};
+    a._f=requestAnimationFrame(step);
+  }
+  toggleSound=()=>{
+    if(!this.started){this.muted=false;this.unlock();return}
+    this.muted=!this.muted;this.office.muted=this.muted;this.harp.muted=this.muted;if(this.tsnd)this.tsnd.muted=this.muted;
+    this.setState({sound:this.muted?'off':'on'});
+  }
+
+  /* ---------- state machine: corridor -> opening -> world -> leaving -> corridor ---------- */
+  openDoor=()=>{
+    if(this.state.phase!=='corridor'||this.busy)return;
+    this.busy=true;this.unlock();this.click();
+    const r=this.reduced,idx=this.next;this.cur=idx;
+    const stage=this.stageRef.current,b=stage.getBoundingClientRect();
+    const sec=stage.parentElement.getBoundingClientRect();
+    const cx=b.left+b.width*.756,cy=b.top+b.height*.46;
+    const S=Math.max(sec.width/(b.width*.2),sec.height/(b.height*.85))*1.05;
+    this.setState({phase:'opening',open:true,doorway:true,cur:idx,live:'The door opens. '+WORLDS[idx][1]+'.'});
+    const o=this.office,h=this.harp;
+    this.fade(o,0,1400,()=>{if(this.state.phase!=='corridor')o.pause()});
+    try{h.currentTime=0}catch(e){}h.volume=0;h.muted=this.muted;const hp=h.play();if(hp&&hp.catch)hp.catch(()=>{});
+    this.fade(h,.85,2600);
+    this.next=(idx+1)%6;this.ssSet('door17.next',String(this.next));this.ssSet('door17.cur',String(idx));
+    this.initWorld(idx);this.resize();this.run=true;
+    const push=()=>this.setState({stageT:`translate(${sec.left+sec.width/2-cx}px,${sec.top+sec.height/2-cy}px) scale(${S})`,stageTr:'transform 2.4s cubic-bezier(.55,0,.3,1)'});
+    if(r){this.T(()=>this.setState({cvVis:true}),250);this.T(()=>this.setState({phase:'world',hide:true,cap:true}),700)}
+    else{this.T(push,700);this.T(()=>this.setState({cvVis:true}),2300);this.T(()=>this.setState({phase:'world',cap:true}),3300);this.T(()=>this.setState({hide:true}),3500)}
+    this.T(()=>this.setState({cap:false}),r?6500:9000);
+    this.T(()=>{const b=this.retRef.current;if(b)b.focus({preventScroll:true})},r?800:3400);
+  }
+  leave=()=>{
+    if(this.state.phase!=='world')return;
+    const r=this.reduced;this.ssSet('door17.cur','');
+    this.setState({phase:'leaving',cvVis:false,hide:false,cap:false,live:'Returned to the corridor.'});
+    this.fade(this.harp,0,1800,()=>this.harp.pause());this.trainOff();
+    this.T(()=>{const o=this.office;o.muted=this.muted;if(this.started){const p=o.play();if(p&&p.catch)p.catch(()=>{});this.fade(o,.55,2400)}},600);
+    if(r){this.T(()=>{this.setState({open:false,stageT:'none',stageTr:'none'});this.click()},500);this.T(()=>this.endLeave(),900)}
+    else{
+      this.T(()=>this.setState({stageT:'none',stageTr:'transform 2.2s cubic-bezier(.45,0,.3,1)'}),700);
+      this.T(()=>{this.setState({open:false});this.click()},2400);
+      this.T(()=>this.endLeave(),4200);
+    }
+  }
+  endLeave(){
+    this.run=false;this.busy=false;
+    this.setState({phase:'corridor',doorway:false,doorImg:this.url(this.next),stageTr:'none'});
+    this.T(()=>{const b=this.stageRef.current&&this.stageRef.current.querySelector('button');if(b)b.focus({preventScroll:true})},50);
+  }
+
+  /* ---------- canvas plumbing ---------- */
+  resize(){
+    const cv=this.cvRef.current;if(!cv)return;const r=cv.getBoundingClientRect();
+    this.dpr=Math.min(window.devicePixelRatio||1,2);this.cw=r.width;this.ch=r.height;
+    cv.width=Math.round(r.width*this.dpr);cv.height=Math.round(r.height*this.dpr);
+  }
+  tick=ts=>{
+    this.raf=requestAnimationFrame(this.tick);
+    if(!this.run)return;
+    const dt=Math.min(.05,(ts-(this.last||ts))/1000);this.last=ts;
+    if(!this.cw)this.resize();
+    this.t+=dt;const k=1-Math.exp(-dt*5);this.mx+=(this.tx-this.mx)*k;this.my+=(this.ty-this.my)*k;
+    const c=this.cvRef.current.getContext('2d');c.setTransform(this.dpr,0,0,this.dpr,0,0);
+    c.fillStyle='#000';c.fillRect(0,0,this.cw,this.ch);
+    try{this['d'+this.cur](c,dt)}catch(e){}
+    this.wheelD=0;this.dragY=0;this.dragX=0;
+  }
+  mkCloud(rgb){
+    const c=document.createElement('canvas');c.width=520;c.height=200;const x=c.getContext('2d');
+    [[90,120,80],[170,90,95],[260,110,110],[350,85,90],[430,125,75],[220,140,100],[320,140,85]].forEach(([px,py,r])=>{
+      const g=x.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,`rgba(${rgb},.55)`);g.addColorStop(.6,`rgba(${rgb},.22)`);g.addColorStop(1,`rgba(${rgb},0)`);
+      x.fillStyle=g;x.fillRect(px-r,py-r,2*r,2*r)});
+    return c;
+  }
+  cl(c,spr,n,spd,par,al,sz){
+    const cw=this.cw,ch=this.ch,t=this.t,cy=this.W.cy||0,L=ch*1.5;c.globalAlpha=al;
+    for(let i=0;i<n;i++){
+      const w=cw*sz*(.6+(i%4)*.22),h=w*.385;
+      const x=(((i*.381966+.07*i*i)%1)*(cw+w)+t*spd*(1+(i%3)*.35))%(cw+w)-w;
+      const y=((((i*.618034)%1)*L-cy*par)%L+L)%L-ch*.25;
+      c.drawImage(spr,x,y,w,h);
+    }
+    c.globalAlpha=1;
+  }
+  initWorld(i){
+    const W=this.W={};this.mx=this.my=this.tx=this.ty=0;this.t=0;this.wheelD=this.dragY=this.dragX=0;
+    if(i===0){W.cy=0;W.ty=0;W.tilt=0}
+    if(i===1){W.k=0;W.kt=0}
+    if(i===2){W.a=0;W.flip=false;W.tilt=0;W.cool=0}
+    if(i===3){W.p=0;W.v=0;W.boost=0}
+    if(i===4){W.pan=.3;W.pt=.3;W.vines=[];W.glows=[]}
+    if(i===5){W.pulse=0}
+  }
+
+  /* ---------- world 01: staircase ---------- */
+  d0(c,dt){
+    const im=this.im[0],W=this.W,cw=this.cw,ch=this.ch,t=this.t;if(!im.complete)return;
+    const s=Math.max(cw/im.width,ch/im.height)*1.1,dw=im.width*s,H=im.height*s,b=(ch-H)/2;
+    W.H=H;
+    W.ty+=(this.reduced?0:16)*dt-this.dragY*1.2+this.wheelD*.6;
+    W.cy+=(W.ty-W.cy)*(1-Math.exp(-dt*2));
+    W.tilt+=(0-W.tilt)*dt*.6;
+    const per=2*H,cyw=((W.cy%per)+per)%per,x=(cw-dw)/2-this.mx*cw*.015;
+    c.save();c.translate(cw/2,ch/2);c.rotate(Math.sin(t*.25)*.01+this.mx*.012+W.tilt);c.translate(-cw/2,-ch/2);
+    for(let k=-2;k<=4;k++){
+      const y=b+k*H-cyw;if(y>ch+80||y+H<-80)continue;
+      if(((k%2)+2)%2===0)c.drawImage(im,x,y-.5,dw,H+1);
+      else{c.save();c.translate(x,y+H+.5);c.scale(1,-1);c.drawImage(im,0,0,dw,H+1);c.restore()}
+    }
+    c.restore();
+    this.cl(c,this.cloud,9,14,.5,.7,.5);
+    const g=c.createRadialGradient(cw*.3,ch*.1,0,cw*.3,ch*.1,Math.max(cw,ch)*.8);
+    g.addColorStop(0,'rgba(255,236,190,.22)');g.addColorStop(1,'rgba(255,236,190,0)');c.fillStyle=g;c.fillRect(0,0,cw,ch);
+  }
+
+  /* ---------- world 03: desert, two suns ---------- */
+  d1(c,dt){
+    const im=this.fg,W=this.W,cw=this.cw,ch=this.ch;if(!im.complete)return;
+    W.kt+=-this.dragX*.004+this.wheelD*.003;
+    W.k+=(W.kt-W.k)*(1-Math.exp(-dt*1.6));
+    const T=W.k+(this.reduced?0:this.t*.05)+this.mx*.5;
+    const s=Math.max(cw/857,ch/1200)*1.04,ox=(cw-857*s)/2-this.mx*cw*.02;
+    let oy=ch/2-(330+(this.my+1)/2*320)*s;oy=Math.min(0,Math.max(ch-1200*s,oy));
+    const sA=Math.sin(T*.9),sB=Math.sin(T*.7+1.9);
+    const ax=430+300*sA,ay=530+110*sA*sA,bx=650+270*sB,by=290+100*sB*sB;
+    const w=.5+.5*Math.sin(T*.9+.4);
+    const mix=(a,b)=>a.map((v,i)=>Math.round(v+(b[i]-v)*w)).join(',');
+    const sg=c.createLinearGradient(0,0,0,ch);
+    sg.addColorStop(0,`rgb(${mix([232,218,200],[226,176,140])})`);sg.addColorStop(1,`rgb(${mix([244,230,210],[247,208,150])})`);
+    c.fillStyle=sg;c.fillRect(0,0,cw,ch);
+    const sun=(x,y,R)=>{
+      const X=ox+x*s,Y=oy+y*s,r=R*s;
+      const g=c.createRadialGradient(X,Y,r*.8,X,Y,r*2.4);g.addColorStop(0,'rgba(255,200,90,.38)');g.addColorStop(1,'rgba(255,200,90,0)');
+      c.fillStyle=g;c.fillRect(X-r*2.5,Y-r*2.5,r*5,r*5);
+      c.fillStyle='#f3b024';c.beginPath();c.arc(X,Y,r,0,7);c.fill();
+      c.fillStyle='#ef8320';c.beginPath();c.arc(X,Y,r*.65,0,7);c.fill();
+    };
+    sun(bx,by,115);sun(ax,ay,345);
+    const o=this.offc,x=o.getContext('2d');
+    x.globalCompositeOperation='source-over';x.clearRect(0,0,857,1200);x.drawImage(im,0,0);
+    x.globalCompositeOperation='source-atop';
+    const p=clamp(ax/857,.05,.95),g=x.createLinearGradient(0,0,857,0);
+    g.addColorStop(0,'rgba(70,35,25,.3)');g.addColorStop(p,'rgba(255,225,170,.16)');g.addColorStop(1,'rgba(70,35,25,.3)');
+    x.fillStyle=g;x.fillRect(0,0,857,1200);
+    x.fillStyle='rgba(70,40,30,.3)';
+    [[0,385],[440,495],[520,857]].forEach(([a,b])=>{
+      const m=(a+b)/2,sh=clamp((m-ax)*.9,-520,520),sh0=sh*.35;
+      x.beginPath();x.moveTo(a+sh0,880);x.lineTo(b+sh0,880);x.lineTo(b+sh,1200);x.lineTo(a+sh,1200);x.fill();
+    });
+    x.globalCompositeOperation='source-over';
+    c.drawImage(o,ox,oy,857*s,1200*s);
+  }
+
+  /* ---------- world 04: upside-down city ---------- */
+  d2(c,dt){
+    const im=this.im[2],W=this.W,cw=this.cw,ch=this.ch,t=this.t;if(!im.complete)return;
+    if(this.wheelD&&W.cool<=0&&Math.abs(this.wheelD)>20){W.flip=!W.flip;W.cool=2}
+    W.cool-=dt;W.tilt+=this.dragX*.0012;W.tilt*=Math.pow(.5,dt);
+    W.a+=((W.flip?Math.PI:0)-W.a)*(1-Math.exp(-dt*1.7));
+    const a=W.a+this.mx*.035+W.tilt+(this.reduced?0:Math.sin(t*.3)*.018);
+    const cs=Math.abs(Math.cos(a)),sn=Math.abs(Math.sin(a)),iw=im.width,ih=im.height;
+    const s=Math.max((cw*cs+ch*sn)/iw,(cw*sn+ch*cs)/ih)*1.08;
+    c.save();c.translate(cw/2-this.mx*14,ch/2-this.my*10);c.rotate(a);c.drawImage(im,-iw*s/2,-ih*s/2,iw*s,ih*s);c.restore();
+    this.cl(c,this.cloud,7,10,0,.45,.45);
+  }
+
+  /* ---------- world 06: infinite reflections (same image, endless zoom into its own opening) ---------- */
+  d3(c,dt){
+    const W=this.W,cw=this.cw,ch=this.ch,im=this.im[3],t=this.t;if(!im.complete)return;
+    const s=Math.max(cw/2000,ch/1333)*1.04,ox=(cw-2000*s)/2,oy=(ch-1333*s)/2;
+    const R=3.3,sm=x=>x*x*(3-2*x);
+    W.v=(this.reduced?.004:.02)+W.boost*.12+Math.abs(this.wheelD)*.0004+Math.abs(this.dragY)*.0006;
+    W.boost*=Math.pow(.25,dt);W.p=(W.p+W.v*dt)%1;
+    if(this.wheelD<0||this.dragY>0)W.p=(W.p+1-Math.min(.02,Math.abs(this.wheelD)*.00004+Math.abs(this.dragY)*.0003))%1;
+    const z=Math.pow(R,W.p);
+    const Mx=ox+1017*s-this.mx*cw*.025,My=oy+812*s-this.my*ch*.02;
+    c.fillStyle='#0b2347';c.fillRect(0,0,cw,ch);
+    c.save();c.translate(Mx,My);c.scale(z,z);c.translate(-(ox+1017*s),-(oy+812*s));c.drawImage(im,ox,oy,2000*s,1333*s);c.restore();
+    const k=z/R,al=sm(clamp((W.p-.1)/.9,0,1));
+    if(al>0.002){
+      const m=this.offc2||(this.offc2=document.createElement('canvas'));
+      if(m.width!==Math.ceil(cw)||m.height!==Math.ceil(ch)){m.width=Math.ceil(cw);m.height=Math.ceil(ch)}
+      const x=m.getContext('2d');x.globalCompositeOperation='source-over';x.clearRect(0,0,m.width,m.height);
+      x.save();x.translate(Mx,My);x.scale(k,k);x.translate(-(ox+1017*s),-(oy+812*s));x.drawImage(im,ox,oy,2000*s,1333*s);x.restore();
+      x.globalCompositeOperation='destination-in';
+      const cx=Mx+k*(ox+1000*s-(ox+1017*s)),cy=My+k*(oy+667*s-(oy+812*s)),rx=Math.max(1,1000*s*k),ry=Math.max(1,667*s*k);
+      x.save();x.translate(cx,cy);x.scale(1,ry/rx);
+      const g=x.createRadialGradient(0,0,0,0,0,rx);
+      g.addColorStop(0,'rgba(0,0,0,1)');g.addColorStop(.45,'rgba(0,0,0,1)');g.addColorStop(.8,'rgba(0,0,0,.25)');g.addColorStop(1,'rgba(0,0,0,0)');
+      x.fillStyle=g;x.fillRect(-rx*1.2,-rx*1.2*(cw+ch)/ch,rx*2.4,rx*2.4*(cw+ch)/ch);x.restore();
+      c.globalAlpha=al;c.drawImage(m,0,0,cw,ch);c.globalAlpha=1;
+    }
+    const gl=c.createRadialGradient(Mx,My,0,Mx,My,Math.max(cw,ch)*.55);
+    gl.addColorStop(0,`rgba(170,205,255,${.10+.05*Math.sin(t*.7)})`);gl.addColorStop(1,'rgba(170,205,255,0)');
+    c.fillStyle=gl;c.fillRect(0,0,cw,ch);
+    this.cl(c,this.fog,4,6,0,.12,.9);
+    const vg=c.createRadialGradient(cw/2,ch/2,Math.min(cw,ch)*.35,cw/2,ch/2,Math.max(cw,ch)*.8);
+    vg.addColorStop(0,'rgba(5,14,35,0)');vg.addColorStop(1,'rgba(5,14,35,.4)');c.fillStyle=vg;c.fillRect(0,0,cw,ch);
+  }
+
+  /* ---------- world 07: hotel ---------- */
+  bake4(){
+    const im=this.im[4];
+    this.regs=REGS.map(r=>{
+      const cv=document.createElement('canvas');cv.width=r.rx*2;cv.height=r.ry*2;const x=cv.getContext('2d');
+      x.drawImage(im,-(r.cx-r.rx),-(r.cy-r.ry));x.globalCompositeOperation='destination-in';
+      const f=r.ry/r.rx;x.setTransform(1,0,0,f,0,0);
+      const g=x.createRadialGradient(r.rx,r.rx,0,r.rx,r.rx,r.rx);g.addColorStop(0,'#000');g.addColorStop(.55,'#000');g.addColorStop(1,'rgba(0,0,0,0)');
+      x.fillStyle=g;x.fillRect(0,0,r.rx*2,r.rx*2);return cv});
+  }
+  d4(c,dt){
+    const im=this.im[4],W=this.W,cw=this.cw,ch=this.ch,t=this.t;if(!im.complete)return;
+    if(!this.regs)this.bake4();
+    if(!this.touch)W.pt=(this.ty+1)/2;
+    W.pt=clamp(W.pt-this.dragY/ch+this.wheelD*.0008,0,1);
+    W.pan+=(W.pt-W.pan)*(1-Math.exp(-dt*2));
+    const s=Math.max(cw/1272,ch/1600)*1.05,H=1600*s,ox=(cw-1272*s)/2-this.mx*18,oy=-(H-ch)*W.pan;
+    W.s=s;W.ox=ox;W.oy=oy;
+    c.drawImage(im,ox,oy,1272*s,H);
+    const A=this.reduced?0:1;
+    this.regs.forEach((cv,i)=>{
+      const r=REGS[i];c.save();c.translate(ox+r.ax*s,oy+r.ay*s);
+      c.rotate(A*Math.sin(t*r.f+i*1.7)*r.amp+this.mx*r.amp*.5);c.scale(s,s);
+      c.drawImage(cv,r.cx-r.rx-r.ax,r.cy-r.ry-r.ay);c.restore();
+    });
+    c.save();c.translate(ox,oy);c.scale(s,s);
+    W.vines.forEach(v=>{
+      const p=clamp((t-v.t0)/4,0,1),n=Math.floor(46*p);
+      c.lineCap='round';c.strokeStyle='#3d6a2d';c.lineWidth=5;c.beginPath();
+      const pt=i=>[v.x+Math.sin(i*.33+v.seed)*18+Math.sin(t*.8+i*.1)*i*.25,v.y+i*13];
+      for(let i=0;i<=n;i++){const q=pt(i);i?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1])}
+      c.stroke();
+      for(let i=3;i<=n;i+=3){
+        const q=pt(i),sz=22+(i%7)*2,sd=i%2?1:-1;
+        c.fillStyle=i%2?'#5d9140':'#7fb454';c.save();c.translate(q[0],q[1]);c.rotate(sd*.9+Math.sin(t+i)*.1);c.beginPath();c.ellipse(sd*sz*.7,0,sz,sz*.42,0,0,7);c.fill();c.restore();
+      }
+    });
+    W.glows.forEach(g=>{
+      const a=(t-g.t0)/3;if(a>1)return;
+      const gr=c.createRadialGradient(g.x,g.y,0,g.x,g.y,120+a*300);
+      gr.addColorStop(0,`rgba(255,226,150,${.4*(1-a)})`);gr.addColorStop(1,'rgba(255,226,150,0)');
+      c.globalCompositeOperation='lighter';c.fillStyle=gr;c.fillRect(g.x-450,g.y-450,900,900);c.globalCompositeOperation='source-over';
+    });
+    c.restore();
+    c.globalCompositeOperation='lighter';
+    for(let i=0;i<3;i++){
+      const a=.05+.03*Math.sin(t*.4+i*2),x0=cw*(.55+i*.15),g=c.createLinearGradient(x0,0,x0-cw*.3,ch);
+      g.addColorStop(0,`rgba(255,235,170,${a})`);g.addColorStop(1,'rgba(255,235,170,0)');
+      c.fillStyle=g;c.beginPath();c.moveTo(x0,0);c.lineTo(x0+cw*.12,0);c.lineTo(x0-cw*.2,ch);c.lineTo(x0-cw*.38,ch);c.fill();
+    }
+    c.fillStyle='rgba(255,240,200,.55)';
+    for(let i=0;i<36;i++){
+      const x=((i*.6180339)%1*cw+Math.sin(t*.3+i)*20+t*(4+i%5))%cw,y=((i*.3819)%1*ch-t*(6+i%4)+ch*10)%ch;
+      c.globalAlpha=.25+.25*Math.sin(t+i);c.beginPath();c.arc(x,y,1.2+(i%3)*.6,0,7);c.fill();
+    }
+    c.globalAlpha=1;c.globalCompositeOperation='source-over';
+  }
+
+  /* ---------- world 10: station (artwork unchanged; atmosphere only) ---------- */
+  d5(c,dt){
+    const im=this.im[5],W=this.W,cw=this.cw,ch=this.ch,t=this.t;if(!im.complete)return;
+    const s=Math.max(cw/1024,ch/1024)*1.03,H=1024*s,ox=(cw-1024*s)/2-this.mx*16;
+    let oy=ch/2-(560+this.my*60)*s;oy=Math.min(0,Math.max(ch-H,oy));
+    c.drawImage(im,ox,oy,1024*s,H);
+    W.pulse=Math.max(0,W.pulse-dt*.5);this.trainOn();
+    const P=(x,y)=>[ox+x*s,oy+y*s],A=this.reduced?0:1;
+    if(!W.drops){W.drops=[];for(let i=0;i<150;i++)W.drops.push({x:Math.random(),y:Math.random(),z:Math.random(),c:i%3})}
+    const cols=['255,196,212','190,236,214','255,232,170'],sp=this.reduced?0:1;
+    c.lineCap='round';
+    W.drops.forEach(d=>{
+      const len=(12+d.z*26)*s*.9,v=(.35+d.z*.5)*sp;
+      d.y+=v*dt*1.1;d.x-=v*dt*.05;if(d.y>1.05){d.y=-.05;d.x=Math.random()}if(d.x<-.02)d.x=1.02;
+      const X=d.x*cw,Y=d.y*ch;
+      c.strokeStyle=`rgba(${cols[d.c]},${.35+d.z*.4})`;c.lineWidth=Math.max(1,(.8+d.z*1.6)*s*.8);
+      c.beginPath();c.moveTo(X,Y);c.lineTo(X+len*.07,Y+len);c.stroke();
+    });
+    c.save();c.beginPath();c.rect(ox+616*s,oy+380*s,26*s,310*s);c.rect(ox+655*s,oy+180*s,46*s,760*s);c.clip();c.drawImage(im,ox,oy,1024*s,H);c.restore();
+    c.globalCompositeOperation='lighter';
+    const [LX,LY]=P(600,300),g=c.createRadialGradient(LX,LY,0,LX,LY,520*s);
+    g.addColorStop(0,`rgba(255,236,214,${.10+.05*A*Math.sin(t*.5)+W.pulse*.18})`);g.addColorStop(1,'rgba(255,236,214,0)');
+    c.fillStyle=g;c.fillRect(0,0,cw,ch);
+    for(let i=0;i<2;i++){
+      const x0=ox+(300+i*380)*s,a=.04+.025*A*Math.sin(t*.35+i*2.4)+W.pulse*.05,gg=c.createLinearGradient(x0,oy,x0-150*s,oy+H*.8);
+      gg.addColorStop(0,`rgba(255,240,220,${a})`);gg.addColorStop(1,'rgba(255,240,220,0)');
+      c.fillStyle=gg;c.beginPath();c.moveTo(x0,oy);c.lineTo(x0+130*s,oy);c.lineTo(x0-110*s,oy+H*.8);c.lineTo(x0-290*s,oy+H*.8);c.fill();
+    }
+    c.fillStyle='rgba(255,244,230,.6)';
+    for(let i=0;i<26;i++){
+      const x=((i*.6180339)%1*cw+A*Math.sin(t*.25+i)*18+A*t*(2+i%4))%cw,y=((i*.3819)%1*ch-A*t*(3+i%3)+ch*10)%ch;
+      c.globalAlpha=.18+.16*Math.sin(t*.8+i);c.beginPath();c.arc(x,y,1+(i%3)*.5,0,7);c.fill();
+    }
+    c.globalAlpha=1;c.globalCompositeOperation='source-over';
+    this.cl(c,this.fog,A?6:3,A?9:0,0,.45,.7);
+  }
+
+  /* ---------- input ---------- */
+  pMove=e=>{
+    const r=e.currentTarget.getBoundingClientRect();
+    this.tx=((e.clientX-r.left)/r.width)*2-1;this.ty=((e.clientY-r.top)/r.height)*2-1;
+    if(this.down){const dx=e.clientX-this.lx,dy=e.clientY-this.ly;this.dragX+=dx;this.dragY+=dy;this.travel+=Math.abs(dx)+Math.abs(dy);this.lx=e.clientX;this.ly=e.clientY}
+  }
+  pDown=e=>{this.down=true;this.touch=e.pointerType==='touch';this.lx=e.clientX;this.ly=e.clientY;this.travel=0;try{e.currentTarget.setPointerCapture(e.pointerId)}catch(x){}}
+  pUp=e=>{
+    if(this.down&&this.travel<8){const r=e.currentTarget.getBoundingClientRect();this.actAt(e.clientX-r.left,e.clientY-r.top)}
+    this.down=false;
+  }
+  pCancel=()=>{this.down=false}
+  cvKey=e=>{
+    const k=e.key;
+    if(k==='ArrowLeft')this.tx=clamp(this.tx-.4,-1,1);
+    else if(k==='ArrowRight')this.tx=clamp(this.tx+.4,-1,1);
+    else if(k==='ArrowUp'){this.ty=clamp(this.ty-.4,-1,1);this.wheelD+=-120;this.dragY+=40}
+    else if(k==='ArrowDown'){this.ty=clamp(this.ty+.4,-1,1);this.wheelD+=120;this.dragY-=40}
+    else if(k==='Enter'||k===' '){this.actAt(this.cw/2+this.mx*this.cw/2,this.ch/2+this.my*this.ch/2)}
+    else return;
+    e.preventDefault();
+  }
+  actAt(x,y){
+    const W=this.W,i=this.cur;
+    if(i===0)W.ty+=W.H||600;
+    else if(i===1)W.kt+=1.5;
+    else if(i===2)W.flip=!W.flip;
+    else if(i===3)W.boost=1;
+    else if(i===4&&W.s){
+      const px=(x-W.ox)/W.s,py=(y-W.oy)/W.s;
+      W.vines.push({x:px,y:py,t0:this.t,seed:Math.random()*9});W.glows.push({x:px,y:py,t0:this.t});
+      if(W.vines.length>10)W.vines.shift();if(W.glows.length>6)W.glows.shift();
+    }
+    else if(i===5)W.pulse=1;
+  }
+
+  renderVals(){
+    const s=this.state,r=this.reduced,ph=s.phase,inW=ph==='world',dur=r?'.01s':'1.8s';
+    const live=s.open||ph!=='corridor';
+    const caption=WORLDS[s.cur][1];
+    return {
+      stageRef:this.stageRef,cvRef:this.cvRef,retRef:this.retRef,
+      stageStyle:{position:'absolute',width:WW,aspectRatio:'1672 / 941',
+        left:`clamp(calc(100cqw - ${WW}), calc(50cqw - 0.757 * ${WW}), 0px)`,top:`calc(50cqh - ${WW} / 3.5534)`,
+        transformOrigin:'75.6% 46%',transform:s.stageT,transition:s.stageTr,willChange:'transform',visibility:s.hide?'hidden':'visible'},
+      doorwayStyle:{position:'absolute',inset:0,clipPath:Q,opacity:s.doorway?1:0,
+        background:`linear-gradient(90deg,rgba(0,0,0,.45),rgba(0,0,0,0) 35%),url(${s.doorImg}) center/cover`},
+      leafStyle:{position:'absolute',inset:0,clipPath:Q,background:`url(${CORR}) 0 0/100% 100%`,transformOrigin:'87% 50%',
+        transform:s.open&&!r?'rotateY(-84deg)':'none',opacity:s.open&&r?0:1,filter:s.open?'brightness(.5)':'none',
+        transition:`transform ${dur} cubic-bezier(.5,0,.25,1),filter ${dur},opacity ${dur}`,backfaceVisibility:'hidden'},
+      doorBtnStyle:{position:'absolute',inset:0,width:'100%',height:'100%',background:'transparent',border:0,padding:0,outline:'none',cursor:'pointer',clipPath:Q,WebkitTapHighlightColor:'transparent',pointerEvents:ph==='corridor'?'auto':'none'},
+      glowWrapStyle:{position:'absolute',inset:0,pointerEvents:'none',filter:'blur(7px)',opacity:s.hover&&ph==='corridor'&&!s.open?1:0,transition:'opacity .45s ease'},
+      focusStyle:{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',opacity:s.focus&&ph==='corridor'?1:0,transition:'opacity .2s'},
+      hoverOn:()=>this.setState({hover:true}),hoverOff:()=>this.setState({hover:false}),
+      focusOn:e=>{let v=true;try{v=e.target.matches(':focus-visible')}catch(x){}this.setState({focus:v})},focusOff:()=>this.setState({focus:false}),
+      idStyle:{position:'absolute',top:0,left:0,right:0,zIndex:3,boxSizing:'border-box',padding:'clamp(16px,2.4vw,32px) calc(clamp(16px,2.4vw,32px) + 150px) 60px clamp(16px,2.4vw,32px)',color:'#F5F0E5',textShadow:'0 1px 10px rgba(0,0,0,.6)',background:'linear-gradient(rgba(18,14,10,.62),rgba(18,14,10,0))',pointerEvents:'none',opacity:ph==='corridor'?1:0,transition:'opacity .6s ease'},
+      instrStyle:{position:'absolute',left:16,right:16,bottom:'clamp(70px,9vh,84px)',textAlign:'center',zIndex:3,pointerEvents:'none',color:'#F5F0E5',textShadow:'0 1px 8px rgba(0,0,0,.75)',font:"500 clamp(14px,1.2vw,16px)/1.4 'Nunito Sans',sans-serif",letterSpacing:'.03em',opacity:ph==='corridor'&&!s.open?1:0,transition:'opacity .6s ease'},
+      instrText:s.coarse?'Tap the door to discover what lies beyond.':'Click the door to discover what lies beyond.',
+      doorTab:ph==='corridor'?0:-1,openDoor:this.openDoor,
+      canvasWrapStyle:{position:'absolute',inset:0,opacity:s.cvVis?1:0,transition:`opacity ${r?'.4s':'1s'} ease`,pointerEvents:inW?'auto':'none',visibility:(s.cvVis||ph==='leaving'||ph==='opening')?'visible':'hidden'},
+      cvTab:inW?0:-1,cvLabel:caption+'. Move the pointer, drag, or use the arrow keys and Enter to interact. Escape returns to the corridor.',
+      pMove:this.pMove,pDown:this.pDown,pUp:this.pUp,pCancel:this.pCancel,cvKey:this.cvKey,
+      captionStyle:{position:'absolute',left:'clamp(16px,3vw,40px)',bottom:'clamp(16px,3vw,36px)',zIndex:4,pointerEvents:'none',opacity:s.cap&&inW?1:(s.cap&&ph==='opening'?0:0),transition:'opacity 1.4s ease'},
+      caption,
+      returnStyle:{whiteSpace:'nowrap',position:'absolute',top:16,left:16,zIndex:5,minHeight:44,padding:'0 18px',borderRadius:999,border:'1px solid rgba(245,240,229,.45)',background:'rgba(18,15,12,.6)',color:'#F5F0E5',
+        font:"600 13px/1 'Nunito Sans',sans-serif",letterSpacing:'.04em',cursor:'pointer',backdropFilter:'blur(6px)',opacity:inW?1:0,pointerEvents:inW?'auto':'none',visibility:inW?'visible':'hidden',transition:'opacity .6s ease'},
+      leave:this.leave,
+      toggleSound:this.toggleSound,soundPressed:s.sound==='on'?'true':'false',
+      soundLabel:s.sound==='on'?'Sound on':s.sound==='off'?'Sound off':'Enable sound',
+      noteLinkStyle:{whiteSpace:'nowrap',position:'absolute',left:16,bottom:16,zIndex:5,display:'inline-flex',alignItems:'center',minHeight:44,padding:'0 16px',borderRadius:999,background:'rgba(18,15,12,.55)',color:'#F5F0E5',border:'1px solid rgba(245,240,229,.3)',textDecoration:'none',
+        font:"600 12px/1 'Nunito Sans',sans-serif",letterSpacing:'.05em',opacity:ph==='corridor'?1:0,pointerEvents:ph==='corridor'?'auto':'none',transition:'opacity .6s ease'},
+      live:s.live
+    };
+  }
+}
+</script>
+</body>
+</html>
