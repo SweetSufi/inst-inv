@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Investigation 11 — Rabbit Hole · The Institute of Unnecessary Research</title>
+<meta name="description" content="Every answer opens a deeper question. A curated descent through a Victorian research archive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300..900;1,6..12,300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#view">Skip to the investigation</a>
+
+<section id="experience" class="exp" data-depth="0" aria-label="Investigation 11 — Rabbit Hole">
+  <div class="backdrop" aria-hidden="true">
+    <img src="assets/archive-guidepost.png" alt="" width="1536" height="1024">
+    <div class="tint"></div><div class="glow"></div><div class="shade"></div>
+  </div>
+
+  <header class="top">
+    <div class="brand">
+      <span class="brand-inst">The Institute of Unnecessary Research</span>
+      <span class="brand-inv">Investigation 11</span>
+    </div>
+    <nav class="top-nav" aria-label="Investigation controls">
+      <button type="button" id="btn-trail" aria-expanded="false" aria-controls="trail">Research Trail <span id="trail-count" class="count">0</span></button>
+      <button type="button" id="btn-restart" hidden>New question</button>
+      <a href="#research-note" class="btn-link">Behind the Investigation</a>
+    </nav>
+  </header>
+
+  <div class="gauge" id="gauge" aria-hidden="true">
+    <ol>
+      <li data-l="1"><span>Upper Gallery</span></li>
+      <li data-l="2"><span>Reading Floor</span></li>
+      <li data-l="3"><span>Lower Stacks</span></li>
+      <li data-l="4"><span>Lowest Floor</span></li>
+    </ol>
+  </div>
+
+  <main class="panel" id="panel">
+    <div class="alice-row">
+      <div class="alice" role="img" aria-label="Alice, the guide: a young explorer with long locs, a blue hair bow and electric-blue glasses"></div>
+      <p class="alice-line" id="alice-line"></p>
+    </div>
+    <div id="view" tabindex="-1" class="view"></div>
+    <p class="sr-only" id="live" aria-live="polite"></p>
+  </main>
+
+  <aside id="trail" class="trail" aria-label="Research Trail" hidden>
+    <div class="trail-head">
+      <h2>Research Trail</h2>
+      <button type="button" id="trail-close" aria-label="Close Research Trail">Close</button>
+    </div>
+    <div id="trail-body"></div>
+  </aside>
+</section>
+
+<section id="research-note" class="note" aria-labelledby="note-title">
+  <div class="note-wrap">
+    <p class="note-kicker">The Institute of Unnecessary Research</p>
+    <h2 id="note-title">Behind the Investigation: Research Note</h2>
+    <p class="note-intro">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+
+    <dl class="note-meta">
+      <div><dt>Institution</dt><dd>The Institute of Unnecessary Research</dd></div>
+      <div><dt>Investigation</dt><dd>11 — Rabbit Hole</dd></div>
+      <div><dt>Implementation</dt><dd>Curated, deterministic, rule-based. No live AI.</dd></div>
+      <div><dt>Motto</dt><dd class="motto">Advancing Knowledge Sideways</dd></div>
+    </dl>
+
+    <div class="pair">
+      <article class="pair-col" aria-labelledby="cap-h">
+        <p class="label">Applied AI Capability</p>
+        <h3 id="cap-h">Progressive Knowledge Exploration</h3>
+        <p class="def">Organizing related ideas into increasingly detailed pathways so people can investigate a subject, follow meaningful connections, and discover new areas of knowledge.</p>
+        <h4>How Investigation 11 demonstrates it</h4>
+        <p>A visitor starts from one of five curated questions and descends through four levels of the archive: Upper Gallery, Reading Floor, Lower Stacks, and Lowest Floor. Each level presents a short, sourced explanation and two or three directions that arise from that explanation. The choice made leads to a more specialized entry about the chosen connection.</p>
+        <h4>What makes it progressive rather than merely sequential</h4>
+        <ul>
+          <li><b>Specialization increases.</b> Each level narrows from a general account to a named study, event, or concept.</li>
+          <li><b>Every direction states its connection.</b> The reason a path follows from the previous entry is written out and displayed on arrival.</li>
+          <li><b>Paths converge and diverge.</b> Different routes can reach the same deeper entry, and the Research Trail shows which route the visitor took.</li>
+          <li><b>Earlier discoveries stay in view.</b> The trail, the breadcrumb line, and the final record keep the whole route available.</li>
+          <li><b>Branches can be revisited.</b> The visitor can return to any earlier point and take a different direction; already explored directions are marked.</li>
+        </ul>
+      </article>
+      <article class="pair-col" aria-labelledby="pm-h">
+        <p class="label">Prompt Engineering Method</p>
+        <h3 id="pm-h">Prompt Chaining</h3>
+        <p class="def">Breaking a complex task into connected steps, where the result of one step helps guide the next.</p>
+        <h4>A concrete example</h4>
+        <p>An illustrative chain, using the first pathway of this investigation:</p>
+        <ol class="chain">
+          <li><b>Prompt 1.</b> Explain in plain language why people dream. <em>Output: a short account of REM sleep and the open question of dreaming’s purpose.</em></li>
+          <li><b>Prompt 2.</b> From that explanation, identify three meaningful directions. <em>Output: memory, rehearsal of danger and emotion, and why dreams are strange.</em></li>
+          <li><b>Prompt 3.</b> Develop the memory direction at a more specialized level. <em>Output: sleep-dependent memory consolidation.</em></li>
+          <li><b>Prompt 4.</b> Using the previous steps, develop one specific finding. <em>Output: the dream-lag effect.</em></li>
+        </ol>
+        <p class="small">This chain illustrates the method. It is a model of how the content was structured, not a transcript of prompts that were run.</p>
+        <h4>How it was used in development, and how it was not</h4>
+        <p>The build prompt specified a five-step sequence (explain, identify connections, specialize, continue with context, present a record). The build agent used that sequence as the authoring pattern for every pathway: each entry was written after its parent, and each direction’s connection sentence was written from the parent’s content. The build itself was one prompt, not a series of separate model calls, and no separate verification pass over the content was run.</p>
+        <p><b>Development process and visitor experience are different things.</b> Prompt chaining shaped how the content was prepared. The deployed site does not execute prompts. It follows links between prepared entries.</p>
+      </article>
+    </div>
+
+    <section class="nsec" aria-labelledby="rq-h">
+      <h3 id="rq-h">Research Question</h3>
+      <p>How can prompt chaining help create coherent, progressively deeper knowledge pathways that encourage curiosity while preserving contextual continuity?</p>
+    </section>
+
+    <section class="nsec" aria-labelledby="m-h">
+      <h3 id="m-h">Method</h3>
+      <ul>
+        <li><b>One shot.</b> The site was built in a single session from one build prompt. The original prompt is preserved unchanged in <a href="prompt/original-build-prompt.md">prompt/original-build-prompt.md</a>.</li>
+        <li><b>Role of the original prompt.</b> It set the concept, the five starting questions, the four-level structure, the Research Trail, the typography, the Research Note requirements, and the constraint that the first release must not depend on a live AI service.</li>
+        <li><b>Research content and branching.</b> The pathways, explanations, connection sentences and source references were drafted by the build agent in that session, following the chained pattern described above. Sources were cited from the agent’s knowledge of the literature. They were not retrieved live, and they have not yet been checked against the originals by a human reviewer.</li>
+        <li><b>Additional prompting.</b> The build request was accompanied by three attachments and a covering instruction that identified the authoritative Research Notes repertoire (25 October 2026), listed critical requirements, and asked for testing and a Netlify-ready ZIP. No further development prompts were issued for this version.</li>
+        <li><b>Approved visual guideline.</b> A single approved illustration set the architecture (circular galleries, descending stairs, warm amber light shifting to blue at depth), the character of Alice, and the restrained density. The interface uses the illustration as a backdrop that zooms and cools in colour as the visitor descends. The illustration was used as supplied.</li>
+      </ul>
+    </section>
+
+    <section class="nsec" aria-labelledby="how-h">
+      <h3 id="how-h">How the Investigation Works</h3>
+      <p>The visitor chooses one of five curated questions. The site shows the first entry and its directions. Each choice opens a deeper entry and records a step in the Research Trail: the entry, the level, and the connection followed. After four levels the visitor reaches the Lowest Floor, where the path ends and the visitor can complete the trail into a final summary with sources.</p>
+      <p>Exploration state (current question, route taken, and which branches have been explored) is held in the page and saved in the browser’s local storage, so a reload returns to the same place. Returning to an earlier step shortens the route to that point and keeps a record of directions already explored. Choosing a different direction replaces the later steps.</p>
+    </section>
+
+    <section class="nsec" aria-labelledby="ti-h">
+      <h3 id="ti-h">Technical Implementation</h3>
+      <p class="classification"><b>Classification: curated, deterministic, and rule-based.</b> Visitor selections navigate prepared research content. No language model is called, no API key is used, and nothing the visitor does is sent anywhere. The only external request is for the Nunito Sans font stylesheet.</p>
+      <p>Knowledge content is held in one data file (<code>js/knowledge.js</code>) as entries with levels, explanations, source keys, and directions that each carry a connection sentence. Navigation logic is separate (<code>js/app.js</code>) and reads entries through a small provider interface. A later release could supply entries from a live service by implementing that interface and passing the Research Trail as context. That is a design provision and has not been built or tested.</p>
+      <h4>Limitations</h4>
+      <ul>
+        <li>Five questions and 55 entries in total. Each pathway has four levels. The visitor cannot ask a question of their own.</li>
+        <li>Entries are concise summaries. Research is simplified for non-specialists, and several findings are presented with the caveats the literature attaches to them.</li>
+        <li>Source references are unverified against the originals (see Evidence).</li>
+        <li>Nunito Sans was not among the supplied font assets. It loads from Google Fonts, and a system sans-serif is used when that is unavailable.</li>
+      </ul>
+    </section>
+
+    <section class="nsec" aria-labelledby="wd-h">
+      <h3 id="wd-h">What This Demonstrates</h3>
+      <ul>
+        <li>Progressive research navigation across four levels of increasing specialization.</li>
+        <li>Contextual continuity: each entry arrives with the connection that led to it.</li>
+        <li>Structured branching, with paths that diverge and converge.</li>
+        <li>Exploration-state management, including return, branch switching and persistence.</li>
+        <li>Research trail construction, ending in a copyable or downloadable record.</li>
+        <li>Prompt-assisted development of a curated knowledge experience, as described under Method.</li>
+      </ul>
+      <p>It does not demonstrate AI accuracy, autonomous reasoning, or live inference.</p>
+    </section>
+
+    <section class="nsec" aria-labelledby="ev-h">
+      <h3 id="ev-h">Evidence and Observations</h3>
+      <dl class="evidence">
+        <div><dt>Original one-shot build prompt</dt><dd><span class="tag ok">Retained</span> <a href="prompt/original-build-prompt.md">prompt/original-build-prompt.md</a></dd></div>
+        <div><dt>Model used for development</dt><dd><span class="tag warn">Unverified</span> Claude (Anthropic), used through the Claude design environment. The exact model version was not recorded.</dd></div>
+        <div><dt>Additional prompts</dt><dd><span class="tag ok">Recorded</span> None beyond the covering instruction described under Method. Later changes are logged in <a href="CHANGELOG.md">CHANGELOG.md</a>.</dd></div>
+        <div><dt>Implementation classification</dt><dd><span class="tag ok">Stated</span> Curated, deterministic, rule-based.</dd></div>
+        <div><dt>Testing observations</dt><dd><span class="tag ok">Recorded</span> See below.</dd></div>
+        <div><dt>Screenshots</dt><dd><span class="tag ok">Included</span> Preview-pane captures taken during testing: <a href="evidence/intro.jpg">intro</a>, <a href="evidence/level3-lower-stacks.jpg">Level 3, Lower Stacks</a>. Captured at a preview width of about 924 px only.</dd></div>
+        <div><dt>Deployment URL</dt><dd><span class="tag na">Unavailable</span> Not deployed at the time of writing.</dd></div>
+        <div><dt>Known limitations</dt><dd><span class="tag ok">Stated</span> See Technical Implementation.</dd></div>
+        <div><dt>Research sources</dt><dd><span class="tag warn">Unverified</span> Citations were supplied from the build agent’s knowledge and have not been checked against the originals. Full list below.</dd></div>
+      </dl>
+      <h4>Testing observations</h4>
+      <ul><li>Content integrity (scripted): 55 entries, all reachable from their question; no broken links; every non-terminal entry has two or three directions; every direction goes exactly one level deeper within the same question; every source key resolves. Result: no errors.</li><li>Pathway traversal (scripted): all 60 root-to-end routes across the five questions were walked through the application’s own navigation functions (choose and return). All completed without error.</li><li>State (scripted): route and explored-branch records were written to local storage; returning to an earlier step shortened the route; choosing another direction replaced later steps; the Research Trail listed the other explored branches; Escape closed the trail; the final summary rendered; the copy/download text contained connections and sources.</li><li>Fonts: Kingsland and Borel loaded from the supplied files and Nunito Sans loaded from Google Fonts in the preview. The browser reported all three as loaded.</li><li>Visual check: intro and Level 2–4 views were inspected in the preview at about 924 px width. The backdrop zooms and cools in colour with depth, and the Alice portrait and depth gauge display as intended.</li><li>Narrow screens: layout rules for under 900 px were checked by measurement at roughly 300 px and 590 px frame widths (no clipped elements, no horizontal scrolling). They were not inspected visually and no real phone or tablet was used.</li><li>Not tested: real devices, screen readers, other browsers, reduced-motion mode in practice (rules are present and untested), print output, and the live Netlify deployment.</li></ul>
+      <details class="sources-all">
+        <summary>Research sources used in this investigation (<span id="src-count"></span>)</summary>
+        <ul id="src-list"></ul>
+      </details>
+    </section>
+
+    <footer class="note-foot">
+      <p class="motto">Advancing Knowledge Sideways</p>
+      <a href="#experience">Return to the archive</a>
+    </footer>
+  </div>
+</section>
+
+<script src="js/knowledge.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
