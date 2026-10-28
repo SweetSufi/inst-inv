@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Kingsland";src:url("assets/fonts/KingslandRegular.woff") format("woff"),url("assets/fonts/KingslandRegular.ttf") format("truetype");font-display:swap}
+@font-face{font-family:"Borel";src:url("assets/fonts/Borel-Regular.ttf") format("truetype");font-display:swap}
+html,body{margin:0;background:#EDE5D8;overflow-x:hidden}
+a{color:#967B5B}a:hover{color:#3F3C39}
+button{font-family:"Nunito Sans",sans-serif}
+</style>
+</helmet>
+<div style="width:100%;font-family:'Nunito Sans',sans-serif;color:#3F3C39">
+<main aria-label="Make It Balance, an interactive balancing game" ref="{{ stageRef }}" style="position:relative;width:100%;height:max(560px,min(100vh,52vw));overflow:hidden;background:#EDE5D8;user-select:none;-webkit-user-select:none">
+  <svg aria-hidden="true" viewBox="0 0 1744 902" preserveAspectRatio="none" style="position:absolute;left:0;top:0;width:100%;height:100%">
+    <defs>
+      <filter id="rough" x="-5%" y="-20%" width="110%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="1" seed="4" result="n"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="2"></feDisplacementMap></filter>
+      <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="9"></feTurbulence><feColorMatrix values="0 0 0 0 0.45  0 0 0 0 0.36  0 0 0 0 0.25  0 0 0 0.55 0"></feColorMatrix></filter>
+      <filter id="soft" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="9"></feGaussianBlur></filter>
+      <pattern id="lines" width="20" height="16.4" patternUnits="userSpaceOnUse"><rect y="15.4" width="20" height="1" fill="#967B5B" opacity="0.2"></rect></pattern>
+      <linearGradient id="spot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F7E7BC" stop-opacity="0.95"></stop><stop offset="0.55" stop-color="#F7E7BC" stop-opacity="0.5"></stop><stop offset="1" stop-color="#F7E7BC" stop-opacity="0.22"></stop></linearGradient>
+      <radialGradient id="vign" cx="0.5" cy="0.45" r="0.75"><stop offset="0.55" stop-color="#B6A492" stop-opacity="0"></stop><stop offset="1" stop-color="#B6A492" stop-opacity="0.45"></stop></radialGradient>
+    </defs>
+    <rect width="1744" height="902" fill="#EFE3C8"></rect>
+    <rect width="1744" height="902" fill="url(#vign)"></rect>
+    <rect width="1744" height="902" fill="url(#lines)"></rect>
+    <rect width="1744" height="902" filter="url(#grain)" opacity="0.14"></rect>
+    <g filter="url(#rough)">
+      <g id="curtain-l"><path d="M0,0 L118,0 C124,130 100,300 80,430 C68,505 62,565 72,612 L0,650 Z" fill="#B6A492" opacity="0.5"></path><path d="M0,0 L60,0 C66,150 44,330 30,470 L0,520 Z" fill="#967B5B" opacity="0.18"></path><path d="M38,0 C46,160 24,330 14,470 M82,0 C90,150 70,330 52,480 M104,10 C112,150 92,320 70,470" stroke="#967B5B" stroke-width="1.4" fill="none" opacity="0.5"></path><path d="M133,178 C300,176 400,100 452,0 M104,118 C260,152 392,64 436,0" stroke="#967B5B" stroke-width="2" fill="none"></path><path d="M60,360 C120,330 200,120 260,40" stroke="#967B5B" stroke-width="1" fill="none" opacity="0.4"></path><line x1="133" y1="0" x2="105" y2="620" stroke="#7a5a38" stroke-width="4.5"></line><circle cx="127" cy="138" r="7" fill="#7a5a38"></circle><circle cx="106" cy="562" r="7" fill="#7a5a38"></circle></g>
+      <g transform="translate(1744,0) scale(-1,1)"><path d="M0,0 L118,0 C124,130 100,300 80,430 C68,505 62,565 72,612 L0,650 Z" fill="#B6A492" opacity="0.5"></path><path d="M0,0 L60,0 C66,150 44,330 30,470 L0,520 Z" fill="#967B5B" opacity="0.18"></path><path d="M38,0 C46,160 24,330 14,470 M82,0 C90,150 70,330 52,480 M104,10 C112,150 92,320 70,470" stroke="#967B5B" stroke-width="1.4" fill="none" opacity="0.5"></path><path d="M133,178 C300,176 400,100 452,0 M104,118 C260,152 392,64 436,0" stroke="#967B5B" stroke-width="2" fill="none"></path><line x1="133" y1="0" x2="105" y2="620" stroke="#7a5a38" stroke-width="4.5"></line><circle cx="127" cy="138" r="7" fill="#7a5a38"></circle><circle cx="106" cy="562" r="7" fill="#7a5a38"></circle></g>
+    </g>
+    <g ref="{{ lightRef }}"><polygon points="690,0 1040,0 1212,612 530,612" fill="url(#spot)" filter="url(#soft)"></polygon></g>
+    <rect y="610" width="1744" height="292" fill="#F8F0DA" opacity="0.4"></rect>
+    <g filter="url(#rough)" fill="none" stroke="#967B5B"><line x1="0" y1="610" x2="1744" y2="610" stroke-width="1.2" opacity="0.5"></line><ellipse cx="872" cy="748" rx="905" ry="138" stroke-width="1.8" opacity="0.65"></ellipse><ellipse cx="872" cy="748" rx="880" ry="124" stroke-width="1" opacity="0.35"></ellipse></g>
+    <ellipse cx="872" cy="672" rx="300" ry="9" fill="#967B5B" opacity="0.12" filter="url(#soft)"></ellipse>
+  </svg>
+  <div aria-hidden="true" ref="{{ glowRef }}" style="position:absolute;left:{{ glowLeft }}px;top:{{ glowTop }}px;width:{{ glowSize }}px;height:{{ glowSize }}px;border-radius:50%;background:radial-gradient(circle,rgba(247,214,150,.7),rgba(247,231,188,0) 65%);opacity:0;pointer-events:none"></div>
+
+  <div style="position:absolute;left:0;top:0;width:100%;height:100%;opacity:{{ appOpacity }};transition:opacity {{ appMs }}ms ease;pointer-events:none">
+  <!-- floor shadow + fulcrum -->
+  <div aria-hidden="true" ref="{{ shadowRef }}" style="position:absolute;left:{{ shadowLeft }}px;top:{{ shadowTop }}px;width:{{ shadowW }}px;height:{{ shadowH }}px;border-radius:50%;background:radial-gradient(ellipse,rgba(150,123,91,.4),rgba(150,123,91,0) 70%)"></div>
+  <svg aria-hidden="true" viewBox="{{ fulVB }}" style="position:absolute;left:{{ fulLeft }}px;top:{{ fulTop }}px;width:{{ fulSize }}px;height:{{ fulSize }}px;overflow:visible"><path d="{{ fulPath }}" fill="#46433f" filter="url(#rough)"></path></svg>
+
+  <!-- beam -->
+  <div ref="{{ beamRef }}" style="position:absolute;left:{{ px }}px;top:{{ py }}px;width:0;height:0">
+    <svg aria-hidden="true" viewBox="{{ beamVB }}" style="position:absolute;left:{{ beamLeft }}px;top:{{ beamTop }}px;width:{{ beamW }}px;height:{{ beamH }}px;overflow:visible"><path d="{{ beamPath }}" fill="#413e3a" filter="url(#rough)"></path></svg>
+    <sc-if value="{{ hasGhost }}" hint-placeholder-val="{{ false }}">
+      <div aria-hidden="true" style="position:absolute;left:{{ ghost.left }}px;top:{{ ghost.top }}px;width:{{ ghost.d }}px;height:{{ ghost.d }}px;border-radius:50%;border:2px dashed #967B5B;box-sizing:border-box;opacity:.8"></div>
+    </sc-if>
+    <sc-for list="{{ beamItems }}" as="b" hint-placeholder-count="0">
+      <button data-wid="{{ b.id }}" title="{{ b.title }}" aria-label="{{ b.label }}" aria-pressed="{{ b.sel }}" onPointerDown="{{ b.onDown }}" onKeyDown="{{ b.onKey }}" style="position:absolute;left:{{ b.left }}px;top:{{ b.top }}px;width:{{ b.hit }}px;height:{{ b.hit }}px;background:none;border:0;padding:0;cursor:grab;touch-action:none;pointer-events:auto;border-radius:50%;outline:{{ b.outline }};outline-offset:2px;display:flex;align-items:center;justify-content:center" style-focus="outline:2px solid #967B5B;outline-offset:2px">
+        <svg viewBox="{{ b.vb }}" style="width:{{ b.sv }}px;height:{{ b.sv }}px;overflow:visible"><path d="{{ b.path }}" fill="{{ b.fill }}" filter="url(#rough)"></path></svg>
+      </button>
+    </sc-for>
+  </div>
+
+  <!-- tray -->
+  <sc-for list="{{ trayItems }}" as="t" hint-placeholder-count="4">
+    <button data-wid="{{ t.id }}" title="{{ t.title }}" aria-label="{{ t.label }}" aria-pressed="{{ t.sel }}" onPointerDown="{{ t.onDown }}" onKeyDown="{{ t.onKey }}" style="position:absolute;left:{{ t.left }}px;top:{{ t.top }}px;width:{{ t.hit }}px;height:{{ t.hit }}px;background:none;border:0;padding:0;cursor:grab;touch-action:none;pointer-events:auto;border-radius:50%;outline:{{ t.outline }};outline-offset:2px;display:flex;align-items:center;justify-content:center" style-focus="outline:2px solid #967B5B;outline-offset:2px">
+      <span aria-hidden="true" style="position:absolute;left:50%;top:50%;width:{{ t.shW }}px;height:{{ t.shH }}px;margin:{{ t.shMT }}px 0 0 {{ t.shML }}px;border-radius:50%;background:radial-gradient(ellipse,rgba(150,123,91,.5),rgba(150,123,91,0) 70%)"></span>
+      <svg viewBox="{{ t.vb }}" style="position:relative;width:{{ t.sv }}px;height:{{ t.sv }}px;overflow:visible"><path d="{{ t.path }}" fill="{{ t.fill }}" filter="url(#rough)"></path></svg>
+    </button>
+  </sc-for>
+  <sc-if value="{{ hasDrag }}" hint-placeholder-val="{{ false }}">
+    <svg aria-hidden="true" viewBox="{{ drag.vb }}" style="position:absolute;left:{{ drag.left }}px;top:{{ drag.top }}px;width:{{ drag.sv }}px;height:{{ drag.sv }}px;overflow:visible;pointer-events:none;filter:drop-shadow(0 10px 8px rgba(150,123,91,.35))"><path d="{{ drag.path }}" fill="{{ drag.fill }}" filter="url(#rough)"></path></svg>
+  </sc-if>
+
+  </div>
+  <canvas aria-hidden="true" ref="{{ canvasRef }}" style="position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none"></canvas>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;top:{{ successTop }}px;text-align:center;font-family:'Kingsland',serif;font-size:clamp(20px,2vw,32px);color:#3F3C39;opacity:{{ successOpacity }};transition:opacity 1.6s ease;pointer-events:none">Perfectly Balanced</div>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:12px;letter-spacing:.14em;color:#6b5a45;opacity:{{ readoutOpacity }}">LEFT {{ netL }} &nbsp;·&nbsp; RIGHT {{ netR }}</div>
+  <div role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">{{ status }}</div>
+
+  <div style="position:absolute;left:clamp(14px,2vw,32px);top:clamp(14px,2vw,22px);z-index:5;display:flex;flex-direction:column;align-items:flex-start;gap:10px">
+    <button aria-label="Menu" aria-expanded="{{ menu }}" onClick="{{ toggleMenu }}" style="width:52px;height:52px;border-radius:50%;border:0;background:#F6EFE0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 8px rgba(150,123,91,.3)" style-focus="outline:2px solid #3F3C39;outline-offset:3px">
+      <span style="width:24px;height:11px;border-radius:50%;background:#3F3C39;transform:rotate(-3deg)"></span>
+    </button>
+    <sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+      <div role="menu" style="background:#F6EFE0;border-radius:16px;padding:8px;display:flex;flex-direction:column;gap:2px;min-width:210px;box-shadow:0 6px 22px rgba(150,123,91,.35)">
+        <button role="menuitem" onClick="{{ toggleInstr }}" style="min-height:44px;text-align:left;padding:0 14px;border:0;border-radius:10px;background:transparent;font-size:15px;color:#3F3C39;cursor:pointer" style-hover="background:rgba(150,123,91,.16)" style-focus="outline:2px solid #3F3C39">Instructions</button>
+        <button role="menuitem" onClick="{{ undo }}" style="min-height:44px;text-align:left;padding:0 14px;border:0;border-radius:10px;background:transparent;font-size:15px;color:#3F3C39;cursor:pointer;opacity:{{ undoOpacity }}" style-hover="background:rgba(150,123,91,.16)" style-focus="outline:2px solid #3F3C39">Undo</button>
+        <button role="menuitem" onClick="{{ reset }}" style="min-height:44px;text-align:left;padding:0 14px;border:0;border-radius:10px;background:transparent;font-size:15px;color:#3F3C39;cursor:pointer" style-hover="background:rgba(150,123,91,.16)" style-focus="outline:2px solid #3F3C39">Reset</button>
+        <button role="menuitemcheckbox" aria-checked="{{ sound }}" onClick="{{ toggleSound }}" style="min-height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 14px;border:0;border-radius:10px;background:transparent;font-size:15px;color:#3F3C39;cursor:pointer" style-hover="background:rgba(150,123,91,.16)" style-focus="outline:2px solid #3F3C39"><span>Music</span><span style="color:#6b5a45">{{ soundLabel }}</span></button>
+        <button role="menuitemcheckbox" aria-checked="{{ reduced }}" onClick="{{ toggleReduced }}" style="min-height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 14px;border:0;border-radius:10px;background:transparent;font-size:15px;color:#3F3C39;cursor:pointer" style-hover="background:rgba(150,123,91,.16)" style-focus="outline:2px solid #3F3C39"><span>Reduced motion</span><span style="color:#6b5a45">{{ reducedLabel }}</span></button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ instr }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#F6EFE0;border-radius:16px;padding:16px 18px;max-width:300px;font-size:14px;line-height:1.55;color:#3F3C39;box-shadow:0 6px 22px rgba(150,123,91,.35)">
+        <p style="margin:0 0 8px">Drag a weight onto the beam. Torque is weight × distance from the fulcrum. Make the left and right torque equal and keep the beam level.</p>
+        <p style="margin:0 0 8px">Drag a weight along the beam to move it, or off the beam to remove it. Hover or focus a weight to see its mass.</p>
+        <p style="margin:0">Keyboard: Tab to a weight, press ← or → to place and move it, Delete to remove it.</p>
+      </div>
+    </sc-if>
+  </div>
+  <button onClick="{{ toggleInstr }}" style="position:absolute;right:clamp(14px,2vw,32px);top:clamp(14px,2vw,28px);z-index:4;min-height:44px;padding:0 18px;white-space:nowrap;border:0;border-radius:22px;background:#F6EFE0;color:#3F3C39;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 1px 8px rgba(150,123,91,.3)" style-focus="outline:2px solid #3F3C39;outline-offset:3px">Find the balance.</button>
+</main>
+
+<section style="background:#EDE5D8;padding:clamp(40px,6vw,72px) 20px;text-align:center">
+  <div style="font-weight:600;font-size:13px;letter-spacing:.24em;color:#3F3C39">INVESTIGATION 16</div>
+  <h1 style="margin:.2em 0 .15em;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(34px,4.2vw,62px);line-height:1.05;color:#2b2926">Make It Balance</h1>
+  <div style="font-family:'Kingsland',serif;font-size:clamp(12px,1.1vw,17px);letter-spacing:.3em;color:#4a4540">A PERFORMANCE IN EQUILIBRIUM</div>
+  <p style="margin:28px 0 0;font-family:'Borel',cursive;font-size:18px;color:#6b5a45">Advancing Knowledge Sideways</p>
+</section>
+
+<section aria-labelledby="note-h" style="background:#F5F0E5;color:#292929;padding:clamp(48px,8vw,104px) clamp(20px,5vw,48px)">
+  <div style="max-width:760px;margin:0 auto">
+    <h2 id="note-h" style="margin:0 0 16px;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(30px,4vw,44px);line-height:1.1;color:#292929">Behind the Investigation: Research Note</h2>
+    <p style="margin:0 0 32px;font-size:17px;line-height:1.65;color:#494949">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+    <div style="border-top:1px solid #CFC8BC">
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Institution</h3><div style="font-size:16px;line-height:1.6;color:#292929">The Institute of Unnecessary Research</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Investigation</h3><div style="font-size:16px;line-height:1.6;color:#292929">16 — Make It Balance</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Primary Capability</h3><div style="font-size:16px;line-height:1.6;color:#292929">Direct Manipulation &amp; Interactive Simulation. The visitor acts on objects directly and sees the physical consequence immediately. Here, AI-assisted development turned a physical principle into a working interactive model.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Prompt Engineering Method</h3><div style="font-size:16px;line-height:1.6;color:#292929">Task decomposition prompting: splitting a complicated build into smaller technical problems. The work was divided into the hand-drawn environment, drag-and-drop and keyboard controls, the torque calculation and solvability check, damped beam motion, success feedback, music, and accessibility and responsive behavior, then integrated into one working activity.<div style="margin-top:10px;color:#494949">This method describes how the site was built, from a structured implementation brief and an approved reference image. No prompt runs when a visitor plays, and this note does not claim a recorded multi-step prompt chain.</div></div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Research Question</h3><div style="font-size:16px;line-height:1.6;color:#292929">How can AI-assisted development translate a physical principle into an intuitive, visually restrained interactive experience?</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Method</h3><div style="font-size:16px;line-height:1.6;color:#292929">AI-assisted development using an approved hand-drawn visual reference and a structured implementation brief.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">How It Works</h3><div style="font-size:16px;line-height:1.6;color:#292929">Visitors position circular weights on a beam. The system calculates torque (weight × distance from the fulcrum) on each side and adjusts the beam's angle in response to weight distribution. Success is declared only when both torques are equal, both sides are loaded, and the beam has rested level for a moment.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Technical Implementation</h3><div style="font-size:16px;line-height:1.6;color:#292929">The game is HTML, CSS and JavaScript running in the browser. The stage, beam, fulcrum and weights are inline SVG with a displacement filter that roughens their edges. Weights sit on whole-number steps along the beam, torque is summed on each side, and a damped spring in a requestAnimationFrame loop turns the net torque into the beam angle. Dragging uses Pointer Events, with a keyboard alternative. The optional music is a supplied audio file played through an audio element with scripted fades. Beam behavior comes from deterministic physics calculations. No live LLM operates the game, and there is no model-driven fallback.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">What This Demonstrates</h3><div style="font-size:16px;line-height:1.6;color:#292929">The ability to translate a physical relationship into an accessible interactive simulation while preserving a distinctive visual design.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Credits</h3><div style="font-size:16px;line-height:1.6;color:#494949">Music: "Funny Playful" by Leberch, via Pixabay. Used under the Pixabay Content License.</div></div>
+      <div style="display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:8px 28px;padding:18px 0;border-bottom:1px solid #CFC8BC"><h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:20px;color:#292929">Limitations</h3><div style="font-size:16px;line-height:1.6;color:#494949">Nunito Sans loads from Google Fonts and needs a network connection. The stage is redrawn with SVG and CSS rather than taken from the approved render, so it approximates the render. Beam behavior is a simplified torque model, not a full rigid-body simulation.</div></div>
+    </div>
+  </div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { w: 1200, h: 650, placed: {}, history: [], selected: null, drag: null, ghost: null, menu: false, instr: false, sound: false, reduced: false, success: false, status: '', focusId: null, phase: 'play', round: 1 };
+  EPS = 1e-6; moved = false; celebrating = false; conf = []; fadeA = 1; timers = []; lastKey = ''; roundInfo = null; allSol = [];
+  theta = 0; omega = 0; bal = 0; glow = 0; clock = 0; MAXD = 9; MASSES = [2, 4, 1, 3];
+  XF = { wide: [0.145, 0.377, 0.616, 0.846], narrow: [0.14, 0.38, 0.62, 0.86] };
+  FILL = { 1: '#3F3C39', 2: '#5a544c', 3: '#4a4540', 4: '#6a6256' };
+
+  componentDidMount() {
+    this.measure();
+    if (window.ResizeObserver && this.stageEl) { this.ro = new ResizeObserver(() => this.measure()); this.ro.observe(this.stageEl); }
+    window.addEventListener('resize', this.measure);
+    const mq = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq && mq.matches) this.setState({ reduced: true });
+    this.solveInfo = this.solve();
+    this.last = performance.now();
+    const tick = (ts) => { const dt = Math.min(0.033, (ts - this.last) / 1000); this.last = ts; this.step(dt); this.raf = requestAnimationFrame(tick); };
+    this.raf = requestAnimationFrame(tick);
+    window.__mib = {
+      state: () => ({ placed: { ...this.state.placed }, theta: this.theta, omega: this.omega, success: this.state.success, torque: this.torques(this.state.placed), solve: this.solveInfo }),
+      place: (id, d) => this.placeAt(id, d), remove: (id) => this.removeW(id), reset: () => this.reset(), undo: () => this.undo(), geo: () => this.geo(), audio: () => this.audio, round: () => ({ n: this.state.round, phase: this.state.phase, info: this.roundInfo, conf: this.conf.length, history: this.state.history.length, nSol: this.allSol.length })
+    };
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); cancelAnimationFrame(this.fadeRaf); this.timers.forEach(clearTimeout); window.removeEventListener('resize', this.measure); if (this.ro) this.ro.disconnect(); if (this.audio) this.audio.pause(); }
+
+  measure = () => { if (!this.stageEl) return; const w = this.stageEl.clientWidth, h = this.stageEl.clientHeight; if (w !== this.state.w || h !== this.state.h) this.setState({ w, h }); };
+  stageRef = (el) => { this.stageEl = el; };
+  beamRef = (el) => { this.beamEl = el; };
+  shadowRef = (el) => { this.shadowEl = el; };
+  lightRef = (el) => { this.lightEl = el; };
+  glowRef = (el) => { this.glowEl = el; };
+  canvasRef = (el) => { this.canvasEl = el; };
+
+  geo() {
+    const { w, h } = this.state, wide = w >= 720;
+    const H = wide ? Math.min(w * 0.1926, 520) : w * 0.42, unit = H / 10, tb = H * 0.1;
+    const py = h * (wide ? 0.634 : 0.5), rf = H * 0.14;
+    return { w, h, wide, H, unit, tb, px: w / 2, py, rf, trayY: h * (wide ? 0.859 : 0.84), fulBottom: py + tb / 2 + rf * 2 };
+  }
+  fac(m) { return 0.7 + 0.12 * m; }
+  rad(m, unit) { return unit * this.fac(m); }
+  mass(id) { return +id.slice(1); }
+  wob(t, s) { return 0.5 * Math.sin(t * 3 + s) + 0.3 * Math.sin(t * 7.3 + s * 2) + 0.2 * Math.sin(t * 13 + s * 3); }
+  blob(r, seed, n) {
+    let d = ''; n = n || 40;
+    for (let i = 0; i < n; i++) { const a = i / n * 6.2832, rr = r * (1 + 0.035 * this.wob(a, seed)); d += (i ? 'L' : 'M') + (Math.cos(a) * rr).toFixed(2) + ',' + (Math.sin(a) * rr * 0.985).toFixed(2); }
+    return d + 'Z';
+  }
+  beamPath(H, tb) {
+    const c = tb / 2, N = 70, pts = [];
+    const nz = (x, s) => tb * 0.07 * this.wob(x / H * 4, s);
+    for (let i = 0; i <= N; i++) { const x = -H + c + (2 * H - 2 * c) * i / N; pts.push([x, -c + nz(x, 1.3)]); }
+    for (let i = 1; i < 12; i++) { const a = -1.5708 + 3.1416 * i / 12; pts.push([H - c + Math.cos(a) * c, Math.sin(a) * c * (1 + 0.05 * this.wob(a, 4))]); }
+    for (let i = N; i >= 0; i--) { const x = -H + c + (2 * H - 2 * c) * i / N; pts.push([x, c + nz(x, 5.1)]); }
+    for (let i = 1; i < 12; i++) { const a = 1.5708 + 3.1416 * i / 12; pts.push([-H + c + Math.cos(a) * c, Math.sin(a) * c * (1 + 0.05 * this.wob(a, 7))]); }
+    return pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('') + 'Z';
+  }
+  torques(placed, skip) {
+    let L = 0, R = 0, n = 0;
+    for (const id in placed) { if (id === skip) continue; const d = placed[id], t = this.mass(id) * Math.abs(d); n++; if (d < 0) L += t; else if (d > 0) R += t; }
+    return { L, R, n };
+  }
+  free(c, id, placed) {
+    const m = this.mass(id);
+    for (const o in placed) { if (o === id) continue; if (Math.abs(c - placed[o]) < this.fac(m) + this.fac(this.mass(o)) - 1e-9) return false; }
+    return true;
+  }
+  nearestFree(d, id, placed) {
+    d = Math.max(-this.MAXD, Math.min(this.MAXD, d));
+    for (let k = 0; k <= 4; k++) for (const s of (k ? [-1, 1] : [1])) { const c = d + s * k; if (Math.abs(c) <= this.MAXD && this.free(c, id, placed)) return c; }
+    return null;
+  }
+  solve() {
+    const ps = []; for (let d = -this.MAXD; d <= this.MAXD; d++) if (d) ps.push(d);
+    const ms = [1, 2, 3, 4]; let count = 0, first = null; this.allSol = [];
+    const rec = (i, cur) => {
+      if (i === 4) { let L = 0, R = 0; for (let j = 0; j < 4; j++) { const t = ms[j] * Math.abs(cur[j]); if (cur[j] < 0) L += t; else R += t; } if (L === R && L > 0) { count++; this.allSol.push(cur.slice()); if (!first) first = cur.slice(); } return; }
+      for (const d of ps) { let ok = true; for (let j = 0; j < i; j++) if (Math.abs(d - cur[j]) < this.fac(ms[i]) + this.fac(ms[j])) { ok = false; break; } if (ok) { cur[i] = d; rec(i + 1, cur); } }
+    };
+    rec(0, []);
+    return { count, first: first && { w1: first[0], w2: first[1], w3: first[2], w4: first[3] } };
+  }
+
+  pushHist() { return [...this.state.history, JSON.stringify(this.state.placed)]; }
+  commit(placed, status, focusId) {
+    if (this.state.phase !== 'play') return;
+    this.moved = true;
+    this.setState({ placed, history: this.pushHist(), status });
+    if (focusId) setTimeout(() => { const el = document.querySelector('[data-wid="' + focusId + '"]'); if (el) el.focus(); }, 30);
+  }
+  placeAt(id, d) {
+    const p = { ...this.state.placed }; delete p[id];
+    const c = this.nearestFree(d, id, p); if (c === null) return false;
+    p[id] = c; this.commit(p, 'Weight of mass ' + this.mass(id) + ' placed ' + this.posText(c), id); return true;
+  }
+  removeW(id) { if (!(id in this.state.placed)) return; const p = { ...this.state.placed }; delete p[id]; this.commit(p, 'Weight of mass ' + this.mass(id) + ' removed from the beam.', id); }
+  posText(d) { return d === 0 ? 'at the fulcrum.' : Math.abs(d) + ' unit' + (Math.abs(d) > 1 ? 's' : '') + (d < 0 ? ' left' : ' right') + ' of the fulcrum.'; }
+  moveBy(id, dir) {
+    const cur = this.state.placed; const p = { ...cur }; delete p[id];
+    let c = id in cur ? cur[id] : (dir < 0 ? 1 : -1);
+    for (let i = 0; i < 2 * this.MAXD + 2; i++) { c += dir; if (Math.abs(c) > this.MAXD) return; if (this.free(c, id, p)) { p[id] = c; this.commit(p, 'Weight of mass ' + this.mass(id) + ' ' + this.posText(c), id); return; } }
+  }
+  undo = () => { const h = this.state.history; if (!h.length || this.state.phase !== 'play') return; this.moved = true; this.setState({ placed: JSON.parse(h[h.length - 1]), history: h.slice(0, -1), status: 'Undone.' }); };
+  reset = () => { if (!Object.keys(this.state.placed).length || this.state.phase !== 'play') return; this.moved = true; this.setState({ placed: {}, history: [...this.state.history, JSON.stringify(this.state.placed)], status: 'Reset. All weights returned.', selected: null }); };
+  toggleMenu = () => this.setState(s => ({ menu: !s.menu }));
+  toggleInstr = () => this.setState(s => ({ instr: !s.instr }));
+  toggleReduced = () => this.setState(s => ({ reduced: !s.reduced }));
+  fadeTo(target, ms, done) {
+    cancelAnimationFrame(this.fadeRaf); const a = this.audio, v0 = a.volume, t0 = performance.now();
+    const f = (t) => { const k = Math.min(1, (t - t0) / ms); a.volume = Math.max(0, Math.min(1, v0 + (target - v0) * k)); if (k < 1) this.fadeRaf = requestAnimationFrame(f); else if (done) done(); };
+    this.fadeRaf = requestAnimationFrame(f);
+  }
+  toggleSound = () => {
+    const on = !this.state.sound; this.setState({ sound: on });
+    if (!this.audio) { this.audio = new Audio('assets/leberch-funny-playful.mp3'); this.audio.loop = true; this.audio.volume = 0; }
+    const a = this.audio;
+    if (on) { const p = a.play(); const go = () => this.fadeTo(0.22, 2000); if (p && p.then) p.then(go).catch(() => this.setState({ sound: false })); else go(); }
+    else this.fadeTo(0, 2000, () => a.pause());
+  };
+
+  dropTarget(x, y, id) {
+    const g = this.geo(), th = this.theta * Math.PI / 180, dx = x - g.px, dy = y - g.py;
+    const lx = dx * Math.cos(th) + dy * Math.sin(th), ly = -dx * Math.sin(th) + dy * Math.cos(th);
+    const r = this.rad(this.mass(id), g.unit);
+    if (Math.abs(lx) > g.H + r || ly < -(g.tb / 2 + 3 * r + 50) || ly > g.tb / 2 + r) return null;
+    const p = { ...this.state.placed }; delete p[id];
+    return this.nearestFree(Math.round(lx / g.unit), id, p);
+  }
+  down(e, id) {
+    if (e.button > 0 || this.state.phase !== 'play') return;
+    const rect = this.stageEl.getBoundingClientRect();
+    this.di = { id, sx: e.clientX, sy: e.clientY, moved: false, rect };
+    const mv = (ev) => {
+      const di = this.di; if (!di) return;
+      if (!di.moved && Math.hypot(ev.clientX - di.sx, ev.clientY - di.sy) > 5) di.moved = true;
+      if (di.moved) { const x = ev.clientX - di.rect.left, y = ev.clientY - di.rect.top; this.setState({ drag: { id, x, y }, ghost: this.dropTarget(x, y, id) }); }
+    };
+    const up = (ev) => {
+      window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+      const di = this.di; this.di = null; if (!di) return;
+      if (!di.moved) { this.setState(s => ({ selected: s.selected === id ? null : id })); return; }
+      const x = ev.clientX - di.rect.left, y = ev.clientY - di.rect.top, d = this.dropTarget(x, y, id);
+      this.setState({ drag: null, ghost: null });
+      const was = id in this.state.placed;
+      if (d !== null) { if (!(was && this.state.placed[id] === d)) this.placeAt(id, d); }
+      else if (was) this.removeW(id);
+    };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+  }
+  key(e, id) {
+    const k = e.key; if (this.state.phase !== 'play') return;
+    if (k === 'ArrowLeft' || k === 'ArrowRight') { e.preventDefault(); this.moveBy(id, k === 'ArrowLeft' ? -1 : 1); }
+    else if (k === 'Delete' || k === 'Backspace' || k === 'Escape') { e.preventDefault(); this.removeW(id); }
+    else if (k === 'Enter' || k === ' ') { e.preventDefault(); this.setState(s => ({ selected: s.selected === id ? null : id })); }
+  }
+
+  step(dt) {
+    const s = this.state; this.clock += dt;
+    const dragId = s.drag && s.drag.id;
+    const { L, R, n } = this.torques(s.placed, dragId), net = R - L;
+    const k = 28, c = s.reduced ? 2 * Math.sqrt(k) : 7, maxA = 10;
+    const target = maxA * Math.tanh(net / 10);
+    this.omega += (k * (target - this.theta) - c * this.omega) * dt;
+    this.theta += this.omega * dt;
+    const level = Math.abs(net) < this.EPS && n >= 2 && L > 0 && R > 0;
+    if (s.phase === 'play' && this.moved && !s.drag && level && Math.abs(this.theta) < 0.25 && Math.abs(this.omega) < 0.5) this.bal += dt; else this.bal = 0;
+    if (!this.celebrating && s.phase === 'play' && this.bal >= 1.2) this.celebrate();
+    else if (s.success && s.phase === 'play' && !level) this.setState({ success: false });
+    const succ = s.success && (level || s.phase !== 'play');
+    this.glow += ((succ ? 1 : 0) - this.glow) * Math.min(1, dt * (s.reduced ? 6 : 1.2));
+    const th = this.theta;
+    if (this.beamEl) this.beamEl.style.transform = 'rotate(' + th + 'deg)';
+    if (this.shadowEl) this.shadowEl.style.transform = 'translateX(' + (th * 3) + 'px) scaleX(' + (1 - Math.abs(th) * 0.008) + ')';
+    if (this.lightEl) this.lightEl.setAttribute('opacity', ((s.reduced ? 0.9 : 0.86 + 0.05 * Math.sin(this.clock * 0.6)) + 0.1 * this.glow).toFixed(3));
+    if (this.glowEl) this.glowEl.style.opacity = (this.glow * 0.55).toFixed(3);
+    this.drawConf(dt);
+  }
+  T(ms, fn) { this.timers.push(setTimeout(fn, ms)); }
+  celebrate() {
+    this.celebrating = true; this.bal = 0; const R = this.state.reduced;
+    this.setState({ phase: 'celebrate', success: true, drag: null, ghost: null, selected: null, menu: false, status: 'Perfectly Balanced. A new arrangement will appear shortly.' });
+    if (!R) this.spawnConf();
+    const F = R ? 500 : 1200, a = R ? 1800 : 4600;
+    this.T(a, () => this.setState({ phase: 'out' }));
+    this.T(a + F + 100, () => this.startRound());
+    this.T(a + 2 * F + 100, () => { this.setState({ phase: 'play' }); this.celebrating = false; });
+  }
+  genStart() {
+    const ids = ['w1', 'w2', 'w3', 'w4'], cur = JSON.stringify(Object.entries(this.state.placed).sort());
+    for (let t = 0; t < 400; t++) {
+      const k = 1 + Math.floor(Math.random() * 3), p = {};
+      ids.slice().sort(() => Math.random() - 0.5).slice(0, k).forEach(id => { const d = Math.floor(Math.random() * 19) - 9; if (d && this.free(d, id, p)) p[id] = d; });
+      if (!Object.keys(p).length) continue;
+      const q = this.torques(p); if (q.n >= 2 && q.L === q.R && q.L > 0) continue;
+      const key = JSON.stringify(Object.entries(p).sort()); if (key === this.lastKey || key === cur) continue;
+      this.lastKey = key; return p;
+    }
+    return { w4: -3 };
+  }
+  startRound() {
+    const p = this.genStart(), sol = this.allSol[Math.floor(Math.random() * this.allSol.length)];
+    this.roundInfo = { start: p, solution: sol };
+    this.theta = 0; this.omega = 0; this.bal = 0; this.glow = 0; this.moved = false; this.conf = []; this.fadeA = 1;
+    const n = this.state.round + 1;
+    this.setState({ placed: p, history: [], selected: null, success: false, phase: 'in', round: n, status: 'New arrangement, round ' + n + '. Balance the beam.' });
+  }
+  spawnConf() {
+    const g = this.geo(), S = g.H, rnd = Math.random, gold = ['#C6A15B', '#967B5B', '#EDE5D8'];
+    const cols = [['#C6A15B', '#E4CC91'], ['#967B5B', '#B8A07C'], ['#EDE5D8', '#FBF6EA']];
+    this.fadeA = 1; this.conf = [];
+    for (const side of [-1, 1]) for (let i = 0; i < 40; i++) {
+      const ang = side * (6 + rnd() * 36) * Math.PI / 180, v = S * (1.2 + rnd() * 0.75), r = rnd(), c = cols[r < 0.6 ? 0 : r < 0.88 ? 1 : 2], sz = Math.max(3, S / 60) * (0.7 + rnd() * 0.9);
+      const pts = []; for (let j = 0; j < 4; j++) { const a = j / 4 * 6.283 + rnd() * 0.7; pts.push([Math.cos(a) * sz * (0.6 + rnd() * 0.8), Math.sin(a) * sz * (0.4 + rnd() * 0.6)]); }
+      this.conf.push({ x: g.px + side * g.rf * (1.2 + rnd() * 0.8), y: g.fulBottom - g.rf * 1.4, vx: Math.sin(ang) * v, vy: -Math.cos(ang) * v, rot: rnd() * 6.28, vr: (rnd() - 0.5) * 8, fl: rnd() * 6.28, vf: 3 + rnd() * 5, pts, c, floor: g.fulBottom + g.h * (0.02 + rnd() * 0.1), land: false, delay: rnd() * 0.12 });
+    }
+  }
+  drawConf(dt) {
+    const cv = this.canvasEl; if (!cv) return; const { w, h } = this.state, dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    const x = cv.getContext('2d'); x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, w, h);
+    if (!this.conf.length) return;
+    if (this.state.phase === 'out') this.fadeA = Math.max(0, this.fadeA - dt / 1.1);
+    const g = 1.6 * this.geo().H;
+    for (const p of this.conf) {
+      if (p.delay > 0) { p.delay -= dt; continue; }
+      if (!p.land) {
+        p.vy += g * dt; const k = p.vy > 0 ? 2.4 : 0.6; p.vx *= Math.exp(-1.6 * dt); p.vy *= Math.exp(-k * dt * (p.vy > 0 ? 1 : 0.4));
+        p.x += p.vx * dt + Math.sin(this.clock * 2 + p.fl) * 14 * dt; p.y += p.vy * dt; p.rot += p.vr * dt; p.fl += p.vf * dt;
+        if (p.vy > 0 && p.y >= p.floor) { p.land = true; p.y = p.floor; }
+      }
+      const cs = Math.cos(p.fl), sx = p.land ? 0.5 : Math.max(0.12, Math.abs(cs));
+      x.save(); x.globalAlpha = this.fadeA * 0.95; x.translate(p.x, p.y); x.rotate(p.rot); x.scale(1, sx);
+      x.fillStyle = cs > 0 ? p.c[0] : p.c[1]; x.beginPath(); p.pts.forEach((q, i) => i ? x.lineTo(q[0], q[1]) : x.moveTo(q[0], q[1])); x.closePath(); x.fill();
+      if (p.c[0] === '#EDE5D8') { x.strokeStyle = 'rgba(150,123,91,.6)'; x.lineWidth = 0.6; x.stroke(); }
+      x.restore();
+    }
+  }
+
+  renderVals() {
+    const s = this.state, g = this.geo(), { unit, tb, H } = g, placed = s.placed, dragId = s.drag && s.drag.id;
+    const xs = g.wide ? this.XF.wide : this.XF.narrow;
+    const mk = (id) => { const m = this.mass(id), r = this.rad(m, unit), q = r * 1.15; return { m, r, d: r * 2, sv: q * 2, vb: (-q) + ' ' + (-q) + ' ' + (2 * q) + ' ' + (2 * q), path: this.blob(r, m * 2.7), fill: this.FILL[m] }; };
+    const sel = (id) => s.selected === id ? '2px solid #967B5B' : 'none';
+    const trayItems = this.MASSES.map((m, i) => {
+      const id = 'w' + m; if (id in placed || id === dragId) return null;
+      const q = mk(id), hit = Math.max(q.sv, 44), cx = g.w * xs[i];
+      return { id, ...q, hit, left: cx - hit / 2, top: g.trayY - hit / 2, title: 'Mass ' + m, label: 'Weight of mass ' + m + ', in the collection. Use arrow keys to place on the beam.', sel: s.selected === id, outline: sel(id), shW: q.d * 1.5, shH: q.d * 0.22, shML: -q.d * 0.75, shMT: q.r * 0.82, onDown: (e) => this.down(e, id), onKey: (e) => this.key(e, id) };
+    }).filter(Boolean);
+    const beamItems = this.MASSES.map(m => {
+      const id = 'w' + m; if (!(id in placed) || id === dragId) return null;
+      const q = mk(id), hit = Math.max(q.sv, 44), d = placed[id];
+      return { id, ...q, hit, left: d * unit - hit / 2, top: -tb / 2 - q.r - hit / 2, title: 'Mass ' + m, label: 'Weight of mass ' + m + ', on the beam ' + this.posText(d) + ' Arrow keys move it, Delete removes it.', sel: s.selected === id, outline: sel(id), onDown: (e) => this.down(e, id), onKey: (e) => this.key(e, id) };
+    }).filter(Boolean);
+    let ghost = null; if (s.drag && s.ghost !== null && s.ghost !== undefined) { const q = mk(s.drag.id); ghost = { left: s.ghost * unit - q.r, top: -tb / 2 - 2 * q.r, d: q.d }; }
+    let drag = null; if (s.drag && s.drag.x !== undefined) { const q = mk(s.drag.id); drag = { ...q, left: s.drag.x - q.sv / 2, top: s.drag.y - q.sv / 2 }; }
+    const tq = this.torques(placed), pad = tb, rfd = g.rf * 1.15, glowSize = H * 1.8;
+    return {
+      stageRef: this.stageRef, beamRef: this.beamRef, shadowRef: this.shadowRef, lightRef: this.lightRef, glowRef: this.glowRef,
+      canvasRef: this.canvasRef, appOpacity: s.phase === 'out' ? 0 : 1, appMs: s.reduced ? 500 : 1200,
+      px: g.px, py: g.py,
+      beamVB: (-H - pad) + ' ' + (-tb / 2 - pad) + ' ' + (2 * H + 2 * pad) + ' ' + (tb + 2 * pad), beamLeft: -H - pad, beamTop: -tb / 2 - pad, beamW: 2 * H + 2 * pad, beamH: tb + 2 * pad, beamPath: this.beamPath(H, tb),
+      fulVB: (-rfd) + ' ' + (-rfd) + ' ' + (2 * rfd) + ' ' + (2 * rfd), fulSize: 2 * rfd, fulLeft: g.px - rfd, fulTop: g.py + tb / 2 + g.rf - rfd, fulPath: this.blob(g.rf, 9.1, 48),
+      shadowLeft: g.px - H * 0.95, shadowTop: g.fulBottom - H * 0.04, shadowW: H * 1.9, shadowH: H * 0.1,
+      glowLeft: g.px - glowSize / 2, glowTop: g.py - glowSize / 2, glowSize,
+      trayItems, beamItems, hasGhost: !!ghost, ghost: ghost || { left: 0, top: 0, d: 0 }, hasDrag: !!drag, drag: drag || { left: 0, top: 0, sv: 0, vb: '0 0 1 1', path: '', fill: '#000' },
+      successTop: g.fulBottom + g.h * 0.045, successOpacity: s.success && s.phase !== 'out' && s.phase !== 'in' ? 1 : 0,
+      netL: tq.L, netR: tq.R, readoutOpacity: tq.n ? 0.8 : 0, status: s.status,
+      menu: s.menu, instr: s.instr, sound: s.sound, reduced: s.reduced, soundLabel: s.sound ? 'On' : 'Off', reducedLabel: s.reduced ? 'On' : 'Off',
+      undoOpacity: s.history.length ? 1 : 0.4,
+      toggleMenu: this.toggleMenu, toggleInstr: this.toggleInstr, toggleSound: this.toggleSound, toggleReduced: this.toggleReduced, undo: this.undo, reset: this.reset
+    };
+  }
+}
+</script>
+</body>
+</html>
