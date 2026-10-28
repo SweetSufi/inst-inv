@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Future Archaeology — Investigation 12 — The Institute of Unnecessary Research</title>
+<style>
+@font-face{font-family:'Kingsland';src:url('assets/fonts/KingslandRegular.woff') format('woff'),url('assets/fonts/KingslandRegular.ttf') format('truetype');font-display:swap}
+@font-face{font-family:'Nunito';src:url('assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');font-weight:200 1000;font-display:swap}
+@font-face{font-family:'Borel';src:url('assets/fonts/Borel-Regular.ttf') format('truetype');font-display:swap}
+@keyframes faBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes faRing{0%,100%{opacity:.55;transform:scale(1,.22)}50%{opacity:1;transform:scale(1.04,.23)}}
+@keyframes faGlow{0%,100%{opacity:.35}50%{opacity:.75}}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0b1620;font-family:'Nunito',system-ui,sans-serif}
+a{color:#F4B860}a:hover{color:#FFE0A8}
+*:focus-visible{outline:2px solid #F4B860;outline-offset:3px}
+button,input,summary,pre{font-family:inherit}
+input[type=range]{accent-color:#F4B860}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{body *{visibility:hidden}#print-report,#print-report *{visibility:visible}#print-report{position:absolute;left:0;top:0;width:100%;box-shadow:none!important}}
+</style>
+</helmet>
+<main style="font-family:'Nunito',system-ui,sans-serif;color:#EAF2F7">
+
+<section id="top" aria-label="Future Archaeology expedition" style="position:relative;min-height:max(100vh,760px);overflow:hidden;background:#0b1620;display:flex;flex-direction:column">
+
+  <img src="assets/vessel-exterior.png" alt="" style="{{ extStyle }}">
+  <div style="{{ intWrap }}">
+    <img src="assets/lab-interior.png" alt="Interior of the expedition laboratory. Commander M. Henson, III sits at an examination table beside a panoramic window overlooking Arctic mountains." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% 40%">
+    <canvas ref="{{ snowRef }}" aria-hidden="true" data-layer="window-snow" style="position:absolute;left:0;top:0;width:0;height:0;pointer-events:none"></canvas>
+    <div aria-hidden="true" style="{{ glowStyle }}"></div>
+    <div aria-hidden="true" style="{{ dimWelcome }}"></div>
+    <div aria-hidden="true" style="{{ dimExam }}"></div>
+    <div aria-hidden="true" style="{{ dimReport }}"></div>
+  </div>
+  <div aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:150px;background:linear-gradient(180deg,rgba(6,14,22,.72),rgba(6,14,22,0));pointer-events:none;z-index:2"></div>
+
+  <header style="flex-shrink:0;position:relative;z-index:30;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding:18px clamp(16px,4vw,48px)">
+    <div style="font-family:'Kingsland',serif;font-size:clamp(14px,1.6vw,18px);letter-spacing:.08em;color:#EAF2F7">The Institute of Unnecessary Research <span style="color:#F4B860">· Investigation 12</span></div>
+    <div role="group" aria-label="Sound and motion controls" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <button type="button" onClick="{{ toggleSound }}" aria-pressed="{{ sound }}" style="white-space:nowrap;min-height:44px;padding:0 16px;border-radius:22px;border:1px solid rgba(191,227,255,.45);background:rgba(9,20,31,.6);color:#EAF2F7;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:rgba(9,20,31,.85)">{{ soundLabel }}</button>
+      <label style="white-space:nowrap;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid rgba(191,227,255,.45);background:rgba(9,20,31,.6);font-size:14px;font-weight:600">Volume
+        <input type="range" min="0" max="100" value="{{ volumePct }}" onChange="{{ setVolume }}" onInput="{{ setVolume }}" aria-label="Volume" style="width:84px;height:24px">
+      </label>
+      <button type="button" onClick="{{ toggleAnim }}" aria-pressed="{{ anim }}" style="white-space:nowrap;min-height:44px;padding:0 16px;border-radius:22px;border:1px solid rgba(191,227,255,.45);background:rgba(9,20,31,.6);color:#EAF2F7;font-size:14px;font-weight:600;cursor:pointer" style-hover="background:rgba(9,20,31,.85)">{{ animLabel }}</button>
+      <a href="#research" style="white-space:nowrap;min-height:44px;display:inline-flex;align-items:center;padding:0 16px;border-radius:22px;border:1px solid rgba(191,227,255,.45);background:rgba(9,20,31,.6);color:#EAF2F7;font-size:14px;font-weight:600;text-decoration:none" style-hover="background:rgba(9,20,31,.85)">Research Note</a>
+    </div>
+  </header>
+
+  <sc-if value="{{ showArrival }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="01 Arrival" style="{{ arrivalStyle }}">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,14,22,.72) 0%,rgba(6,14,22,.55) 55%,rgba(6,14,22,.5) 100%);z-index:-1"></div>
+    <h1 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(40px,8.4vw,116px);line-height:1;letter-spacing:.05em;color:#F4F8FB;text-shadow:0 2px 30px rgba(5,12,20,.6)">FUTURE ARCHAEOLOGY</h1>
+    <h2 style="margin:14px 0 0;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(18px,2.6vw,34px);letter-spacing:.14em;color:#FFD08A;text-shadow:0 2px 20px rgba(5,12,20,.9)">Arctic Expedition — 2426</h2>
+    <button type="button" onClick="{{ board }}" style="margin-top:clamp(28px,6vh,56px);white-space:nowrap;min-height:56px;padding:0 clamp(20px,5vw,40px);border-radius:32px;border:1px solid #F4B860;background:rgba(244,184,96,.94);color:#1b1206;font-size:16px;font-weight:700;letter-spacing:.2em;cursor:pointer;box-shadow:0 0 40px rgba(244,184,96,.35)" style-hover="background:#FFD08A" style-active="transform:scale(.98)">BOARD THE EXPEDITION</button>
+    <button type="button" onClick="{{ toggleSound }}" style="margin-top:14px;white-space:nowrap;min-height:44px;padding:0 16px;border:0;background:transparent;color:#EAF2F7;font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:4px;cursor:pointer">{{ soundHint }}</button>
+    <div style="margin-top:auto;padding:28px 0 clamp(18px,4vh,40px);font-family:'Borel',cursive;font-size:clamp(18px,2vw,26px);color:#F4F8FB;text-shadow:0 2px 14px rgba(5,12,20,.8)">Advancing Knowledge Sideways</div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showWelcome }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="02 Commander" style="position:relative;z-index:10;flex:1;display:flex;align-items:flex-end;padding:0 clamp(16px,4vw,48px) clamp(20px,5vh,56px)">
+    <div role="dialog" aria-label="Commander M. Henson, III" style="width:min(560px,100%);box-sizing:border-box;padding:clamp(20px,3vw,32px);border-radius:20px;background:rgba(8,20,32,.7);backdrop-filter:blur(14px);border:1px solid rgba(191,227,255,.28);box-shadow:0 20px 60px rgba(0,0,0,.35)">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.22em;color:#F4B860;margin-bottom:14px">COMMANDER M. HENSON, III</div>
+      <sc-for list="{{ dialogue }}" as="d" hint-placeholder-count="4">
+        <p style="{{ d.style }}">{{ d.text }}</p>
+      </sc-for>
+      <button type="button" onClick="{{ toExam }}" disabled="{{ welcomeBusy }}" style="{{ examBtnStyle }}">EXAMINE THE ARTIFACTS</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showExam }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="03 Examination" style="position:relative;z-index:10;flex:1;display:flex;justify-content:flex-end;align-items:flex-start;padding:8px clamp(16px,4vw,48px) 48px">
+    <div style="{{ examPanel }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 16px">
+        <h2 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(24px,3vw,34px);letter-spacing:.04em">Recovered Collection</h2>
+        <button type="button" onClick="{{ backToCommander }}" style="white-space:nowrap;min-height:44px;padding:0;border:0;background:transparent;color:#BFE3FF;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:4px">← Commander</button>
+      </div>
+      <div role="group" aria-label="Select an artifact" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px">
+        <sc-for list="{{ artList }}" as="a" hint-placeholder-count="6">
+          <button type="button" aria-pressed="{{ a.on }}" onClick="{{ a.pick }}" style="{{ a.style }}">{{ a.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:20px 24px">
+        <div>
+          <div style="position:relative;height:210px;border-radius:14px;border:1px solid rgba(191,227,255,.25);background:radial-gradient(ellipse at 50% 80%,rgba(244,184,96,.16),rgba(8,20,32,.2) 70%);overflow:hidden">
+            <div aria-hidden="true" style="{{ ringStyle }}"></div>
+            <div aria-hidden="true" style="{{ ringStyle2 }}"></div>
+            <div style="{{ holoWrap }}">
+              <svg viewBox="0 0 240 150" role="img" aria-label="{{ art.name }} — holographic schematic" style="{{ svgStyle }}" fill="rgba(159,208,240,.12)" stroke="#BFE3FF" stroke-width="1.6" stroke-linejoin="round">
+                <sc-if value="{{ show.a1 }}" hint-placeholder-val="{{ true }}"><g><rect x="32" y="52" width="176" height="46" rx="10"></rect><circle cx="50" cy="75" r="8"></circle><circle cx="76" cy="64" r="4"></circle><circle cx="96" cy="64" r="4"></circle><circle cx="116" cy="64" r="4"></circle><circle cx="136" cy="64" r="4"></circle><circle cx="156" cy="64" r="4"></circle><circle cx="76" cy="86" r="4"></circle><circle cx="96" cy="86" r="4"></circle><circle cx="116" cy="86" r="4"></circle><circle cx="136" cy="86" r="4"></circle><circle cx="156" cy="86" r="4"></circle><rect x="196" y="68" width="8" height="14" rx="2" stroke="#F4B860"></rect></g></sc-if>
+                <sc-if value="{{ show.a2 }}" hint-placeholder-val="{{ false }}"><g><rect x="80" y="10" width="80" height="130" rx="14"></rect><rect x="88" y="26" width="64" height="98" rx="4"></rect><polyline points="88,26 112,50 104,72 124,96" stroke="#F4B860" fill="none"></polyline><circle cx="120" cy="18" r="2.5"></circle></g></sc-if>
+                <sc-if value="{{ show.a3 }}" hint-placeholder-val="{{ false }}"><g><rect x="14" y="60" width="212" height="30" rx="15"></rect><rect x="84" y="40" width="72" height="70" rx="16"></rect><rect x="94" y="54" width="52" height="36" rx="4"></rect><circle cx="110" cy="101" r="3.5" stroke="#F4B860"></circle><circle cx="130" cy="101" r="3.5" stroke="#F4B860"></circle></g></sc-if>
+                <sc-if value="{{ show.a4 }}" hint-placeholder-val="{{ false }}"><g><circle cx="120" cy="86" r="44"></circle><circle cx="120" cy="86" r="30"></circle><circle cx="120" cy="86" r="10"></circle><line x1="120" y1="56" x2="120" y2="76"></line><line x1="120" y1="96" x2="120" y2="116"></line><line x1="90" y1="86" x2="110" y2="86"></line><line x1="130" y1="86" x2="150" y2="86"></line><rect x="112" y="12" width="16" height="22" rx="3" stroke="#F4B860"></rect><rect x="96" y="30" width="48" height="8" rx="2" stroke="#F4B860"></rect></g></sc-if>
+                <sc-if value="{{ show.a5 }}" hint-placeholder-val="{{ false }}"><g><rect x="40" y="28" width="160" height="100" rx="10"></rect><rect x="56" y="46" width="28" height="22" rx="3" stroke="#F4B860"></rect><line x1="100" y1="56" x2="180" y2="56"></line><rect x="56" y="94" width="2" height="20"></rect><rect x="62" y="94" width="4" height="20"></rect><rect x="70" y="94" width="2" height="20"></rect><rect x="76" y="94" width="6" height="20"></rect><rect x="86" y="94" width="2" height="20"></rect><rect x="92" y="94" width="4" height="20"></rect><rect x="100" y="94" width="2" height="20"></rect><rect x="106" y="94" width="5" height="20"></rect></g></sc-if>
+                <sc-if value="{{ show.a6 }}" hint-placeholder-val="{{ false }}"><g><rect x="112" y="54" width="16" height="84" rx="2"></rect><line x1="112" y1="70" x2="128" y2="62"></line><line x1="112" y1="90" x2="128" y2="82"></line><line x1="112" y1="110" x2="128" y2="102"></line><line x1="112" y1="128" x2="128" y2="120"></line><line x1="120" y1="54" x2="120" y2="44"></line><ellipse cx="120" cy="32" rx="6" ry="10" stroke="#F4B860" fill="rgba(244,184,96,.25)"></ellipse></g></sc-if>
+              </svg>
+            </div>
+            <div aria-hidden="true" style="{{ scanLine }}"></div>
+            <div aria-live="polite" style="position:absolute;left:12px;top:10px;font-size:12px;font-weight:700;letter-spacing:.16em;color:#BFE3FF">{{ scanStatus }}</div>
+          </div>
+          <label style="display:flex;align-items:center;gap:10px;margin-top:10px;font-size:14px;font-weight:600">Rotate
+            <input type="range" min="-60" max="60" value="{{ rot }}" onInput="{{ setRot }}" onChange="{{ setRot }}" aria-label="Rotate specimen" style="flex:1;height:28px">
+          </label>
+          <h3 style="margin:16px 0 2px;font-family:'Kingsland',serif;font-weight:400;font-size:22px;letter-spacing:.03em">{{ art.name }}</h3>
+          <div style="font-size:13px;font-weight:600;letter-spacing:.14em;color:#F4B860;margin-bottom:10px">{{ art.id }}</div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.18em;color:#BFE3FF;margin-bottom:6px">OBSERVED</div>
+          <ul style="margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px;line-height:1.5;color:#EAF2F7">
+            <sc-for list="{{ art.obs }}" as="o" hint-placeholder-count="6">
+              <li style="padding-left:14px;position:relative"><span aria-hidden="true" style="position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:#BFE3FF"></span>{{ o }}</li>
+            </sc-for>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.18em;color:#BFE3FF;margin-bottom:10px">INTERPRET AS</div>
+          <div role="group" aria-label="Professional role" style="display:grid;gap:8px">
+            <sc-for list="{{ roleList }}" as="r" hint-placeholder-count="5">
+              <button type="button" aria-pressed="{{ r.on }}" onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.name }}</button>
+            </sc-for>
+          </div>
+          <p style="margin:14px 0 20px;font-size:14px;line-height:1.55;color:#EAF2F7;min-height:66px">{{ roleCur.lens }}</p>
+          <button type="button" onClick="{{ interpret }}" disabled="{{ busy }}" style="{{ interpretStyle }}">{{ interpretLabel }}</button>
+          <div aria-live="polite" style="margin-top:12px;font-size:13px;line-height:1.5;color:#BFE3FF;min-height:40px">{{ busyText }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ showReport }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="04 Field Report" style="position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;gap:16px;padding:8px clamp(12px,4vw,48px) 56px">
+    <div style="width:min(100%,900px);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center">
+      <div role="group" aria-label="Compare professional roles" style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ roleList }}" as="r" hint-placeholder-count="5">
+          <button type="button" aria-pressed="{{ r.on }}" onClick="{{ r.compare }}" style="{{ r.tabStyle }}">{{ r.name }}</button>
+        </sc-for>
+      </div>
+      <button type="button" onClick="{{ toExam }}" style="white-space:nowrap;min-height:44px;padding:0;border:0;background:transparent;color:#BFE3FF;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:4px">← Examine another artifact</button>
+    </div>
+
+    <article id="print-report" aria-label="Expedition field report" style="{{ paperStyle }}">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 20px;padding-bottom:16px;border-bottom:2px solid #1c2a35">
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:.2em;color:#4a5b68">THE INSTITUTE OF UNNECESSARY RESEARCH · ARCTIC EXPEDITION 2426</div>
+          <h2 style="margin:6px 0 0;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(28px,4vw,42px);letter-spacing:.03em;color:#13202a">Expedition Field Report</h2>
+        </div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:.12em;color:#4a5b68;text-align:right;flex:1;min-width:200px">{{ rep.ref }}<br>Filed by M. Henson, III, Commander</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 32px;margin-top:6px">
+        <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+          <h3 style="{{ hStyle }}">Artifact identification</h3>
+          <p style="{{ pStyle }}"><strong>{{ rep.artName }}</strong> ({{ rep.artId }}). {{ rep.find }}</p>
+        </div>
+        <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+          <h3 style="{{ hStyle }}">Selected professional role</h3>
+          <p style="{{ pStyle }}"><strong>{{ rep.role }}.</strong> {{ rep.lens }}</p>
+        </div>
+      </div>
+
+      <div style="{{ bodyFade }}">
+        <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+          <h3 style="{{ hStyle }}">Observable evidence <span style="{{ tagObs }}">OBSERVED</span></h3>
+          <p style="margin:0 0 8px;font-size:13px;color:#4a5b68">Selected for this discipline from the specimen record.</p>
+          <ul style="margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px;line-height:1.55;color:#1c2a35">
+            <sc-for list="{{ rep.evidence }}" as="e" hint-placeholder-count="3"><li>{{ e }}</li></sc-for>
+          </ul>
+        </div>
+        <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+          <h3 style="{{ hStyle }}">Proposed historical or cultural function <span style="{{ tagSpec }}">SPECULATION</span></h3>
+          <p style="margin:0;font-size:18px;line-height:1.45;font-weight:600;color:#13202a">{{ rep.fn }}</p>
+        </div>
+        <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+          <h3 style="{{ hStyle }}">Reasoning <span style="{{ tagSpec }}">SPECULATION</span></h3>
+          <p style="{{ pStyle }}">{{ rep.why }}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:0 32px">
+          <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+            <h3 style="{{ hStyle }}">Alternative explanation <span style="{{ tagSpec }}">SPECULATION</span></h3>
+            <p style="{{ pStyle }}">{{ rep.alt }}</p>
+          </div>
+          <div style="padding:16px 0;border-bottom:1px solid #c5d0d8">
+            <h3 style="{{ hStyle }}">Confidence and uncertainty</h3>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px"><div role="img" aria-label="{{ rep.confAria }}" style="flex:1;height:8px;border-radius:4px;background:#d3dce2;overflow:hidden"><div style="{{ confBar }}"></div></div><strong style="font-size:15px;color:#13202a;white-space:nowrap">{{ rep.confLabel }}</strong></div>
+            <p style="{{ pStyle }}">{{ rep.conf }}</p>
+          </div>
+        </div>
+        <div style="padding:16px 0">
+          <h3 style="{{ hStyle }}">Outstanding research question</h3>
+          <p style="{{ pStyle }}">{{ rep.q }}</p>
+        </div>
+      </div>
+      <div style="font-size:12px;line-height:1.5;color:#4a5b68;border-top:1px solid #c5d0d8;padding-top:12px">Fictional report. The interpretation above is a speculative exercise from a curated library, written to show how an assigned professional role changes reasoning from the same evidence.</div>
+    </article>
+
+    <div style="width:min(100%,900px);display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <button type="button" onClick="{{ copyReport }}" style="{{ actionBtn }}" style-hover="background:rgba(244,184,96,.22)">Copy report</button>
+      <button type="button" onClick="{{ downloadReport }}" style="{{ actionBtn }}" style-hover="background:rgba(244,184,96,.22)">Download report</button>
+      <button type="button" onClick="{{ printReport }}" style="{{ actionBtn }}" style-hover="background:rgba(244,184,96,.22)">Print report</button>
+      <span role="status" style="font-size:14px;font-weight:600;color:#F4B860">{{ actionMsg }}</span>
+    </div>
+
+    <div style="width:min(100%,900px);padding:20px clamp(16px,3vw,28px);border-radius:16px;background:rgba(8,20,32,.72);backdrop-filter:blur(12px);border:1px solid rgba(191,227,255,.25);box-sizing:border-box">
+      <h3 style="margin:0 0 4px;font-family:'Kingsland',serif;font-weight:400;font-size:22px;letter-spacing:.03em">Same specimen, five disciplines</h3>
+      <p style="margin:0 0 14px;font-size:14px;color:#BFE3FF">Proposed function for {{ rep.artName }}. Select one to read its full report.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px">
+        <sc-for list="{{ compareList }}" as="c" hint-placeholder-count="5">
+          <button type="button" onClick="{{ c.compare }}" style="{{ c.style }}"><span style="display:block;font-size:12px;font-weight:700;letter-spacing:.16em;color:#F4B860;margin-bottom:6px">{{ c.name }}</span><span style="display:block;font-size:14px;line-height:1.45">{{ c.fn }}</span></button>
+        </sc-for>
+      </div>
+      <details style="margin-top:16px;font-size:14px;line-height:1.55">
+        <summary style="cursor:pointer;min-height:32px;font-weight:600;color:#BFE3FF">Show the role prompt assembled for this report</summary>
+        <pre style="white-space:pre-wrap;margin:10px 0 0;padding:14px;border-radius:10px;background:rgba(0,0,0,.35);font-family:'Nunito',system-ui,sans-serif;font-size:13px;line-height:1.55;color:#EAF2F7">{{ rep.prompt }}</pre>
+        <p style="margin:8px 0 0;font-size:13px;color:#BFE3FF">This prompt is assembled in the page to show the method. It is not sent to a language model; the interpretation comes from the curated library.</p>
+      </details>
+    </div>
+  </div>
+  </sc-if>
+</section>
+
+<section id="research" aria-labelledby="research-title" style="background:#F5F0E5;color:#292929">
+  <div style="max-width:960px;margin:0 auto;padding:clamp(48px,8vw,96px) clamp(20px,5vw,48px)">
+    <div style="font-size:13px;font-weight:700;letter-spacing:.2em;color:#494949">THE INSTITUTE OF UNNECESSARY RESEARCH</div>
+    <h2 id="research-title" style="margin:10px 0 16px;font-family:'Kingsland',serif;font-weight:400;font-size:clamp(30px,5vw,52px);line-height:1.1;color:#292929">Behind the Investigation: Research Note</h2>
+    <p style="margin:0 0 28px;font-size:18px;line-height:1.6;color:#292929">Behind the Investigation explains the generative AI capabilities, technologies, and design decisions demonstrated by each Institute investigation.</p>
+    <div style="border-top:1px solid #CFC8BC">
+      <sc-for list="{{ researchRows }}" as="r" hint-placeholder-count="10">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:6px 32px;padding:22px 0;border-bottom:1px solid #CFC8BC">
+          <h3 style="margin:0;font-family:'Kingsland',serif;font-weight:400;font-size:22px;line-height:1.25;color:#292929">{{ r.h }}</h3>
+          <div style="grid-column:span 2;min-width:min(100%,260px)"><p style="margin:0;font-size:16px;line-height:1.65;color:#494949">{{ r.p }}</p></div>
+        </div>
+      </sc-for>
+    </div>
+    <p style="margin:36px 0 0;font-family:'Borel',cursive;font-size:22px;color:#292929">Advancing Knowledge Sideways</p>
+  </div>
+</section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ROLES = [
+{k:'A',name:'Archaeologist',lens:'Reasons from material evidence: composition, wear, form and the context of the find, toward probable use.',pr:'mfci'},
+{k:'C',name:'Cultural Anthropologist',lens:'Reasons from customs, rituals and everyday practice: who did what with the object, and what it meant to them.',pr:'cifm'},
+{k:'H',name:'Historian',lens:'Reasons from chronology, comparison and period context: when the object was made and what circumstances produced it.',pr:'icmf'},
+{k:'T',name:'Technologist',lens:'Reasons from mechanism: materials, components and the probable technical function.',pr:'fmic'},
+{k:'S',name:'Social Theorist',lens:'Reasons from institutions, power and social organisation: what the object implies about who directed whom.',pr:'icfm'}];
+const ARTS = [
+{id:'FA-2426-01',n:'01',short:'Studded Tablet',name:'Oblong Studded Tablet',find:'Recovered between two seat cushions in a large room, facing a dark wall panel.',
+ o:[['m','Grey-black polymer casing, brittle with age. A battery compartment holds two cylindrical cells; no cable is attached.'],['f','19 cm long and 5 cm wide, sized for one adult hand and tapered toward a narrow end with a small dark window.'],['f','38 raised studs in clusters. A larger stud near the top is marked with a circle and a vertical line; a pair on one edge are marked + and −.'],['i','Studs carry numerals 0 to 9 and four arrows around a central round stud.'],['c','Found wedged between two seat cushions in a large room, oriented toward a dark rectangular wall panel.'],['c','The surrounding layer holds fragments of glass, polymer and thin metal film consistent with domestic furnishing.']],
+ r:{A:['A hand-held directive implement, operated from a fixed seat.','The raised studs carry numerals and arrows, so the object encoded a limited set of choices. Its position between cushions, facing a wall panel, places use in a seated, habitual posture. Wear on the larger upper stud shows one action was repeated more than any other.','A portable counting tablet for household accounts, with the arrows marking columns.',58,'Material wear is clear. The purpose of the dark wall panel is not.','What did the dark wall panel display, and was it the target of the instrument?'],
+ C:['A ceremonial device for directing communal attention.','One object held by one person while others sat in the same room suggests an established custom of delegated choice. The numerals may name sequences in a shared ritual. A hiding place between cushions implies that the right to hold it was contested.','A child-soothing amulet, pressed in rhythm to calm a household.',49,'The gathering is implied by the room size and cannot be confirmed.','Who was permitted to hold it, and who was not?'],
+ H:['An instrument of domestic authority from the late industrial period.','Standardised numerals and a common battery type place it in an age of mass production, when homes received a growing number of sequenced offerings. Association with a single seat suggests that authority over the room passed to whoever held it.','A surveyor\'s field controller later repurposed at home.',54,'Dating is secure. Function rests on a single find context.','Were comparable objects found in other rooms of the same layer, and in what number?'],
+ T:['A short-range wireless controller transmitting coded commands to a target device.','No cable and a battery compartment point to wireless operation. The stud clusters map to digit entry, directional movement and level adjustment (+ and −) in a menu-driven target. The small dark window at the narrow end suggests an infrared emitter.','An early tactile notebook for entering numbers.',71,'The control scheme is well constrained. The target device is unrecovered.','What device lay behind the dark panel, and does any of it survive?'],
+ S:['A portable instrument of control over shared attention.','The object gives choice to one holder in a space built for many viewers. Repeated use and a contested keeping place imply status within a household hierarchy. The numerals indicate that the available choices were sorted by an institution outside the room.','A symbol of rank, carried and not operated.',44,'Social claims go beyond the material evidence and cannot be tested directly.','Who held it, and who watched?']}},
+{id:'FA-2426-02',n:'02',short:'Glass Slab',name:'Glass Slab with Dormant Face',find:'Recovered from the lining of a coat-like garment alongside a plastic plate.',
+ o:[['m','Glass face over a laminated metal and polymer body, fractured at one corner. A sealed cell cannot be removed.'],['f','14 cm by 7 cm by 8 mm with rounded corners; sized for the palm.'],['f','A raised ring on the rear holds two small circular apertures. One port at one end.'],['i','A faint rounded mark on the rear; no legible text. The glass face shows a dense grid of microscopic conductive lines.'],['c','Found in the lining of a coat-like garment alongside a plastic plate and a fibrous tissue.'],['c','Dozens of similar slabs appear across the same stratum, in many sizes of wear.']],
+ r:{A:['A pocketed personal talisman, carried and consulted.','Body shape and worn corners indicate daily carrying in clothing, and the fracture shows it was held often and dropped. The rear apertures suggest a design for looking outward, not for being looked at.','A ceremonial mirror kept against the body.',63,'Wear patterns are reliable. The dormant face hides the main evidence.','Could the face have carried information that can no longer be read?'],
+ C:['A portable oracle consulted privately many times a day.','Carried on the person, near a card and a tissue, it suggests an intimate object. The glass grid implies touch, so use was gestural, and the apertures imply self-recording. A custom of attending to a small glowing surface in company is plausible.','A regional charm to ward off silence.',52,'Daily frequency is inferred from wear and was not observed.','What did people ask of it when they consulted it?'],
+ H:['A mass-produced communications instrument at the end of the information age.','Standard ports and a sealed cell place it late in a period when personal devices replaced fixed ones. Many examples in one stratum suggest widespread ownership. Fracture damage points to a society that accepted fragility in exchange for convenience.','A regulatory token proving identity.',57,'Chronology is firm. Scale of adoption is inferred.','How quickly did ownership spread, and what did it replace?'],
+ T:['A multi-sensor computing and communications terminal.','The conductive grid indicates a capacitive touch display, the apertures an optical imaging sensor, and the port and sealed cell rechargeable power. Together this was a networked computer sized for the hand.','A digital mirror with a decorative frame.',78,'Hardware class is strongly supported. The software is lost.','Can the storage medium be read, and does it still hold data?'],
+ S:['A personal device through which individuals were reachable by institutions.','An object carried continuously suggests permanent availability. A sealed cell and single port imply dependence on infrastructure for recharging. Ownership may have been a condition of taking part in work and civic life.','A status object, displayed and compared.',46,'Institutional claims go beyond the material evidence.','What obligations came with carrying one?']}},
+{id:'FA-2426-03',n:'03',short:'Wrist Band',name:'Flexible Band with Sealed Module',find:'Recovered near a paved loop, beside the soles of cushioned footwear.',
+ o:[['m','Elastomer band fractured at the clasp, with a sealed module of glass and metal.'],['f','Band 24 cm long; the inner circumference fits an adult wrist.'],['f','The module has a small rectangular dark face and two metal-ringed contacts on its underside.'],['i','Engraved numerals on the module suggest a model series; the contacts are green-tinged.'],['c','Recovered beside the soles of cushioned footwear and a plastic bottle, near a paved loop.'],['c','Fragments of a flat two-pin connector were found in the same layer.']],
+ r:{A:['A body-worn adornment holding a sensing module.','Fastening at the wrist and contacts facing the skin show intended continuous contact with the body. Finding it near footwear and a paved loop suggests an association with movement.','A badge of membership in a running society.',60,'Association is strong. The module\'s output is unreadable.','What was measured against the body, and for whom?'],
+ C:['A bodily self-observation ornament, worn to count and record effort.','Worn constantly against the skin, with a face that could be consulted, it suggests a custom of numerical self-regard. The paved loop suggests repeated circuits for health and not travel, and the bottle suggests measured hydration.','A talisman against illness.',55,'The practice is inferred from association. No accompanying text was recovered.','Did people compare their records with one another?'],
+ H:['A consumer wellness product from a period of widespread self-measurement.','The model numerals and connector tie it to the same commercial cycle as the glass slab. Such devices belong to a time in which care of the body was increasingly framed as a personal project of measurement.','A medical monitor issued by clinics.',51,'Dating is supported. Social reach is not.','How widely were such bands worn compared with slabs?'],
+ T:['A wrist-worn biometric logger with optical contact sensors.','Two contacts facing the skin point to pulse or conductivity sensing, the sealed module to a processor and cell, and the connector to periodic charging. Output was probably a count of motion and heartbeat.','A wireless key for opening doors.',74,'Sensor types are plausible. The measured quantities are unknown.','What did the module compute, and how often was it synchronised?'],
+ S:['A device by which individuals monitored themselves on behalf of norms of health.','Constant measurement of the body turns ideals of fitness into personal duty. Worn voluntarily, it suggests norms enforced by comparison and not by command, possibly mediating between individuals and wider systems of insurance or employment.','A voluntary penance counter.',42,'Strong claims about institutions rest on weak evidence.','Who read the data?']}},
+{id:'FA-2426-04',n:'04',short:'Swivel Wheel',name:'Swivel Wheel Assembly',find:'Recovered from a wide paved field, one of dozens, near a large windowless building.',
+ o:[['m','Glass-fibre nylon wheel with a rubber tread and a steel fork. Heavy rust on all metal.'],['f','Wheel 12.5 cm in diameter. The fork turns freely on a vertical axis.'],['f','The mounting plate has four holes in a square pattern; a wire frame fragment is still attached.'],['i','A stamped numeral and code on the fork.'],['c','Found on a wide, flat, paved field with dozens of similar wheels, near a large windowless building.'],['c','Many wheels lay in rows of equal spacing; some were in a drainage channel.']],
+ r:{A:['A mobile support for a large vessel or platform.','The free-turning vertical axis lets direction change freely, and the four-hole plate shows attachment to a frame. Rows at equal spacing imply organised storage or placement.','A processional wheel for moving idols.',61,'Mechanical use is certain. What was carried is unknown.','What did the wire frame carry?'],
+ C:['Part of a shared carrying vehicle used in a gathering to acquire goods.','The number of identical wheels indicates a loaned, communal tool and not a personal one. Their placement on a plain field near a large building suggests a custom of walking among stored goods and returning the vehicle afterward, with some left in the channel by those who did not.','A children\'s toy.',48,'Communal use is inferred from quantity.','Who returned them, and why?'],
+ H:['A component of retail distribution infrastructure.','The stamped codes and standard mount spacing indicate industrial production and replacement parts. The large windowless building and paved field match the twentieth-century pattern of centralised retail.','A baggage trolley from a transport hub.',56,'Context supports commerce. The frame is incomplete.','Which goods were moved, and what was exchanged for them?'],
+ T:['A caster: a swivel wheel that lets a frame roll in any direction.','The free-spinning fork and rubber tread give low-friction movement on pavement, and the four-hole plate allows bolted fixing. With the wire frame, the assembly was a light cart for loads of moderate weight.','A flywheel for a small mill.',80,'The mechanism is simple and clear.','What load was it rated for?'],
+ S:['A device that organised how individuals moved through a place of exchange.','A uniform vehicle stored in uniform rows suggests a standardised pathway for consumption. Wheels in the channel, left by users, suggest a norm of returning them that was widely observed but not universal.','A civic transport for bodies.',40,'Social inference is stronger than the evidence.','Who set the pathway, and who followed it?']}},
+{id:'FA-2426-05',n:'05',short:'Striped Plate',name:'Rigid Plate with Striped Mark',find:'Recovered with eighteen similar plates inside a folded pouch.',
+ o:[['m','Polyvinyl plate, 85.6 mm by 54 mm, with rounded corners. Colours are faded.'],['f','A small gold-coloured square with etched contact lines at one end.'],['f','The rear carries a pattern of vertical black bars above a string of 12 digits.'],['i','The front bears a repeated emblem and a partial phrase ending in "rewards".'],['c','Found in a folded pouch with eighteen similar plates, each with a different emblem.'],['c','No two plates share a number.']],
+ r:{A:['A personal token of identification or membership.','Standard dimensions, rounded corners and a numeric string support a token. Nineteen specimens kept together, each with a separate emblem, indicate a deliberate collection carried on the person.','A divination deck.',59,'Form is clear. What the bars opened is unknown.','What did the bars unlock?'],
+ C:['A membership token in many small loyalties.','Nineteen plates with different emblems suggest simultaneous belonging to many groups. The word "rewards" suggests reciprocity, allegiance given in return for benefit. Carrying them together suggests regular presentation.','A hand of play-cards.',57,'Membership is inferred from emblems alone.','What did people give in exchange for being recognised?'],
+ H:['An instrument of commercial record-keeping in the age of consumer data.','Barcodes and chip contacts mark a transition from paper stamp cards to machine-read identification. The partial phrase and emblems tie the plates to competing retail brands of the period.','A transit pass.',55,'Period is secure. Which brands is not.','How did these plates replace earlier stamp cards?'],
+ T:['A machine-readable identity token with two read methods, optical and contact.','The barcode is read by light and the gold contact by a reader with a conductive pad. The twelve digits probably form a key into a remote database; the plate itself stores little.','A decorative collectible.',76,'Reading methods are clear. The database is lost.','Where was the database, and does any copy survive?'],
+ S:['A token binding individuals to commercial institutions through incentives.','Each plate converts allegiance into a record, and the record into advantage. Nineteen plates suggest a population routinely classified, priced and rewarded. Whether this was freedom or surveillance cannot be settled from the plate.','A mark of rank in a patronage network.',45,'Interpretive claims outrun the evidence.','Who gained most from the records?']}},
+{id:'FA-2426-06',n:'06',short:'Wax Spiral',name:'Slender Wax Spiral, Blackened Tip',find:'Recovered upright in a sugar-rich disc, one of a circle of thirty-four.',
+ o:[['m','Paraffin wax in two pastel colours; the surface is chalky.'],['f','About 6 cm long and 6 mm wide, tapering toward the lower end.'],['f','A cotton wick at the upper end, charred over 2 mm, with a bead of wax solidified below.'],['i','Spiral stripes wind left to right along the whole length.'],['c','Found upright in a circular, sugar-rich disc, one of thirty-four in a ring, with ash residue.'],['c','Paper fragments nearby bear bold printed lettering and the numerals 3 and 4.']],
+ r:{A:['A small votive light, burned once, in a group of thirty-four.','A burned wick and wax bead show a single burning. A ring of thirty-four in a sugar disc points to deliberate arrangement, and the numerals on the paper match the count.','A timekeeper that burns a fixed length per interval.',66,'Single use is clear. Why thirty-four is not.','Why thirty-four, and why a sugar disc?'],
+ C:['A rite marking the passing of years, with age represented in flame.','The numeral on the paper matches the number of candles, so a count of years is probable. Burning them in company around a sweet disc suggests celebration, and the extinguishing may have been the culmination.','A protective ritual for a settlement.',70,'The count matches. The ritual\'s meaning is inferred.','Was the flame put out by the person honoured, and by what means?'],
+ H:['A domestic commemorative object of late consumer culture.','Marking individual birth years instead of shared feast days points to personal biography as the unit of celebration. Mass-produced candles in pastel hues indicate commerce around such events.','A funerary offering.',53,'Period is plausible. Prevalence is not known.','When did personal anniversaries replace communal feast days?'],
+ T:['A low-energy disposable light source with a controlled burn rate.','A cotton wick draws molten wax by capillary action and sustains a small flame. The taper suggests a holder and the spiral adds stiffness. Poor illumination by 2426 standards but cheap, which suggests ceremonial use.','A fuse for a small charge.',73,'Burning mechanism is clear. Burn time is not.','How long did each candle burn?'],
+ S:['A ritual of recognising an individual before a gathering.','Counting years aloud and honouring one person together reaffirms the group\'s bonds and its hierarchy of attention. Extinguishing the flame while others watch may have been a sanctioned moment of command over a room\'s silence.','A rite of sacrifice.',47,'Group dynamics are inferred from one find.','Who was permitted to extinguish the flame?']}}];
+const KIND = {m:'material',f:'form',i:'inscription',c:'context'};
+const CAP = 'Advancing Knowledge Sideways';
+
+class Component extends DCLogic {
+  state = {phase:'arrival',stage:'welcome',lines:0,art:0,role:'A',shown:'A',fade:true,rot:0,busy:false,busyStep:0,scan:-1,sound:false,vol:60,anim:true,msg:'',kb:false};
+  snowRef = React.createRef();
+  componentDidMount() {
+    const rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.reduced = rm;
+    if (rm) this.setState({anim:false});
+    setTimeout(() => this.setState({kb:true}), 60);
+    this.t0 = performance.now(); this.windV = .3; this.gustAt = 6; this.gust = null; this.parts = null;
+    this.tick = this.tick.bind(this);
+    this.raf = requestAnimationFrame(this.tick);
+  }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); if (this.ac) this.ac.close(); }
+  tmr(fn, ms) { setTimeout(fn, this.reduced ? Math.min(ms, 50) : ms); }
+  /* wind model */
+  updateWind(t) {
+    if (t > this.gustAt) { this.gust = {s:t, d:4 + Math.random()*3, a:.45 + Math.random()*.45}; this.gustAt = t + this.gust.d + 7 + Math.random()*9; }
+    let w = .22 + .08*Math.sin(t*.37) + .05*Math.sin(t*1.1);
+    if (this.gust) { const p = (t - this.gust.s)/this.gust.d; if (p >= 1) this.gust = null; else w += this.gust.a*Math.sin(Math.PI*p)**2; }
+    this.windV = Math.max(0, Math.min(1, w));
+  }
+  tick() {
+    this.raf = requestAnimationFrame(this.tick);
+    if (document.hidden) return;
+    const now = performance.now(), t = (now - this.t0)/1000, dt = Math.min(.05, (now - (this.last || now))/1000); this.last = now;
+    this.updateWind(t);
+    this.audioUpdate();
+    this.draw(t, dt);
+  }
+  draw(t, dt) {
+    const cv = this.snowRef.current; if (!cv) return;
+    const par = cv.parentElement, cw = par.clientWidth, ch = par.clientHeight; if (!cw) return;
+    const s = Math.max(cw/1536, ch/1024), ox = (cw - 1536*s)*.32, oy = (ch - 1024*s)*.40, w = this.windV;
+    const X0 = 860, Y0 = 55, BW = 676, BH = 465;
+    const bw = Math.round(BW*s), bh = Math.round(BH*s), dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    const st = cv.style; st.left = (ox + X0*s) + 'px'; st.top = (oy + Y0*s) + 'px'; st.width = bw + 'px'; st.height = bh + 'px';
+    if (cv.width !== Math.round(bw*dpr) || cv.height !== Math.round(bh*dpr)) { cv.width = Math.round(bw*dpr); cv.height = Math.round(bh*dpr); }
+    const g = cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,bw,bh);
+    if (!this.state.anim || this.state.phase === 'arrival') return;
+    g.save(); g.beginPath(); g.ellipse((1235 - X0)*s, (315 - Y0)*s, 350*s, 258*s, -.08, 0, Math.PI*2); g.clip();
+    const lt = .5 + .5*Math.sin(t/16);
+    g.fillStyle = 'rgba(255,196,140,' + (.03 + .07*lt).toFixed(3) + ')'; g.fillRect(0,0,bw,bh);
+    g.fillStyle = 'rgba(130,175,255,' + (.07 - .05*lt).toFixed(3) + ')'; g.fillRect(0,0,bw,bh);
+    if (!this.parts) { const n = cw < 700 ? 110 : 230; this.parts = Array.from({length:n}, () => ({x:X0 + Math.random()*BW, y:Y0 + Math.random()*BH, z:Math.random(), th:Math.random(), ph:Math.random()*6.28})); }
+    const bands = [[],[],[]];
+    for (const p of this.parts) {
+      const sp = (24 + 110*p.z) * (.45 + w*2.4);
+      p.x += sp*dt + Math.cos(t*.8 + p.ph)*w*14*dt;
+      p.y += (7 + 12*p.z + Math.sin(t*1.3 + p.y*.02 + p.ph)*w*46*(.4 + p.z))*dt;
+      if (p.x > X0 + BW) { p.x = X0; p.y = Y0 + Math.random()*BH; }
+      if (p.y > Y0 + BH) p.y = Y0; if (p.y < Y0) p.y = Y0 + BH;
+      if (p.th > .42 + .58*w) continue;
+      bands[p.z < .33 ? 0 : p.z < .66 ? 1 : 2].push(p, sp);
+    }
+    for (let b = 0; b < 3; b++) {
+      g.fillStyle = 'rgba(255,255,255,' + (.28 + .22*b).toFixed(2) + ')'; g.beginPath();
+      const arr = bands[b], sz = (1 + b*.8)*s*1.6;
+      for (let i = 0; i < arr.length; i += 2) { const p = arr[i], len = sz + arr[i+1]*.012*s*(1 + w*2); g.rect((p.x - X0)*s, (p.y - Y0)*s, len, sz); }
+      g.fill();
+    }
+    const hz = g.createLinearGradient(0, (380 - Y0)*s, 0, bh); hz.addColorStop(0, 'rgba(255,255,255,0)'); hz.addColorStop(1, 'rgba(235,245,255,' + (.06 + .2*w).toFixed(3) + ')');
+    g.fillStyle = hz; g.fillRect(0, (380 - Y0)*s, bw, bh);
+    g.restore();
+  }
+  /* audio */
+  initAudio() {
+    if (this.ac) return;
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    const ac = this.ac = new AC(), n = ac.sampleRate*3, buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+    let last = 0; for (let i = 0; i < n; i++) { const wv = Math.random()*2 - 1; last = (last + .03*wv)/1.03; d[i] = last*3.2; }
+    this.master = ac.createGain(); this.master.gain.value = 0; this.master.connect(ac.destination);
+    const mk = (rate) => { const s = ac.createBufferSource(); s.buffer = buf; s.loop = true; s.playbackRate.value = rate; s.start(0, Math.random()*2); return s; };
+    this.bp = ac.createBiquadFilter(); this.bp.type = 'bandpass'; this.bp.Q.value = .5; this.bp.frequency.value = 300;
+    this.lp = ac.createBiquadFilter(); this.lp.type = 'lowpass'; this.lp.frequency.value = 2400;
+    this.wg = ac.createGain(); this.wg.gain.value = 0;
+    mk(1).connect(this.bp); this.bp.connect(this.lp); this.lp.connect(this.wg); this.wg.connect(this.master);
+    const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1500; this.gg = ac.createGain(); this.gg.gain.value = 0;
+    mk(1.4).connect(hp); hp.connect(this.gg); this.gg.connect(this.master);
+    this.hg = ac.createGain(); this.hg.gain.value = 0; const hl = ac.createBiquadFilter(); hl.type = 'lowpass'; hl.frequency.value = 260;
+    [55, 110.4, 165.2].forEach((f, i) => { const o = ac.createOscillator(); o.type = 'sine'; o.frequency.value = f; const og = ac.createGain(); og.gain.value = [1,.4,.15][i]; o.connect(og); og.connect(hl); o.start(); });
+    hl.connect(this.hg); this.hg.connect(this.master);
+  }
+  audioUpdate() {
+    if (!this.ac) return; const ac = this.ac, t = ac.currentTime, w = this.windV, inside = this.state.phase !== 'arrival', st = this.state;
+    this.inner = (this.inner || 0) + ((inside ? 1 : 0) - (this.inner || 0))*.02; const k = this.inner;
+    this.master.gain.setTargetAtTime(st.sound ? Math.pow(st.vol/100, 1.6)*.55 : 0, t, .15);
+    this.bp.frequency.setTargetAtTime(260 + w*480, t, .2);
+    this.lp.frequency.setTargetAtTime(2600 - k*1900, t, .3);
+    this.wg.gain.setTargetAtTime((.16 + w*.5)*(1 - k*.6), t, .25);
+    this.gg.gain.setTargetAtTime(w*w*.09*(1 - k*.7), t, .25);
+    this.hg.gain.setTargetAtTime(.014 + k*.02, t, .5);
+  }
+  tone(f, dur, o) {
+    const ac = this.ac; if (!ac || !this.state.sound) return; o = o || {};
+    const t = ac.currentTime + (o.at || 0), os = ac.createOscillator(), g = ac.createGain();
+    os.type = o.type || 'sine'; os.frequency.setValueAtTime(f, t); if (o.to) os.frequency.exponentialRampToValueAtTime(o.to, t + dur);
+    const v = o.v || .07; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + Math.min(.03, dur/3)); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    os.connect(g); g.connect(this.master); os.start(t); os.stop(t + dur + .05);
+  }
+  sfx(kind) {
+    if (kind === 'pick') { this.tone(660, .14); this.tone(990, .16, {at:.05, v:.04}); }
+    else if (kind === 'role') { this.tone(520, .12); }
+    else if (kind === 'scan') { this.tone(280, 1.7, {to:1500, v:.03}); this.tone(560, 1.7, {to:3000, v:.012}); }
+    else if (kind === 'done') { [440, 660, 880].forEach((f, i) => this.tone(f, .5, {at:i*.13, v:.06})); }
+    else if (kind === 'board') { this.tone(90, 2.2, {to:200, v:.08}); this.tone(180, 2.2, {to:400, v:.03}); }
+    else if (kind === 'ui') { this.tone(780, .08, {v:.04}); }
+  }
+  toggleSound = () => {
+    this.initAudio(); if (this.ac && this.ac.state === 'suspended') this.ac.resume();
+    const on = !this.state.sound; this.setState({sound:on}); if (on) setTimeout(() => this.sfx('ui'), 60);
+  }
+  setVolume = (e) => { this.initAudio(); this.setState({vol:+e.target.value}); }
+  toggleAnim = () => this.setState(s => ({anim:!s.anim}));
+  /* flow */
+  board = () => {
+    this.sfx('board'); this.setState({phase:'transition'});
+    this.tmr(() => { this.setState({phase:'interior', stage:'welcome', lines:0}); [1,2,3,4].forEach((n, i) => this.tmr(() => this.setState({lines:n}), 600 + i*1100)); }, 2400);
+  }
+  toExam = () => { this.sfx('pick'); this.setState({stage:'exam', msg:''}); window.scrollTo({top:0}); this.startScan(); }
+  backToCommander = () => { this.sfx('ui'); this.setState({stage:'welcome', lines:4}); }
+  startScan() {
+    clearInterval(this.scanIv); this.sfx('scan');
+    if (this.reduced || !this.state.anim) { this.setState({scan:-1}); return; }
+    const t0 = performance.now(); this.setState({scan:0});
+    this.scanIv = setInterval(() => { const p = (performance.now() - t0)/1700; if (p >= 1) { clearInterval(this.scanIv); this.setState({scan:-1}); } else this.setState({scan:p}); }, 40);
+  }
+  pickArt(i) { if (i === this.state.art) return; this.sfx('pick'); this.setState({art:i, rot:0}); this.startScan(); }
+  pickRole(k) { this.sfx('role'); this.setState({role:k}); }
+  interpret = () => {
+    if (this.state.busy) return; this.sfx('scan'); this.setState({busy:true, busyStep:1});
+    const steps = [700, 1400, 2100]; steps.forEach((ms, i) => this.tmr(() => this.setState({busyStep:i + 2}), ms));
+    this.tmr(() => { this.sfx('done'); this.setState(s => ({busy:false, busyStep:0, stage:'report', shown:s.role, fade:true})); window.scrollTo({top:0}); }, 2700);
+  }
+  compare(k) {
+    if (k === this.state.shown) return; this.sfx('role');
+    this.setState({fade:false, role:k}); this.tmr(() => this.setState({shown:k, fade:true}), 220);
+  }
+  /* report */
+  build(ai, rk) {
+    const a = ARTS[ai], r = ROLES.find(x => x.k === rk), d = a.r[rk];
+    const ev = a.o.map((o, i) => ({o, i, p:r.pr.indexOf(o[0])})).sort((x, y) => x.p - y.p || x.i - y.i).slice(0, 3).map(x => x.o[1]);
+    const c = d[3], lab = c < 45 ? 'Low' : c < 65 ? 'Moderate' : 'Moderate to high';
+    const prompt = 'ROLE: You are a ' + r.name + ' aboard an Arctic research vessel in the year 2426. ' + r.lens + ' Reason strictly within this discipline.\n' +
+      'SETTING: A buried 21st-century civilisation excavated in the Arctic. Its people are not documented.\n' +
+      'ARTIFACT ' + a.id + ': ' + a.name + '. ' + a.find + '\nOBSERVABLE CHARACTERISTICS:\n' + a.o.map(o => '- (' + KIND[o[0]] + ') ' + o[1]).join('\n') + '\n' +
+      'INSTRUCTIONS: Keep observation separate from speculation. State a proposed function, your reasoning, one alternative explanation, an uncertainty assessment and one open research question. Acknowledge what the evidence cannot show.';
+    const rep = {ref:'FIELD REPORT ' + a.id.replace('FA-', 'FR-') + '-' + rk, artName:a.name, artId:a.id, find:a.find, role:r.name, lens:r.lens, evidence:ev, fn:d[0], why:d[1], alt:d[2], confN:c, confLabel:lab + ' (' + c + '%)', confAria:'Confidence ' + c + ' percent', conf:d[4], q:d[5], prompt, short:lab};
+    rep.text = ['EXPEDITION FIELD REPORT — ' + rep.ref, 'The Institute of Unnecessary Research · Arctic Expedition 2426 · Filed by M. Henson, III, Commander', '',
+      'ARTIFACT IDENTIFICATION', a.name + ' (' + a.id + '). ' + a.find, '', 'SELECTED PROFESSIONAL ROLE', r.name + '. ' + r.lens, '',
+      'OBSERVABLE EVIDENCE [observed]', ...ev.map(e => '- ' + e), '', 'PROPOSED FUNCTION [speculation]', d[0], '', 'REASONING [speculation]', d[1], '',
+      'ALTERNATIVE EXPLANATION [speculation]', d[2], '', 'CONFIDENCE AND UNCERTAINTY', rep.confLabel + '. ' + d[4], '', 'OUTSTANDING RESEARCH QUESTION', d[5], '',
+      'Fictional report. Speculative interpretation from a curated library, written to show how an assigned professional role changes reasoning from the same evidence.'].join('\n');
+    return rep;
+  }
+  copyReport = () => {
+    const txt = this.build(this.state.art, this.state.shown).text; this.sfx('ui');
+    const ok = () => { this.setState({msg:'Report copied.'}); setTimeout(() => this.setState({msg:''}), 2500); };
+    const fb = () => { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) { this.setState({msg:'Copy unavailable in this browser.'}); } ta.remove(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fb); else fb();
+  }
+  downloadReport = () => {
+    const rep = this.build(this.state.art, this.state.shown), b = new Blob([rep.text], {type:'text/plain'}), u = URL.createObjectURL(b), l = document.createElement('a');
+    l.href = u; l.download = rep.ref.toLowerCase().replace(/\s+/g, '-') + '.txt'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 1000);
+    this.sfx('ui'); this.setState({msg:'Report downloaded.'}); setTimeout(() => this.setState({msg:''}), 2500);
+  }
+  printReport = () => { this.sfx('ui'); window.print(); }
+
+  renderVals() {
+    const s = this.state, an = s.anim && !this.reduced, dur = this.reduced ? 0 : 1;
+    const ext = s.phase === 'arrival' ? (s.kb && an ? 1.1 : 1.03) : 2.8;
+    const extStyle = {position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'20% 50%',transformOrigin:'20% 55%',transform:'scale(' + ext + ')',transition:s.phase === 'arrival' ? 'transform 40s ease-out' : 'transform ' + 2.4*dur + 's cubic-bezier(.5,0,.2,1)'};
+    const open = s.phase !== 'arrival';
+    const intWrap = {position:'absolute',inset:0,clipPath:'circle(' + (open ? 160 : 0) + '% at 20% 55%)',WebkitClipPath:'circle(' + (open ? 160 : 0) + '% at 20% 55%)',transition:'clip-path ' + 2.4*dur + 's cubic-bezier(.55,0,.25,1), -webkit-clip-path ' + 2.4*dur + 's cubic-bezier(.55,0,.25,1)',pointerEvents:'none'};
+    const layer = (bg, on) => ({position:'absolute',inset:0,background:bg,opacity:on ? 1 : 0,transition:'opacity .8s ease'});
+    const glowStyle = {position:'absolute',inset:0,background:'radial-gradient(ellipse at 20% 12%,rgba(255,190,110,.5),transparent 45%),radial-gradient(ellipse at 90% 90%,rgba(255,190,110,.4),transparent 40%)',mixBlendMode:'soft-light',animation:an ? 'faGlow 9s ease-in-out infinite' : 'none',opacity:an ? undefined : .4};
+    const showArrival = s.phase !== 'interior';
+    const arrivalStyle = {position:'absolute',inset:0,zIndex:10,display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center',padding:'clamp(170px,24vh,280px) 20px 0',boxSizing:'border-box',overflowY:'auto',opacity:s.phase === 'arrival' ? 1 : 0,transition:'opacity ' + 1.2*dur + 's ease',pointerEvents:s.phase === 'arrival' ? 'auto' : 'none'};
+    const inW = s.phase === 'interior' && s.stage === 'welcome';
+    const lines = ['Welcome aboard. I\'m Commander M. Henson, III.', 'We\'ve recovered several objects from a civilization that occupied this region centuries ago.', 'We know remarkably little about the people who made them.', 'That\'s where you come in.'];
+    const dialogue = lines.map((t, i) => ({text:t, style:{margin:'0 0 12px',fontSize:i === 3 ? 'clamp(24px,3vw,30px)' : 'clamp(16px,1.6vw,18px)',lineHeight:1.55,fontFamily:i === 3 ? "'Borel',cursive" : "'Nunito',system-ui,sans-serif",color:i === 3 ? '#F4B860' : '#EAF2F7',opacity:s.lines > i ? 1 : 0,transform:s.lines > i ? 'none' : 'translateY(8px)',transition:'opacity .9s ease, transform .9s ease'}}));
+    const ready = s.lines >= 4;
+    const examBtnStyle = {marginTop:10,minHeight:52,padding:'0 28px',borderRadius:28,border:'1px solid #F4B860',background:'#F4B860',color:'#1b1206',fontSize:15,fontWeight:700,letterSpacing:'.18em',cursor:ready ? 'pointer' : 'default',opacity:ready ? 1 : 0,transition:'opacity .8s ease',pointerEvents:ready ? 'auto' : 'none'};
+    const art = ARTS[s.art], rc = ROLES.find(r => r.k === s.role);
+    const chip = on => ({whiteSpace:'nowrap',minHeight:44,padding:'0 14px',borderRadius:22,border:'1px solid ' + (on ? '#F4B860' : 'rgba(191,227,255,.4)'),background:on ? 'rgba(244,184,96,.2)' : 'rgba(255,255,255,.05)',color:'#EAF2F7',fontSize:14,fontWeight:on ? 700 : 600,cursor:'pointer',transition:'background .25s, border-color .25s'});
+    const artList = ARTS.map((a, i) => ({label:a.n + ' ' + a.short, on:i === s.art, style:chip(i === s.art), pick:() => this.pickArt(i)}));
+    const roleBtn = on => ({minHeight:48,padding:'0 16px',textAlign:'left',borderRadius:12,border:'1px solid ' + (on ? '#BFE3FF' : 'rgba(191,227,255,.35)'),background:on ? 'rgba(191,227,255,.26)' : 'rgba(255,255,255,.04)',color:'#F4F8FB',fontSize:15,fontWeight:on ? 700 : 600,cursor:'pointer',transition:'background .25s, border-color .25s'});
+    const tabBtn = on => ({whiteSpace:'nowrap',minHeight:44,padding:'0 14px',borderRadius:22,border:'1px solid ' + (on ? '#F4B860' : 'rgba(191,227,255,.4)'),background:on ? '#F4B860' : 'rgba(8,20,32,.62)',color:on ? '#1b1206' : '#EAF2F7',fontSize:14,fontWeight:700,cursor:'pointer',transition:'background .25s'});
+    const roleList = ROLES.map(r => ({name:r.name, on:r.k === s.role, style:roleBtn(r.k === s.role), tabStyle:tabBtn(r.k === s.shown), pick:() => this.pickRole(r.k), compare:() => this.compare(r.k)}));
+    const rep = this.build(s.art, s.shown);
+    const compareList = ROLES.map(r => ({name:r.name, fn:art.r[r.k][0], style:{textAlign:'left',padding:14,borderRadius:12,border:'1px solid ' + (r.k === s.shown ? '#F4B860' : 'rgba(191,227,255,.3)'),background:r.k === s.shown ? 'rgba(244,184,96,.14)' : 'rgba(255,255,255,.04)',color:'#EAF2F7',cursor:'pointer'}, compare:() => this.compare(r.k)}));
+    const sc = s.scan;
+    const stepsTxt = ['', 'Assigning role: ' + rc.name + '…', 'Loading the specimen record for ' + art.id + '…', 'Assembling role prompt and reasoning within the discipline…', 'Composing field report…'];
+    const sa = i => ({}); 
+    const confColor = rep.confN < 45 ? '#b5651d' : '#2f7a8f';
+    const rows = [
+      ['Institution','The Institute of Unnecessary Research'],
+      ['Investigation','12 — Future Archaeology'],
+      ['Primary capability','Speculative interpretation and contextual reasoning. The capability is to build a plausible account of an unfamiliar object from contextual clues, while keeping what is observed separate from what is inferred.'],
+      ['Research question','How does assigning a professional role change the interpretation a system constructs from the same evidence?'],
+      ['Prompt engineering method','Role-based prompting (role play). The prompt tells the model which professional it is, and the discipline sets its vocabulary, assumptions and interpretive framework. In this investigation the role is the only variable a visitor changes. The Institute\'s repertoire notes that a fictional role does not establish factual authority, so speculation is labelled throughout. The prompt this page assembles for each report can be opened under the comparison panel.'],
+      ['How the visitor interaction works','The visitor selects an artifact, reads its observed characteristics, chooses one of five roles and activates Interpret Artifact. The report separates observed evidence from speculation and gives a function, reasoning, an alternative, a confidence assessment and an open question. Selecting another role regenerates the report for the same artifact so the interpretations can be compared. Reports can be copied, downloaded as text or printed.'],
+      ['Technical implementation','Deterministic logic with curated content. There is no live LLM at runtime. For each report the page assembles a role prompt from the role, the artifact\'s characteristics, the setting and the year 2426, and shows it for transparency; the page does not send it anywhere. The interpretation text comes from a fixed library of thirty entries (six artifacts by five roles), and the evidence list is chosen by rules that prioritise different kinds of evidence for each role. Sound is synthesised in the browser and the snow is a canvas animation; neither involves AI.'],
+      ['What AI generated during development','Claude, an AI model, generated the site code, the layout and the curated interpretation text during the build. The vessel and laboratory images and the commander\'s appearance are supplied Institute reference art. The specimen schematics are simple geometric drawings made for this page. Prompting used to build the site is separate from anything that runs when a visitor uses it.'],
+      ['Relevant limitations','Because the interpretations are curated, the same artifact and role always yield the same report, and no new artifacts or free-form questions are supported. Live inference would require a server-side function that holds the API key and has to be tested after deployment; none is included. The interface font is the supplied Nunito variable font, hosted with the site; the Institute standard names Nunito Sans, which was not supplied. The exterior reference image is low resolution, so it softens at large sizes. The site has not been deployed or tested on Netlify.'],
+      ['What this demonstrates','How a role assigned in a prompt can steer reasoning, and how a design can keep evidence and speculation visibly apart so that a convincing interpretation is not mistaken for fact.']];
+    return {
+      extStyle, intWrap, glowStyle, dimWelcome:layer('linear-gradient(0deg,rgba(6,14,22,.65),rgba(6,14,22,0) 45%)', inW), dimExam:layer('linear-gradient(90deg,rgba(6,14,22,.2),rgba(6,14,22,.72) 62%)', s.phase === 'interior' && s.stage === 'exam'), dimReport:layer('rgba(6,14,22,.82)', s.phase === 'interior' && s.stage === 'report'),
+      toggleSound:this.toggleSound, sound:s.sound, soundLabel:s.sound ? 'Sound on' : 'Sound off', soundHint:s.sound ? 'Sound is on' : 'Enable ambient sound', volumePct:s.vol, setVolume:this.setVolume,
+      toggleAnim:this.toggleAnim, anim:s.anim, animLabel:s.anim ? 'Animation on' : 'Animation off',
+      showArrival, arrivalStyle, board:this.board,
+      showWelcome:inW, dialogue, toExam:this.toExam, welcomeBusy:!ready, examBtnStyle,
+      showExam:s.phase === 'interior' && s.stage === 'exam', showReport:s.phase === 'interior' && s.stage === 'report',
+      examPanel:{width:'min(100%,680px)',boxSizing:'border-box',padding:'clamp(16px,2.4vw,28px)',borderRadius:20,background:'rgba(8,20,32,.64)',backdropFilter:'blur(8px)',border:'1px solid rgba(191,227,255,.28)',boxShadow:'0 20px 60px rgba(0,0,0,.35)'},
+      backToCommander:this.backToCommander, artList, art:{id:art.id, name:art.name, obs:art.o.map(o => o[1])},
+      show:{a1:s.art === 0, a2:s.art === 1, a3:s.art === 2, a4:s.art === 3, a5:s.art === 4, a6:s.art === 5},
+      ringStyle:{position:'absolute',left:'50%',bottom:14,width:260,height:260,marginLeft:-130,marginBottom:-110,borderRadius:'50%',border:'2px solid rgba(244,184,96,.8)',transformOrigin:'50% 50%',transform:'scale(1,.22)',boxShadow:'0 0 24px rgba(244,184,96,.5)',animation:an ? 'faRing 5s ease-in-out infinite' : 'none'},
+      ringStyle2:{position:'absolute',left:'50%',bottom:14,width:180,height:180,marginLeft:-90,marginBottom:-70,borderRadius:'50%',border:'1px solid rgba(191,227,255,.7)',transform:'scale(1,.22)'},
+      holoWrap:{position:'absolute',inset:'8px 0 30px',display:'flex',alignItems:'center',justifyContent:'center',perspective:600,animation:an ? 'faBob 6s ease-in-out infinite' : 'none'},
+      svgStyle:{width:'min(78%,300px)',height:'auto',transform:'rotateY(' + s.rot + 'deg) rotateX(12deg)',transition:'transform .15s linear',filter:'drop-shadow(0 0 8px rgba(159,208,240,.55))'},
+      scanLine:{position:'absolute',left:0,right:0,top:(sc < 0 ? 0 : sc*100) + '%',height:2,background:'linear-gradient(90deg,transparent,#BFE3FF,transparent)',boxShadow:'0 0 16px 3px rgba(191,227,255,.55)',opacity:sc < 0 ? 0 : 1},
+      scanStatus:sc < 0 ? 'SPECIMEN RESOLVED' : 'SCANNING…', rot:s.rot, setRot:e => this.setState({rot:+e.target.value}),
+      roleList, roleCur:{lens:rc.lens},
+      interpret:this.interpret, busy:s.busy, interpretLabel:s.busy ? 'INTERPRETING…' : 'INTERPRET ARTIFACT', busyText:stepsTxt[s.busyStep] || '',
+      interpretStyle:{width:'100%',minHeight:54,borderRadius:28,border:'1px solid #F4B860',background:s.busy ? 'rgba(244,184,96,.5)' : '#F4B860',color:'#1b1206',fontSize:15,fontWeight:700,letterSpacing:'.18em',cursor:s.busy ? 'default' : 'pointer',boxShadow:'0 0 30px rgba(244,184,96,.3)'},
+      rep, compareList, bodyFade:{opacity:s.fade ? 1 : 0,transform:s.fade ? 'none' : 'translateY(6px)',transition:'opacity .25s ease, transform .25s ease'},
+      paperStyle:{width:'min(100%,900px)',boxSizing:'border-box',padding:'clamp(18px,3.4vw,40px)',borderRadius:6,background:'#EEF2F4',color:'#1c2a35',boxShadow:'0 24px 70px rgba(0,0,0,.45)'},
+      hStyle:{margin:'0 0 8px',fontFamily:"'Kingsland',serif",fontWeight:400,fontSize:20,letterSpacing:'.03em',color:'#13202a',display:'flex',flexWrap:'wrap',alignItems:'center',gap:'4px 10px'},
+      pStyle:{margin:0,fontSize:15,lineHeight:1.65,color:'#1c2a35'},
+      tagObs:{fontFamily:"'Nunito',sans-serif",fontSize:11,fontWeight:700,letterSpacing:'.16em',padding:'3px 8px',borderRadius:4,background:'#d5e6ee',color:'#1c4b5e'},
+      tagSpec:{fontFamily:"'Nunito',sans-serif",fontSize:11,fontWeight:700,letterSpacing:'.16em',padding:'3px 8px',borderRadius:4,background:'#f3dfc3',color:'#6b3d06'},
+      confBar:{width:rep.confN + '%',height:'100%',background:confColor,transition:'width .6s ease'},
+      actionBtn:{minHeight:46,padding:'0 20px',borderRadius:23,border:'1px solid #F4B860',background:'rgba(8,20,32,.66)',color:'#F4F8FB',fontSize:15,fontWeight:700,cursor:'pointer',transition:'background .25s'},
+      copyReport:this.copyReport, downloadReport:this.downloadReport, printReport:this.printReport, actionMsg:s.msg,
+      researchRows:rows.map(r => ({h:r[0], p:r[1]}))
+    };
+  }
+}
+</script>
+</body>
+</html>
